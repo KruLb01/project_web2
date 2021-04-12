@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&family=Inconsolata:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Dosis', sans-serif;
+    /* font-family: 'Inconsolata', monospace; */
+}
+
+/*Login page*/
+
+.login {
+    display: flex;
+    height: 600px;
+    width: 100%;
+    background-color: rgb(235, 240, 235);
+    justify-content: center;
+    align-items: center;
+}
+.login-container {
+    width: 60%;
+    background-color: #fff;
+    display: flex;
+    border-radius: 8px;
+}
+.logo {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo img {
+    height: 300px;
+    width: 300px;
+}
+.content-login {
+    width: 60%;
+}
+.content-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content-login form span {
+    display: block;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 10px 0;
+}
+.content-login form input {
+    width: 200px;
+    height: 30px;
+    margin: 0 20px;
+    font-size: 18px;
+}
+.content-login form button {
+    margin: 15px 0;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: wheat;
+    background-color: coral;
+    cursor: pointer;
+}
+.error {
+    display: none;
+    color: red;
+    padding: 10px 0 0 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/*Page Admin Dashboard*/
+.dashboard {
+    height: 600px;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    top: 60px;
+    z-index: -1;
+}
+.menu-dashboard {
+    width: 20%;
+    height: 600px;
+    background:linear-gradient(#19ac90 0%, #90c745 100%);;
+}
+.logo-dashboard {
+    display: flex;
+    justify-content: center;
+}
+.logo-dashboard img {
+    width: 250px;
+    height: 200px;
+}
+.dashboard-menu-items {
+    margin: 20px;
+}
+.dashboard-menu-items li {
+    display: block;
+    padding: 5px 0;
+}
+.dashboard-menu-items li a {
+    cursor: pointer;
+    font-size: 18px;
+    color: wheat;
+}
+.content-dashboard {
+    width: 80%;
+    height: 600px;
+    background-color: chartreuse;
+}
+
+/*Header bar*/
+.header {
+    height: 60px;
+    -moz-box-shadow: 3px 3px 5px 0px #666;
+    -webkit-box-shadow: 3px 3px 5px 0px #666;
+    box-shadow: 3px 3px 5px 0px #666;
+    z-index: 0;
+}
+.header span {
+    font-family: 'Pacifico', cursive;   
+    font-size: 30px;
+    line-height: 60px;
+    cursor: pointer;
+    margin: 0 20px;
+}
+.header i {
+    line-height: 60px;
+    font-size: 25px;
+    margin: 0 40px;
+    cursor: pointer;
+}
+
+/*Responsive*/
+@media only screen and (max-width: 1100px) and (min-width: 400px) {
+
+}
+
+@media only screen and (max-width:1000px) and (min-width:600px){
+    .login-container {
+        flex-direction: column;
+    }
+    .logo,.content-login{
+        width: 100%;
+    }
+    .submit-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .login-container {
+        flex-direction: column;
+    }
+    .logo,.content-login{
+        width: 100%;
+    }
+    .logo img {
+        width: 200px;
+        height: 200px;
+    }
+    .submit-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .content-login form input {
+        display: block;
+        margin: 10px 0;
+        width: 150px;
+    }
+    .error {
+        max-width: 160px;
+    }
+}
