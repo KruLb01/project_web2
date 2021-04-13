@@ -20,3 +20,17 @@ function showFunctionSearch() {
         document.getElementById('header-search-user-container').style = 'transform: translateY(-90px);transition:1s';
     }
 }
+
+function showDetailUser() {
+    if (document.getElementsByClassName('header-detail-user')[0].style.display == "" || document.getElementsByClassName('header-detail-user')[0].style.display == "none") {
+        console.log(document.getElementsByClassName('header-detail-user')[0].style.display);
+        document.getElementsByClassName('header-detail-user')[0].style = "display:block";
+    } else {
+        console.log(document.getElementsByClassName('header-detail-user')[0].style.display);
+        document.getElementsByClassName('header-detail-user')[0].style = "display:none";
+    }
+}
+
+function setNotification() {
+    // document.getElementsByClassName('header-notification')[0].style = 'display:block';
+}
