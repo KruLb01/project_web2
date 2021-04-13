@@ -16,17 +16,20 @@
         <i class="fas fa-bars" onclick="minimizeMenubar()"></i>
         <div class="header-user">
             <div class="header-function-user">
-                <i class="fas fa-search" style="color: #98b5ff;background-color:#ecf4ff" onclick="showFunctionSearch()"></i>
-                <!-- <div class="header-notification"></div> -->
+                <i class="fas fa-search" style="color: #98b5ff;background-color:#ecf4ff" onclick="showFunctionSearch()">
+                    <!-- <div class="header-notification"></div> -->
+                </i>
                 <div id="header-search-user-container">
                     <input type="text" id='header-search-user'>
                     <i class="fas fa-times" style="margin-right: 15px;color: red;background-color:rgb(255, 187, 187)"
                     onclick="document.getElementById('header-search-user').value='';document.getElementById('header-search-user-container').style = 'transform: translateY(-90px);transition:1s';"></i>
                 </div>
-                <i class="fas fa-comments" style="color: rgb(255, 187, 0);background-color:rgb(255, 255, 179)"></i>
-                <div class="header-notification" style="left: 100px;"></div>
-                <i class="fas fa-bell" style="margin-right: 15px;color: red;background-color:rgb(255, 187, 187)"></i>
-                <div class="header-notification" style="left: 160px;"></div>
+                <i class="fas fa-comments" style="color: rgb(255, 187, 0);background-color:rgb(255, 255, 179)">
+                    <div class="header-notification" style="left: 100px;"></div>
+                </i>
+                <i class="fas fa-bell" style="margin-right: 15px;color: red;background-color:rgb(255, 187, 187)">
+                    <div class="header-notification" style="left: 160px;"></div>
+                </i>
                 <div class="straight-line"></div>
             </div>
             <div class="avatar">
@@ -65,37 +68,46 @@
                 <img src="static/images/logo-doc-trans.png" alt="logo-dashboard">
             </div>
             <ul class="dashboard-menu-items">
-                <li><a class="bold-title"><i class="fas fa-users" style="padding-right: 8px;"></i>Manage Users</a></li>
-                <div class="straight-long-line"></div>
-                <ul class="dashboard-submenu-items">
+                <li id='menu-1' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-users" style="padding-right: 8px;"></i>Manage Users</a></li>
+                <ul class="dashboard-submenu-items" id='submenu-1'>
                     <li><a>Manage Customers</a></li>
                     <li><a>Manage Employees</a></li>
                     <li><a>Analyst User</a></li>
                 </ul>
-                <li><a class="bold-title"><i class="fas fa-cubes" style="padding-right: 8px;"></i>Manage Products</a></li>
-                <div class="straight-long-line"></div>
-                <ul class="dashboard-submenu-items">
+                <li id='menu-2' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-cubes" style="padding-right: 8px;"></i>Manage Products</a></li>
+                <ul class="dashboard-submenu-items" id='submenu-2'>
                     <li><a>Manage Products</a></li>
                     <li><a>Manage :"> </a></li>
                     <li><a>Analyst Products</a></li>
                 </ul>
-                <li><a class="bold-title"><i class="fas fa-receipt" style="padding-right: 8px;"></i>Manage Revenue</a></li>
-                <div class="straight-long-line"></div>
-                <ul class="dashboard-submenu-items">
+                <li id='menu-3' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-receipt" style="padding-right: 10px;padding-left:4px"></i>Manage Revenue</a></li>
+                <ul class="dashboard-submenu-items" id='submenu-3'>
                     <li><a>Track invoices</a></li>
                     <li><a>Analyst Profits</a></li>
-                    <li><a>Analyst Products</a></li>
+                    <li><a>Analyst</a></li>
                 </ul>
-                <li><a>Menu Items</a></li>
-                <li><a>Menu Items</a></li>
-                <li><a>Menu Items</a></li>
-                <li><a>Menu Items</a></li>
-                <li><a>Menu Items</a></li>
+                <li id='menu-4' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-money-bill-alt" style="padding-right: 8px;"></i>Manage Sales</a></li>
+                <ul class="dashboard-submenu-items" id='submenu-4'>
+                    <li><a>Create Sales</a></li>
+                    <li><a>Track Sales</a></li>
+                    <li><a>Analyst Sales</a></li>
+                </ul>
+                <li><a class="bold-title"><i class="fas fa-chart-line" style="padding-right: 10px;"></i>Activity</a></li>
+                <li><a class="bold-title"><i class="fas fa-mail-bulk" style="padding-right: 8px;"></i>Mail</a></li>
+                <li><a class="bold-title"><i class="fas fa-question"  style="padding-right: 14px;"></i>Helps</a></li>
+                <li><a class="bold-title"><i class="fas fa-sign-out-alt"  style="padding-right: 10px;"></i>Log out</a></li>
+                <div class="space"></div>
             </ul>
         </div>
 
         <div class="content-dashboard">
-
+            <span style='display:block'>Mee</span>
+            <span style='display:block'>Mee</span>
+            <span style='display:block'>Mee</span>
+            <span style='display:block'>Mee</span>
+            <span style='display:block'>Mee</span>
+            <span style='display:block'>Mee</span>
+            <span style='display:block'>Mee</span>
         </div>
     </div>
 </body>
