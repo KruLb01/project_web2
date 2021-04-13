@@ -11,7 +11,7 @@
     <div class="login">
         <div class="login-container">
             <div class="logo">
-                <img src="static/images/logo.png" alt="logo">
+                <img src="static/images/logo-doc-trans.png" alt="logo">
             </div>
 
             <div class="content-login">
