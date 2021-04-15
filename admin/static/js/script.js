@@ -74,6 +74,10 @@ function minimizieSubmenu(value) {
 
 }
 
+function logOut() {
+    console.log(123);
+}
+
 function setNotification() {
     // document.getElementsByClassName('header-notification')[0].style = 'display:block';
 }

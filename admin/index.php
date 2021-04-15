@@ -1,3 +1,8 @@
+<?php session_start() ;
+    if (!isset($_SESSION['user'])) {
+        header("Location: ./templates/login.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,60 +13,17 @@
     <link rel="stylesheet" href="../static/css/all.css">
     <LINK REL="SHORTCUT ICON" HREF="./static/images/favicon.ico">
     <script src="static/js/script.js"></script>
+    <script src="static/js/jquery-3.6.0.min.js"></script>
+    <script>
+        $.getScript('./static/js/jquery-script.js', function(data, status, j) {})
+    </script>
     <title>Admin Dashboard</title>
 </head>
 <body onload="setNotification()">
-    <div class="header disable-copy">
-        <span>Dashboard</span>
-        <i class="fas fa-bars" onclick="minimizeMenubar()"></i>
-        <div class="header-user">
-            <div class="header-function-user">
-                <i class="fas fa-search" style="color: #98b5ff;background-color:#ecf4ff" onclick="showFunctionSearch()">
-                    <!-- <div class="header-notification"></div> -->
-                </i>
-                <div id="header-search-user-container">
-                    <input type="text" id='header-search-user'>
-                    <i class="fas fa-times" style="margin-right: 15px;color: red;background-color:rgb(255, 187, 187)"
-                    onclick="document.getElementById('header-search-user').value='';document.getElementById('header-search-user-container').style = 'transform: translateY(-90px);transition:1s';"></i>
-                </div>
-                <i class="fas fa-comments" style="color: rgb(255, 187, 0);background-color:rgb(255, 255, 179)">
-                    <div class="header-notification" style="left: 100px;"></div>
-                </i>
-                <i class="fas fa-bell" style="margin-right: 15px;color: red;background-color:rgb(255, 187, 187)">
-                    <div class="header-notification" style="left: 160px;"></div>
-                </i>
-                <div class="straight-line"></div>
-            </div>
-            <div class="avatar">
-                <img src="static/images/logo-user.jpg" alt="logo-user">
-            </div>
-            <div class="header-info-user">
-                <span>David Heros</span>
-                <span style="color:rgb(184, 184, 184)">Admin</span>
-            </div>
-            <div class="header-show-user">
-                <i class="fas fa-chevron-down" onclick="showDetailUser()"></i>
-                <div class="header-detail-user">
-                    <ul>
-                        <li><a style="margin-left: 0px;">            
-                            <div class="header-function-user" style="justify-content: left;">
-                                <div class="avatar">
-                                    <img src="static/images/logo-user.jpg" alt="logo-user">
-                                </div>
-                                <div class="header-info-user">
-                                    <span>David Heros</span>
-                                    <span style="color:rgb(226, 224, 224)">View your information</span>
-                                </div>
-                            </div>
-                        </a></li>
-                        <li><a>View me</a></li>
-                        <li><a>Setting</a></li>
-                        <li><a>Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--Header include here-->
+    <?php require_once('./templates/header.php') ?>
+
+    <!--Dashboard & Content Area here-->
     <div class="dashboard">
         <div class="menu-dashboard">
             <div class="logo-dashboard">
@@ -77,7 +39,6 @@
                 <li id='menu-2' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-cubes" style="padding-right: 8px;"></i>Manage Products</a></li>
                 <ul class="dashboard-submenu-items" id='submenu-2'>
                     <li><a>Manage Products</a></li>
-                    <li><a>Manage :"> </a></li>
                     <li><a>Analyst Products</a></li>
                 </ul>
                 <li id='menu-3' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-receipt" style="padding-right: 10px;padding-left:4px"></i>Manage Revenue</a></li>
@@ -95,20 +56,17 @@
                 <li><a class="bold-title"><i class="fas fa-chart-line" style="padding-right: 10px;"></i>Activity</a></li>
                 <li><a class="bold-title"><i class="fas fa-mail-bulk" style="padding-right: 8px;"></i>Mail</a></li>
                 <li><a class="bold-title"><i class="fas fa-question"  style="padding-right: 14px;"></i>Helps</a></li>
-                <li><a class="bold-title"><i class="fas fa-sign-out-alt"  style="padding-right: 10px;"></i>Log out</a></li>
+                <li class='logout-btn'><a class="bold-title"><i class="fas fa-sign-out-alt"  style="padding-right: 10px;"></i>Log out</a></li>
                 <div class="space"></div>
             </ul>
         </div>
 
         <div class="content-dashboard">
-            <span style='display:block'>Mee</span>
-            <span style='display:block'>Mee</span>
-            <span style='display:block'>Mee</span>
-            <span style='display:block'>Mee</span>
-            <span style='display:block'>Mee</span>
-            <span style='display:block'>Mee</span>
-            <span style='display:block'>Mee</span>
+
         </div>
     </div>
 </body>
 </html>
+
+<!-- foreach ($_SESSION['user'] as $key=>$val)
+{echo $key." ".$val."<br/>";} -->

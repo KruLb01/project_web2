@@ -1,3 +1,8 @@
+<?php session_start();
+    if (isset($_SESSION['user'])) {
+        header("Location: ../index.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,10 +53,34 @@
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $user = $_POST['username'];
         $pass = $_POST['password'];
-    
-        if ($user == "admin") {
-            header("Location: index.php");
+
+        
+        include('./connectData.php');
+        $conn = new connectData();
+
+        $sql = "select * from nguoi_dung, admin where nguoi_dung.id_nguoidung = admin.id_nguoidung and nguoi_dung.tai_khoan = rtrim('" . $user . "')";
+        $res = $conn->selectData($sql);
+        while ($row = mysqli_fetch_array($res)) {
+            if ($row['tai_khoan'] == $user && $row['mat_khau'] == $pass) {
+                echo "<script>
+                    document.getElementsByClassName('error')[0].style = 'display:none;
+                </script>";
+                
+                $_SESSION['user']['id'] = $row['id_nguoidung'];
+                $_SESSION['user']['username'] = $row['tai_khoan'];
+                $_SESSION['user']['pass'] = $row['mat_khau'];
+                $_SESSION['user']['email'] = $row['email'];
+                $_SESSION['user']['permission'] = strtoupper($row['quyen'][0]) . strtolower(substr($row['quyen'],1));
+                $_SESSION['user']['status'] = $row['tinh_trang_taikhoan'];
+                $_SESSION['user']['name'] = $row['ho_ten'];
+
+                header("Location: ../index.php");
+            }
         }
+        echo "<script>             
+            document.getElementsByClassName('error')[0].innerHTML = 'Tài khoản hoặc mật khẩu không đúng !'
+            document.getElementsByClassName('error')[0].style = 'display:block;'; 
+        </script>";
     }
 ?>
 
