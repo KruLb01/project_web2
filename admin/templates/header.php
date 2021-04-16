@@ -1,5 +1,5 @@
 <div class="header disable-copy">
-    <span>Dashboard</span>
+    <span id='top-menu-btn'>Dashboard</span>
     <i class="fas fa-bars" onclick="minimizeMenubar()"></i>
     <div class="header-user">
         <div class="header-function-user">

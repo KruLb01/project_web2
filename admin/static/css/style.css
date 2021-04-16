@@ -125,14 +125,12 @@
     border-bottom: 2px solid #666;
 }
 .dashboard-content-box {
-    /* background-color: #0084ff; */
     background-color: #169981;
     margin: 0 10px;
     border-radius: 5px;
 }
 .dashboard-content-box>i {
     font-size: 30px;
-    /* background-color: #ffe819; */
     background-color: #f35454;
     color: white;
     padding: 28px;
@@ -140,7 +138,8 @@
     top: 70px;
     margin-left: 8px;
     border-radius: 5px;
-    /* display: none; */
+    box-shadow:  0 0 1px #169981,
+    0 0 5px #000;
 }
 .dashboard-content-box-item {
     height: 90px;
@@ -157,7 +156,6 @@
     color: white;
 }
 .dashboard-content-table-container {
-    /* background-color: #f35454; */
     margin: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -171,13 +169,14 @@
     margin: 20px 10px;
     position: relative;
     border-radius: 5px;
-    box-shadow:  0 0 2px rgb(27, 24, 24),
-    0 0 5px #000;
 }
 .dashboard-content-table-header {
     width: 96%;
     margin: 0 auto;
     cursor: pointer;
+    box-shadow:  0 0 1px #169981,
+    0 0 5px #000;
+    border-radius: 5px;
 }
 .dashboard-content-table-header>span {
     font-size: 20px;
@@ -227,6 +226,10 @@
     padding: 6px;
     border-right: 1px solid rgb(129, 123, 123);
     cursor: pointer;
+}
+.dashboard-content-table-pagination-btn-selected {
+    background: #8aa8f7;
+    font-weight:600;
 }
 .dashboard-content-table-pagination-btn span:hover {
     /* background-color: rgb(250, 240, 220); */

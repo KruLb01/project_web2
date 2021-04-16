@@ -1,24 +1,13 @@
 <?php
-    include('./connectData.php');
-    $conn = new connectData();
+    include('connectData.php');
+    $conn = new connectData('1');
     
-    // $res = $conn->selectData();
-
-    $listCustomers = $conn->selectData('select * from khach_hang, nguoi_dung where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung');
-    $listUsers = $conn->selectData('select * from admin');
-    $listProducts = $conn->selectData('select * from nhom_san_pham');
-    $listSales = $conn->selectData('select * from sale');
-
-    $countCustomers = mysqli_num_rows($listCustomers);
-    $countUsers = mysqli_num_rows($listUsers);
-    $countProducts = mysqli_num_rows($listProducts);
-    $countSales = mysqli_num_rows($listSales);
-
+    $countCustomers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from khach_hang, nguoi_dung where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung'))['quantity'];
+    $countUsers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from admin'))['quantity'];
+    $countProducts = mysqli_fetch_array($conn->selectData('select count(*) as quantity from nhom_san_pham'))['quantity'];
+    $countSales = mysqli_fetch_array($conn->selectData('select count(*) as quantity from sale'))['quantity'];
 
 ?>
-
-
-
 
 <span>Welcome back : <?php echo $_SESSION['user']['permission'] . ' ' . $_SESSION['user']['name'] ?></span>
             <div class="dashboard-content-box-container disable-copy">
@@ -58,59 +47,77 @@
                         <span>Customers List</span>
                     </div>
                     <table class="dashboard-content-table-item">
-                        <tr style='border:none'>
+                        <!-- <tr style='border:none'>
                             <th>Id Customers</th>
                             <th>Name Customers</th>
                             <th>Address Customers</th>
                             <th>Phone Customers</th>
                             <th>Email Customers</th>
-                        </tr>
-                        <tr>
-                            <td>Customer </td>
-                            <td>David Heros</td>
-                            <td>on the earth</td>
-                            <td>09876r67688989087</td>
-                            <td>Actived</td>
-                        </tr>
-                        <tr>
-                            <td>Customer </td>
-                            <td>David Heros</td>
-                            <td>on the earth</td>
-                            <td>09876r67688989087</td>
-                            <td>Actived</td>
-                        </tr>
-                        <tr>
-                            <td>Customer </td>
-                            <td>David Heros</td>
-                            <td>on the earth</td>
-                            <td>09876r67688989087</td>
-                            <td>Actived</td>
-                        </tr>
-                        <tr>
-                            <td>Customer </td>
-                            <td>David Heros</td>
-                            <td>on the earth</td>
-                            <td>09876r67688989087</td>
-                            <td>Actived</td>
-                        </tr>
+                        </tr> -->
                     </table>
                     <div class="dashboard-content-table-pagination disable-copy">
                         <div class="dashboard-content-table-pagination-btn">
-                            <span class='disable' style='border-top-left-radius: 5px;border-bottom-left-radius: 5px;'>Previous</span>
-                            <span>1</span>
-                            <span>2</span>
-                            <span>3</span>
-                            <span>...</span>
-                            <span>7</span>
-                            <span style='border-top-right-radius: 5px;border-bottom-right-radius: 5px;'>Next</span>
+                            <span id='previous-btn-users' class='disable' style='border-top-left-radius: 5px;border-bottom-left-radius: 5px;'>Previous</span>
+                            <?php
+                                $maxP = ceil($countCustomers/10);
+
+                                if ($maxP > 4) {
+                                    echo "<span class='default-users-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    echo "<span class='default-users-pagination-more'>...</span>";
+                                    for ($i = 2; $i < $maxP; $i++) {
+                                        echo "<span class='default-users-pagination'>$i</span>";
+                                    }
+                                    echo "<span class='default-users-pagination-more'>...</span>";
+                                    echo "<span class='default-users-pagination'>$maxP</span>";
+                                } else {
+                                    echo "<span class='default-users-pagination'>1</span>";
+                                    echo "<span class='default-users-pagination'>2</span>";
+                                    echo "<span class='default-users-pagination'>3</span>";
+                                    echo "<span class='default-users-pagination'>4</span>";
+                                } 
+                            ?>
+                            <span id='next-btn-users' style='border-top-right-radius: 5px;border-bottom-right-radius: 5px;'>Next</span>
                         </div>
                     </div>
                 </div>
+                <!--Users list-->
                 <div class="dashboard-content-table" style='width:48%' id='users'>
                     <div class="dashboard-content-table-header">
                         <span>Users List</span>
                     </div>
+                    <table class="dashboard-content-table-item">
+                        <tr style='border:none'>
+                            <th>Id Users</th>
+                            <th>Name Users</th>
+                        </tr>
+                    </table>
+                    <div class="dashboard-content-table-pagination disable-copy">
+                        <div class="dashboard-content-table-pagination-btn">
+                            <span id='previous-btn-admin' class='disable' style='border-top-left-radius: 5px;border-bottom-left-radius: 5px;'>Previous</span>
+                            <?php
+                                $maxP = ceil($countUsers/10);
+
+                                if ($maxP > 4) {
+                                    echo "<span class='default-admin-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    echo "<span class='default-admin-pagination-more'>...</span>";
+                                    for ($i = 2; $i < $maxP; $i++) {
+                                        echo "<span class='default-admin-pagination'>$i</span>";
+                                    }
+                                    echo "<span class='default-admin-pagination-more'>...</span>";
+                                    echo "<span class='default-admin-pagination'>$maxP</span>";
+                                } else {
+                                    echo "<span class='default-admin-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    for ($i = 2; $i <= $maxP; $i ++) {
+                                        
+                                        echo "<span class='default-admin-pagination'>$i</span>";
+                                    }
+                                } 
+                            ?>
+                            <span id='next-btn-admin' style='border-top-right-radius: 5px;border-bottom-right-radius: 5px;'>Next</span>
+                        </div>
+                    </div>
                 </div>
+                <!--Sale list--->
                 <div class="dashboard-content-table" style='width:48%' id='sales'>
                     <div class="dashboard-content-table-header">
                         <span>Sales List</span>

@@ -1,16 +1,18 @@
 <?php
-    session_start();
+    // session_start();
     $flag = false;
+
+    // include('view-info-user.php');
+
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         if ($action == 'logout') {
             unset($_SESSION['user']);
             $flag = true;
-        } else if ($action == '') {
-            include('./default-content.php');
         } else if ($action == 'view-info-user') {
-            include('./view-info-user.php');
+            echo '12342345';
+            include('view-info-user.php');
         }
-    }
+    } else include('default-content.php');
     echo $flag;
 ?>

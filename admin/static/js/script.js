@@ -81,3 +81,7 @@ function logOut() {
 function setNotification() {
     // document.getElementsByClassName('header-notification')[0].style = 'display:block';
 }
+
+function test() {
+    console.log(2134546576);
+}

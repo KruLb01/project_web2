@@ -62,7 +62,7 @@
         </div>
 
         <div class="content-dashboard">
-
+            <?php include('./templates/controller.php') ?>
         </div>
     </div>
 </body>
