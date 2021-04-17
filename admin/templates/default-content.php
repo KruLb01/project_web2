@@ -46,14 +46,9 @@
                     <div class="dashboard-content-table-header disable-copy">
                         <span>Customers List</span>
                     </div>
+                    <div class="no-things-available">
+                    </div>
                     <table class="dashboard-content-table-item">
-                        <!-- <tr style='border:none'>
-                            <th>Id Customers</th>
-                            <th>Name Customers</th>
-                            <th>Address Customers</th>
-                            <th>Phone Customers</th>
-                            <th>Email Customers</th>
-                        </tr> -->
                     </table>
                     <div class="dashboard-content-table-pagination disable-copy">
                         <div class="dashboard-content-table-pagination-btn">
@@ -85,11 +80,9 @@
                     <div class="dashboard-content-table-header">
                         <span>Users List</span>
                     </div>
+                    <div class="no-things-available">
+                    </div>
                     <table class="dashboard-content-table-item">
-                        <tr style='border:none'>
-                            <th>Id Users</th>
-                            <th>Name Users</th>
-                        </tr>
                     </table>
                     <div class="dashboard-content-table-pagination disable-copy">
                         <div class="dashboard-content-table-pagination-btn">
@@ -122,10 +115,69 @@
                     <div class="dashboard-content-table-header">
                         <span>Sales List</span>
                     </div>
+                    <div class="no-things-available">
+                    </div>
+                    <table class="dashboard-content-table-item">
+                    </table>
+                    <div class="dashboard-content-table-pagination disable-copy">
+                        <div class="dashboard-content-table-pagination-btn">
+                            <span id='previous-btn-sales' class='disable' style='border-top-left-radius: 5px;border-bottom-left-radius: 5px;'>Previous</span>
+                            <?php
+                                $maxP = ceil($countSales/10);
+
+                                if ($maxP > 4) {
+                                    echo "<span class='default-sales-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    echo "<span class='default-sales-pagination-more'>...</span>";
+                                    for ($i = 2; $i < $maxP; $i++) {
+                                        echo "<span class='default-sales-pagination'>$i</span>";
+                                    }
+                                    echo "<span class='default-sales-pagination-more'>...</span>";
+                                    echo "<span class='default-sales-pagination'>$maxP</span>";
+                                } else {
+                                    echo "<span class='default-sales-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    for ($i = 2; $i <= $maxP; $i ++) {
+                                        
+                                        echo "<span class='default-sales-pagination'>$i</span>";
+                                    }
+                                } 
+                            ?>
+                            <span id='next-btn-sales' style='border-top-right-radius: 5px;border-bottom-right-radius: 5px;'>Next</span>
+                        </div>
+                    </div>
                 </div>
+                <!--Product list-->
                 <div class="dashboard-content-table" style='width:100%' id='products'>
                     <div class="dashboard-content-table-header">
                         <span>Products List</span>
+                    </div>
+                    <div class="no-things-available">
+                    </div>
+                    <table class="dashboard-content-table-item">
+                    </table>
+                    <div class="dashboard-content-table-pagination disable-copy">
+                        <div class="dashboard-content-table-pagination-btn">
+                            <span id='previous-btn-products' class='disable' style='border-top-left-radius: 5px;border-bottom-left-radius: 5px;'>Previous</span>
+                            <?php
+                                $maxP = ceil($countProducts/10);
+
+                                if ($maxP > 4) {
+                                    echo "<span class='default-products-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    echo "<span class='default-products-pagination-more'>...</span>";
+                                    for ($i = 2; $i < $maxP; $i++) {
+                                        echo "<span class='default-products-pagination'>$i</span>";
+                                    }
+                                    echo "<span class='default-products-pagination-more'>...</span>";
+                                    echo "<span class='default-products-pagination'>$maxP</span>";
+                                } else {
+                                    echo "<span class='default-products-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    for ($i = 2; $i <= $maxP; $i ++) {
+                                        
+                                        echo "<span class='default-products-pagination'>$i</span>";
+                                    }
+                                } 
+                            ?>
+                            <span id='next-btn-products' style='border-top-right-radius: 5px;border-bottom-right-radius: 5px;'>Next</span>
+                        </div>
                     </div>
                 </div>
             </div>
