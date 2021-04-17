@@ -15,7 +15,7 @@
             <i class="fas fa-eye-slash position"></i>
         </span>
         <span>Retype new password : 
-            <input class='password-cont' name='retype-password' type="password">
+            <input class='password-cont disable' name='retype-password' type="password">
             <i class="fas fa-eye-slash position"></i>
         </span>
         <span class='error'></span>

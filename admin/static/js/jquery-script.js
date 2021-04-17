@@ -29,6 +29,7 @@ $(".dashboard-content-box").click(function() {
     if (indx == 3) link = "#products";
     location.href = link;
 })
+// Login
 
 // Customers
 $('.default-users-pagination').first().click(function() {
@@ -407,21 +408,39 @@ function countUnlockBtnChangePass(count) {
     }, 1000);
 };
 
-var link = false;
 $('.password-cont').eq(1).keyup(function() {
     val = document.getElementsByName('new-password')[0].value;
     if (val.length <= 10) {
         $('.error').eq(0).html("Error : Password must be > 10 character !");
         $('.error').eq(0).css('display','block');
         flag_checkNewPassword_ChangePassword = false;
+        $('.password-cont').eq(2).addClass('disable');
         return;   
     } else if (!/[A-Z]+/g.test(val)) {
         $('.error').eq(0).html("Error : Password must have at least 1 upper character !");
         $('.error').eq(0).css('display','block');
         flag_checkNewPassword_ChangePassword = false;
+        $('.password-cont').eq(2).addClass('disable');
         return;  
     } else if (/[!-/|:-@|[-`|{-~]/g.test(val)) {
         $('.error').eq(0).html("Error : Password can't contain special character !");
+        $('.error').eq(0).css('display','block');
+        flag_checkNewPassword_ChangePassword = false;
+        $('.password-cont').eq(2).addClass('disable');
+        return;  
+    } else {
+        $('.error').eq(0).html('');
+        $('.error').eq(0).css('display','none');
+        flag_checkNewPassword_ChangePassword = true;
+        $('.password-cont').eq(2).removeClass('disable');
+    }
+})
+
+$('.password-cont').eq(2).keyup(function() {
+    retypeVal = document.getElementsByName('retype-password')[0].value;
+    newVal = document.getElementsByName('new-password')[0].value;
+    if (retypeVal != newVal) {
+        $('.error').eq(0).html("Error : Retype password must be equal new password !");
         $('.error').eq(0).css('display','block');
         flag_checkNewPassword_ChangePassword = false;
         return;  
@@ -429,24 +448,6 @@ $('.password-cont').eq(1).keyup(function() {
         $('.error').eq(0).html('');
         $('.error').eq(0).css('display','none');
         flag_checkNewPassword_ChangePassword = true;
-        link = true;
-    }
-})
-
-$('.password-cont').eq(2).keyup(function() {
-    retypeVal = document.getElementsByName('retype-password')[0].value;
-    newVal = document.getElementsByName('new-password')[0].value;
-    if (link == true) {
-        if (retypeVal != newVal) {
-            $('.error').eq(0).html("Error : Retype password must be equal new password !");
-            $('.error').eq(0).css('display','block');
-            flag_checkNewPassword_ChangePassword = false;
-            return;  
-        } else {
-            $('.error').eq(0).html('');
-            $('.error').eq(0).css('display','none');
-            flag_checkNewPassword_ChangePassword = true;
-        }
     }
 })
 
