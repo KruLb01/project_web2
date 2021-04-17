@@ -4,8 +4,8 @@ let currentPSDefault = 1;
 let currentPPDefault = 1;
 
 $(".logout-btn").click(function() {
-    $.get('./templates/controller.php', {action:"logout"} , function(data) {
-        if (data==true) {
+    $.get('./templates/controller.php', {action:"logout"} , function(res) {
+        if (res==true) {
             window.location = './templates/login.php';
         }
     })
@@ -14,8 +14,11 @@ $(".logout-btn").click(function() {
 $("#top-menu-btn").click(function() {
     location.href = "./index.php";
 })
-$("#view-info-btn").click(function() {
+$(".view-info-btn").click(function() {
     location.href = "?action=view-info-user";
+})
+$(".change-password-btn").click(function() {
+    location.href = "?action=change-password";
 })
 $(".dashboard-content-box").click(function() {
     var indx = $(tdis).index();
@@ -311,4 +314,166 @@ $('.dashboard-content-table-item').eq(3).ready(function() {
 function setSelectedPr(current) {
     $('.default-products-pagination').removeClass('dashboard-content-table-pagination-btn-selected');
     $('.default-products-pagination').eq(current).addClass('dashboard-content-table-pagination-btn-selected');
+}
+
+
+// View info user
+$('#update-profile-btn').click(function(event) {
+    event.preventDefault();
+    if(!checkEmptyUpdateInfoUser()) {
+        $('.error').eq(0).html("Error : Input can't be gaped !");
+        $('.error').eq(0).css('display','block');
+        return;   
+    } else {
+        $('.error').eq(0).html('');
+        $('.error').eq(0).css('display','none');
+    }
+    $.ajax({
+        method:'get',
+        url:'handle/hView-info-user.php',
+        data: $('#view-info-user-form').serialize()+'&action=view',
+        success: function(res) {
+            if (res == 1) {
+                alert('Update information successfully !');
+                $('.header-info-user span').eq(0).html(document.getElementsByName('username')[0].value);
+            } else if (res == 0) {
+                alert('Failed when update information !');
+            }
+        }
+    }) 
+})
+
+function checkEmptyUpdateInfoUser() {
+    if (document.getElementsByName('username')[0].value == '' || document.getElementsByName('user-email')[0].value == '' ||
+    document.getElementsByName('user-phone')[0].value == '' || document.getElementsByName('other-information')[0].value == '' ) return false;
+
+    return true
+}
+
+let flag_checkNewPassword_ChangePassword = true;
+var flag = 0;
+$('#change-password-btn').click(function(event) {
+    event.preventDefault();
+    field1 = document.getElementsByName('old-password')[0].value;
+    field2 = document.getElementsByName('new-password')[0].value;
+    field3 = document.getElementsByName('retype-password')[0].value;
+    if(!checkEmptyChangePassword()) {
+        $('.error').eq(0).html("Error : Input can't be gaped !");
+        $('.error').eq(0).css('display','block');
+        return;   
+    } else if (!flag_checkNewPassword_ChangePassword) {
+        return;   
+    } else {
+        $('.error').eq(0).html('');
+        $('.error').eq(0).css('display','none');
+    }
+    $.ajax({
+        method:'post',
+        url:'handle/hView-info-user.php',
+        data: $('#change-password-form').serialize()+'&action=change-password',
+        success:function(res) {
+            if (res == 1) {
+                alert('Change password successfully !');
+            } else if (res == 0) {
+                alert('Failed when change password !');
+            } else if (res.trim() == 'incorrect') {
+                alert('Old password is not correct !');
+                flag++;
+                if (flag == 5) {
+                    var count = 30;
+                    $('#change-password-btn').css('background','rgb(201, 201, 201)');
+                    $('#change-password-btn').css('color','#f35454');
+                    $('#change-password-btn').css('pointer-events','none');
+                    $('#change-password-btn').html('Can change password in '+count);
+                    var status = countUnlockBtnChangePass(count-1);
+                    flag = 0;
+                }
+            }
+        }
+    })
+})
+
+function countUnlockBtnChangePass(count) {
+    if (count == -1) {
+        $('#change-password-btn').css('background','#169981')
+        $('#change-password-btn').css('color','white')
+        $('#change-password-btn').css('pointer-events','unset')
+        $('#change-password-btn').html('Change password');
+        return true;
+    }
+    setTimeout(() => {
+        $('#change-password-btn').html('Can change password in '+count);
+        countUnlockBtnChangePass(count-1);
+    }, 1000);
+};
+
+var link = false;
+$('.password-cont').eq(1).keyup(function() {
+    val = document.getElementsByName('new-password')[0].value;
+    if (val.length <= 10) {
+        $('.error').eq(0).html("Error : Password must be > 10 character !");
+        $('.error').eq(0).css('display','block');
+        flag_checkNewPassword_ChangePassword = false;
+        return;   
+    } else if (!/[A-Z]+/g.test(val)) {
+        $('.error').eq(0).html("Error : Password must have at least 1 upper character !");
+        $('.error').eq(0).css('display','block');
+        flag_checkNewPassword_ChangePassword = false;
+        return;  
+    } else if (/[!-/|:-@|[-`|{-~]/g.test(val)) {
+        $('.error').eq(0).html("Error : Password can't contain special character !");
+        $('.error').eq(0).css('display','block');
+        flag_checkNewPassword_ChangePassword = false;
+        return;  
+    } else {
+        $('.error').eq(0).html('');
+        $('.error').eq(0).css('display','none');
+        flag_checkNewPassword_ChangePassword = true;
+        link = true;
+    }
+})
+
+$('.password-cont').eq(2).keyup(function() {
+    retypeVal = document.getElementsByName('retype-password')[0].value;
+    newVal = document.getElementsByName('new-password')[0].value;
+    if (link == true) {
+        if (retypeVal != newVal) {
+            $('.error').eq(0).html("Error : Retype password must be equal new password !");
+            $('.error').eq(0).css('display','block');
+            flag_checkNewPassword_ChangePassword = false;
+            return;  
+        } else {
+            $('.error').eq(0).html('');
+            $('.error').eq(0).css('display','none');
+            flag_checkNewPassword_ChangePassword = true;
+        }
+    }
+})
+
+$('.position').click(function() {
+    if ($('.position').eq(0)[0] == $(this)[0]) {
+        pos = 0;
+    } else if ($('.position').eq(1)[0] == $(this)[0]) {
+        pos = 1;
+    } else pos = 2;
+
+    className = $(this).attr('class').split(' ');
+    className.forEach(item => {
+        if (item == 'fa-eye-slash') {
+            $('.password-cont').eq(pos).prop('type','text')
+            $(this).addClass('fa-eye')
+            $(this).removeClass('fa-eye-slash')
+        } else if (item == 'fa-eye') {
+            $('.password-cont').eq(pos).prop('type','password')
+            $(this).addClass('fa-eye-slash')
+            $(this).removeClass('fa-eye')
+        }
+    });
+})
+
+function checkEmptyChangePassword() {
+    if (document.getElementsByName('old-password')[0].value == '' || document.getElementsByName('new-password')[0].value == '' ||
+    document.getElementsByName('retype-password')[0].value == '') return false;
+
+    return true
 }

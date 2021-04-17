@@ -34,7 +34,6 @@
         }
 
         public function executeQuery($query) {
-            include('../data.properties.php');
             if (!$conn = mysqli_connect($this->host,$this->username,$this->password,$this->database)) {
                 echo "<script> console.log('Connect failed !')</script>";
             }

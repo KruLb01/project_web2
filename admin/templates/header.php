@@ -19,10 +19,10 @@
             </i>
             <div class="straight-line"></div>
         </div>
-        <div class="avatar">
+        <div class="avatar view-info-btn">
             <img src="static/images/logo-user.jpg" alt="logo-user">
         </div>
-        <div class="header-info-user">
+        <div class="header-info-user view-info-btn">
             <span><?php echo $_SESSION['user']['name'] ?></span>
             <span style="color:rgb(184, 184, 184)"><?php echo $_SESSION['user']['permission']?></span>
         </div>
@@ -30,7 +30,7 @@
             <i class="fas fa-chevron-down" onclick="showDetailUser()"></i>
             <div class="header-detail-user">
                 <ul>
-                    <li id='view-info-btn'><a style="margin-left: 0px;">            
+                    <li class='view-info-btn'><a style="margin-left: 0px;">            
                         <div class="header-function-user" style="justify-content: left;">
                             <div class="avatar">
                                 <img src="static/images/logo-user.jpg" alt="logo-user">
@@ -41,8 +41,8 @@
                             </div>
                         </div>
                     </a></li>
-                    <li><a>View me</a></li>
-                    <li><a>Setting</a></li>
+                    <li class='change-password-btn'><a>Change password</a></li>
+                    <li><a>Settings</a></li>
                     <li class='logout-btn'><a>Log out</a></li>
                 </ul>
             </div>
