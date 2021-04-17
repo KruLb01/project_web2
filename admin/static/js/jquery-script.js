@@ -21,7 +21,7 @@ $(".change-password-btn").click(function() {
     location.href = "?action=change-password";
 })
 $(".dashboard-content-box").click(function() {
-    var indx = $(tdis).index();
+    var indx = $(this).index();
     var link = "";
     if (indx == 0) link = "#customers";
     if (indx == 1) link = "#users";
