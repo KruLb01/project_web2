@@ -81,7 +81,7 @@
             $currentDate = (int) date("Ymj");
             $dayStart = (int) implode('',explode('-',$line['ngay_bat_dau']));
             $dayEnd = (int) implode('',explode('-',$line['ngay_ket_thuc']));
-            $status = 'Activating';
+            $status = 'Launching';
 
             if ($currentDate > $dayEnd)  {
                 $status = 'Expired';

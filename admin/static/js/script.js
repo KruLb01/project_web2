@@ -53,25 +53,28 @@ function showDetailUser() {
 }
 
 function minimizieSubmenu(value) {
-    let position = value.split('-')[1];
-    let current = document.getElementById('submenu-'+position);
-    let order1;
-    if (current.style.display==""||current.style.display=="block") {
-        order1 = 'opacity:0;transform:translateY(-50px);transition:0.5s';
-        current.style = order1;
-        
-        setTimeout(() => {
-            current.style = 'display:none';  
-        }, 500);
-    } else if (current.style.display=="none") {
-        order1 = 'display:block;opacity:0.5;transform:translateY(-50px)';
-        current.style = order1;
-        setTimeout(() => {
-            order1 = 'opacity:1;transform:translateY(0px);transition:0.5s';
+    try {
+        let position = value.split('-')[1];
+        let current = document.getElementById('submenu-'+position);
+        let order1;
+        if (current.style.display==""||current.style.display=="block") {
+            order1 = 'opacity:0;transform:translateY(-50px);transition:0.5s';
             current.style = order1;
-        }, 0);
+            
+            setTimeout(() => {
+                current.style = 'display:none';  
+            }, 500);
+        } else if (current.style.display=="none") {
+            order1 = 'display:block;opacity:0.5;transform:translateY(-50px)';
+            current.style = order1;
+            setTimeout(() => {
+                order1 = 'opacity:1;transform:translateY(0px);transition:0.5s';
+                current.style = order1;
+            }, 0);
+        }
+    } catch (err) {
+        // do no thing
     }
-
 }
 
 function logOut() {

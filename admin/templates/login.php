@@ -27,7 +27,7 @@
                     <span>Password  <input type="password" name='password' value='<?php if(isset($_POST['username'])) echo $_POST['password'] ?>'></span>
                     <a class="error">Error print here</a>
                     <div class="submit-container">
-                        <button type='submit'>Login</button>
+                        <button type='submit' id='login-btn'>Login</button>
                     </div>
                 </form>
             </div>
@@ -37,6 +37,8 @@
 </html>
 
 <script>
+    flag = 0;
+
     function validateLogin() {
         let username = document.getElementsByName("username")[0].value;
         let password = document.getElementsByName("password")[0].value;
@@ -63,10 +65,35 @@
                     } else {
                         $('.error').html('Tài khoản hoặc mật khẩu không đúng !');
                         $('.error').css('display','block');
+
+                        flag ++;
+                        if (flag == 5) {
+                            var count = 30;
+                            $('#login-btn').css('background','rgb(201, 201, 201)');
+                            $('#login-btn').css('color','#f35454');
+                            $('#login-btn').css('pointer-events','none');
+                            $('#login-btn').html('Can login again in '+count);
+                            var status = countUnlockLoginBtn(count-1);
+                            flag = 0;
+                        }
                     }
                 }
             })
         }
     })
+
+    function countUnlockLoginBtn(count) {
+        if (count == -1) {
+            $('#login-btn').css('background','#169981')
+            $('#login-btn').css('color','white')
+            $('#login-btn').css('pointer-events','unset')
+            $('#login-btn').html('Login');
+            return true;
+        }
+        setTimeout(() => {
+            $('#login-btn').html('Can login again in '+count);
+            countUnlockLoginBtn(count-1);
+        }, 1000);
+    };
 </script>
 

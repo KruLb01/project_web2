@@ -1,6 +1,6 @@
 <?php
-    include('connectData.php');
-    $conn = new connectData('1');
+    // include('connectData.php');
+    // $conn = new connectData('1');
     
     $countCustomers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from khach_hang, nguoi_dung where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung'))['quantity'];
     $countUsers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from admin'))['quantity'];
@@ -65,10 +65,11 @@
                                     echo "<span class='default-users-pagination-more'>...</span>";
                                     echo "<span class='default-users-pagination'>$maxP</span>";
                                 } else {
-                                    echo "<span class='default-users-pagination'>1</span>";
-                                    echo "<span class='default-users-pagination'>2</span>";
-                                    echo "<span class='default-users-pagination'>3</span>";
-                                    echo "<span class='default-users-pagination'>4</span>";
+                                    echo "<span class='default-users-pagination dashboard-content-table-pagination-btn-selected'>1</span>";
+                                    for ($i = 2; $i <= $maxP; $i ++) {
+                                        
+                                        echo "<span class='default-users-pagination'>$i</span>";
+                                    }
                                 } 
                             ?>
                             <span id='next-btn-users' style='border-top-right-radius: 5px;border-bottom-right-radius: 5px;'>Next</span>

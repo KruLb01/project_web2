@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2021 at 06:51 AM
+-- Generation Time: Apr 19, 2021 at 05:51 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -39,11 +39,11 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_nguoidung`, `ho_ten`, `email`, `thong_tin_khac`) VALUES
-('admin', 'Lê Thanh Hòa', 'admin@gmai', ''),
-('manager', 'Lê Thanh H', 'manager@gm', ''),
-('manager', 'Lê Thanh H', 'manager@gm', ''),
-('manager', 'Lê Thanh H', 'manager@gm', ''),
-('manager', 'Lê Thanh H', 'manager@gm', '');
+('admin', 'Jian Heros', 'admin@gmail.com', 'I am alive ! <3'),
+('manager', 'Lê Thanh H', 'manager@gm', 'I am alive'),
+('manager', 'Lê Thanh H', 'manager@gm', 'I am alive'),
+('manager', 'Lê Thanh H', 'manager@gm', 'I am alive'),
+('manager', 'Lê Thanh H', 'manager@gm', 'I am alive');
 
 -- --------------------------------------------------------
 
@@ -103,9 +103,34 @@ CREATE TABLE `chitiet_phieunhap` (
 --
 
 CREATE TABLE `chitiet_quyen_chucnang` (
-  `id_quyen` varchar(10) NOT NULL,
-  `id_chucnang` varchar(10) NOT NULL
+  `id_quyen` varchar(20) NOT NULL,
+  `id_chucnang` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chitiet_quyen_chucnang`
+--
+
+INSERT INTO `chitiet_quyen_chucnang` (`id_quyen`, `id_chucnang`) VALUES
+('admin', '1'),
+('admin', '2'),
+('admin', '3'),
+('admin', '4'),
+('admin', '5'),
+('admin', '6'),
+('admin', '7'),
+('admin', '8'),
+('admin', '9'),
+('admin', '10'),
+('admin', '11'),
+('admin', '12'),
+('admin', '13'),
+('admin', '14'),
+('admin', '15'),
+('admin', '16'),
+('admin', '17'),
+('admin', '18'),
+('admin', '19');
 
 -- --------------------------------------------------------
 
@@ -125,10 +150,37 @@ CREATE TABLE `chitiet_sale` (
 --
 
 CREATE TABLE `chuc_nang` (
-  `id_chucnang` varchar(10) NOT NULL,
-  `ten_chucnang` varchar(10) NOT NULL,
-  `mieuta` varchar(10) NOT NULL
+  `id_chucnang` int(100) NOT NULL,
+  `ten_chucnang` varchar(100) NOT NULL,
+  `mieuta` varchar(100) NOT NULL,
+  `vi_tri` varchar(10) NOT NULL,
+  `icon` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chuc_nang`
+--
+
+INSERT INTO `chuc_nang` (`id_chucnang`, `ten_chucnang`, `mieuta`, `vi_tri`, `icon`) VALUES
+(1, 'Manage Accounts', '', '1000', '<i class=\"fas fa-users\" style=\"padding-right: 8px;\"></i>'),
+(2, 'Manage Customers', '', '1001', ''),
+(3, 'Manage Employees', '', '1002', ''),
+(4, 'Manage Permission', '', '1003', ''),
+(5, 'Analyst User', '', '1004', ''),
+(6, 'Manage Products', '', '2000', '<i class=\"fas fa-cubes\" style=\"padding-right: 8px;\"></i>'),
+(7, 'Manage Products', '', '2001', ''),
+(8, 'Analyst Products', '', '2002', ''),
+(9, 'Manage Revenue', '', '3000', '<i class=\"fas fa-receipt\" style=\"padding-right: 10px;padding-left:4px\"></i>'),
+(10, 'Track Invoice', '', '3001', ''),
+(11, 'Analyst Profits', '', '3002', ''),
+(12, 'Manage Sales', '', '4000', '<i class=\"fas fa-money-bill-alt\" style=\"padding-right: 8px;\"></i>'),
+(13, 'Create Sales', '', '4001', ''),
+(14, 'Track Sales', '', '4002', ''),
+(15, 'Analyst Sales', '', '4003', ''),
+(16, 'Activity', '', '5000', '<i class=\"fas fa-chart-line\" style=\"padding-right: 10px;\"></i>'),
+(17, 'Mail', '', '6000', '<i class=\"fas fa-mail-bulk\" style=\"padding-right: 8px;\"></i>'),
+(18, 'Help', '', '7000', '<i class=\"fas fa-question\"  style=\"padding-right: 14px;\"></i>'),
+(19, 'Log out', '', '8000', '<i class=\"fas fa-sign-out-alt\"  style=\"padding-right: 10px;\"></i>');
 
 -- --------------------------------------------------------
 
@@ -172,12 +224,23 @@ CREATE TABLE `gio_hang` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hinh_anh`
+--
+
+CREATE TABLE `hinh_anh` (
+  `id_hinhanh` varchar(100) NOT NULL,
+  `link_hinhanh` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hinh_nhomsanpham`
 --
 
 CREATE TABLE `hinh_nhomsanpham` (
-  `id_nhomhinh` varchar(10) NOT NULL,
-  `hinh` varchar(10) NOT NULL
+  `id_nhomsanpham` varchar(100) NOT NULL,
+  `id_hinh` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -277,6 +340,7 @@ CREATE TABLE `nguoi_dung` (
   `tai_khoan` varchar(100) NOT NULL,
   `mat_khau` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `so_dien_thoai` varchar(10) NOT NULL,
   `quyen` varchar(100) NOT NULL,
   `tinh_trang_taikhoan` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -285,60 +349,60 @@ CREATE TABLE `nguoi_dung` (
 -- Dumping data for table `nguoi_dung`
 --
 
-INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `quyen`, `tinh_trang_taikhoan`) VALUES
-('admin', 'admin', '1', 'admin@gmai', 'admin', 1),
-('1', 'customer1', '1', 'customer@gmail.com', 'customer', 1),
-('2', 'customer2', '1', 'customer@gmail.com', 'customer', 1),
-('3', 'customer3', '1', 'customer@gmail.com', 'customer', 1),
-('4', 'customer4', '1', 'customer@gmail.com', 'customer', 1),
-('5', 'customer5', '1', 'customer@gmail.com', 'customer', 1),
-('6', 'customer6', '1', 'customer@gmail.com', 'customer', 1),
-('7', 'customer7', '1', 'customer@gmail.com', 'customer', 1),
-('8', 'customer8', '1', 'customer@gmail.com', 'customer', 1),
-('9', 'customer9', '1', 'customer@gmail.com', 'customer', 1),
-('10', 'customer10', '1', 'customer@gmail.com', 'customer', 1),
-('11', 'customer11', '1', 'customer@gmail.com', 'customer', 1),
-('12', 'customer12', '1', 'customer@gmail.com', 'customer', 1),
-('13', 'customer13', '1', 'customer@gmail.com', 'customer', 1),
-('14', 'customer14', '1', 'customer@gmail.com', 'customer', 1),
-('15', 'customer15', '1', 'customer@gmail.com', 'customer', 1),
-('16', 'customer16', '1', 'customer@gmail.com', 'customer', 1),
-('17', 'customer17', '1', 'customer@gmail.com', 'customer', 1),
-('18', 'customer18', '1', 'customer@gmail.com', 'customer', 1),
-('19', 'customer19', '1', 'customer@gmail.com', 'customer', 1),
-('20', 'customer20', '1', 'customer@gmail.com', 'customer', 1),
-('21', 'customer21', '1', 'customer@gmail.com', 'customer', 1),
-('22', 'customer22', '1', 'customer@gmail.com', 'customer', 1),
-('23', 'customer23', '1', 'customer@gmail.com', 'customer', 1),
-('24', 'customer24', '1', 'customer@gmail.com', 'customer', 1),
-('25', 'customer25', '1', 'customer@gmail.com', 'customer', 1),
-('26', 'customer26', '1', 'customer@gmail.com', 'customer', 1),
-('27', 'customer27', '1', 'customer@gmail.com', 'customer', 1),
-('28', 'customer28', '1', 'customer@gmail.com', 'customer', 1),
-('29', 'customer29', '1', 'customer@gmail.com', 'customer', 1),
-('30', 'customer30', '1', 'customer@gmail.com', 'customer', 1),
-('31', 'customer31', '1', 'customer@gmail.com', 'customer', 1),
-('32', 'customer32', '1', 'customer@gmail.com', 'customer', 1),
-('33', 'customer33', '1', 'customer@gmail.com', 'customer', 1),
-('34', 'customer34', '1', 'customer@gmail.com', 'customer', 1),
-('35', 'customer35', '1', 'customer@gmail.com', 'customer', 1),
-('36', 'customer36', '1', 'customer@gmail.com', 'customer', 1),
-('37', 'customer37', '1', 'customer@gmail.com', 'customer', 1),
-('38', 'customer38', '1', 'customer@gmail.com', 'customer', 1),
-('39', 'customer39', '1', 'customer@gmail.com', 'customer', 1),
-('40', 'customer40', '1', 'customer@gmail.com', 'customer', 1),
-('41', 'customer41', '1', 'customer@gmail.com', 'customer', 1),
-('42', 'customer42', '1', 'customer@gmail.com', 'customer', 1),
-('43', 'customer43', '1', 'customer@gmail.com', 'customer', 1),
-('44', 'customer44', '1', 'customer@gmail.com', 'customer', 1),
-('45', 'customer45', '1', 'customer@gmail.com', 'customer', 1),
-('46', 'customer46', '1', 'customer@gmail.com', 'customer', 1),
-('47', 'customer47', '1', 'customer@gmail.com', 'customer', 1),
-('48', 'customer48', '1', 'customer@gmail.com', 'customer', 1),
-('49', 'customer49', '1', 'customer@gmail.com', 'customer', 1),
-('50', 'customer50', '1', 'customer@gmail.com', 'customer', 1),
-('51', 'customer51', '1', 'customer@gmail.com', 'customer', 1),
-('52', 'customer52', '1', 'customer@gmail.com', 'customer', 1);
+INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_dien_thoai`, `quyen`, `tinh_trang_taikhoan`) VALUES
+('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'admin@gmai', '0706316621', 'admin', 1),
+('1', 'customer1', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('2', 'customer2', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('3', 'customer3', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('4', 'customer4', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('5', 'customer5', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('6', 'customer6', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('7', 'customer7', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('8', 'customer8', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('9', 'customer9', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('10', 'customer10', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('11', 'customer11', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('12', 'customer12', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('13', 'customer13', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('14', 'customer14', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('15', 'customer15', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('16', 'customer16', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('17', 'customer17', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('18', 'customer18', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('19', 'customer19', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('20', 'customer20', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('21', 'customer21', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('22', 'customer22', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('23', 'customer23', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('24', 'customer24', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('25', 'customer25', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('26', 'customer26', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('27', 'customer27', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('28', 'customer28', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('29', 'customer29', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('30', 'customer30', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('31', 'customer31', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('32', 'customer32', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('33', 'customer33', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('34', 'customer34', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('35', 'customer35', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('36', 'customer36', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('37', 'customer37', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('38', 'customer38', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('39', 'customer39', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('40', 'customer40', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('41', 'customer41', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('42', 'customer42', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('43', 'customer43', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('44', 'customer44', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('45', 'customer45', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('46', 'customer46', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('47', 'customer47', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('48', 'customer48', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('49', 'customer49', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('50', 'customer50', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('51', 'customer51', '1', 'customer@gmail.com', '1234324', 'customer', 1),
+('52', 'customer52', '1', 'customer@gmail.com', '1234324', 'customer', 1);
 
 -- --------------------------------------------------------
 
@@ -410,10 +474,32 @@ CREATE TABLE `phuongthuc_giaohang` (
 --
 
 CREATE TABLE `quyen` (
-  `id_quyen` varchar(10) NOT NULL,
-  `ten_quyen` varchar(10) NOT NULL,
-  `mieuta` varchar(10) NOT NULL
+  `id_quyen` varchar(100) NOT NULL,
+  `ten_quyen` varchar(100) NOT NULL,
+  `mieuta` varchar(100) NOT NULL,
+  `so_luong` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `quyen`
+--
+
+INSERT INTO `quyen` (`id_quyen`, `ten_quyen`, `mieuta`, `so_luong`) VALUES
+('admin', 'Quản trị viên', 'Quyền QTV', 1),
+('customer', 'Khách hàng', 'Quyền KH', 52),
+('manager', 'Quản lý', 'Quyền QL', 0),
+('employee', 'Nhân viên', 'Quyền NV', 0),
+('test1', 'test1', '', 0),
+('test2', 'test2', '', 0),
+('test3', 'test3', '', 0),
+('test4', 'test4', '', 0),
+('test5', 'test5', '', 0),
+('test6', 'test6', '', 0),
+('test7', 'test7', '', 0),
+('test8', 'test8', '', 0),
+('test9', 'test9', '', 0),
+('test10', 'test10', '', 0),
+('test11', 'test11', '', 0);
 
 -- --------------------------------------------------------
 
@@ -460,6 +546,12 @@ CREATE TABLE `san_pham` (
 --
 
 --
+-- Indexes for table `chuc_nang`
+--
+ALTER TABLE `chuc_nang`
+  ADD PRIMARY KEY (`id_chucnang`);
+
+--
 -- Indexes for table `khach_hang`
 --
 ALTER TABLE `khach_hang`
@@ -480,6 +572,12 @@ ALTER TABLE `sale`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `chuc_nang`
+--
+ALTER TABLE `chuc_nang`
+  MODIFY `id_chucnang` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `khach_hang`

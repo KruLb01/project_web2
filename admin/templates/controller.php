@@ -11,6 +11,8 @@
             include('view-info-user.php');
         } else if ($action == 'change-password') {
             include('change-password.php');
+        } else if ($action == 'manage-permission') {
+            include('manage-permission.php');
         }
     } else include('default-content.php');
     echo $flag;

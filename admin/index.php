@@ -30,33 +30,48 @@
                 <img src="static/images/logo-doc-trans.png" alt="logo-dashboard">
             </div>
             <ul class="dashboard-menu-items">
-                <li id='menu-1' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-users" style="padding-right: 8px;"></i>Manage Users</a></li>
-                <ul class="dashboard-submenu-items" id='submenu-1'>
-                    <li><a>Manage Customers</a></li>
-                    <li><a>Manage Employees</a></li>
-                    <li><a>Analyst User</a></li>
-                </ul>
-                <li id='menu-2' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-cubes" style="padding-right: 8px;"></i>Manage Products</a></li>
-                <ul class="dashboard-submenu-items" id='submenu-2'>
-                    <li><a>Manage Products</a></li>
-                    <li><a>Analyst Products</a></li>
-                </ul>
-                <li id='menu-3' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-receipt" style="padding-right: 10px;padding-left:4px"></i>Manage Revenue</a></li>
-                <ul class="dashboard-submenu-items" id='submenu-3'>
-                    <li><a>Track invoices</a></li>
-                    <li><a>Analyst Profits</a></li>
-                    <li><a>Analyst</a></li>
-                </ul>
-                <li id='menu-4' onclick="minimizieSubmenu(this.id)"><a class="bold-title"><i class="fas fa-money-bill-alt" style="padding-right: 8px;"></i>Manage Sales</a></li>
-                <ul class="dashboard-submenu-items" id='submenu-4'>
-                    <li><a>Create Sales</a></li>
-                    <li><a>Track Sales</a></li>
-                    <li><a>Analyst Sales</a></li>
-                </ul>
-                <li><a class="bold-title"><i class="fas fa-chart-line" style="padding-right: 10px;"></i>Activity</a></li>
-                <li><a class="bold-title"><i class="fas fa-mail-bulk" style="padding-right: 8px;"></i>Mail</a></li>
-                <li><a class="bold-title"><i class="fas fa-question"  style="padding-right: 14px;"></i>Helps</a></li>
-                <li class='logout-btn'><a class="bold-title"><i class="fas fa-sign-out-alt"  style="padding-right: 10px;"></i>Log out</a></li>
+                <?php
+                    require_once('./templates/connectData.php');
+                    $conn = new connectData('1');
+
+                    $res = $conn->selectData("select * from chitiet_quyen_chucnang, chuc_nang 
+                                where id_quyen = '".$_SESSION['user']['permission']."' and chitiet_quyen_chucnang.id_chucnang = chuc_nang.id_chucnang order by vi_tri");
+                    $show = '';
+                    $pos = 0;
+                    $flag = true;
+                    while ($row = mysqli_fetch_array($res)) {
+
+                        if ((int)$row['vi_tri'] % 1000 == 0) {
+                            $pos++;
+                            if ($flag == false) {
+                                $show .= "</ul><li id='menu-$pos' onclick='minimizieSubmenu(this.id)'><a class='bold-title'>
+                                ".$row['icon'].$row['ten_chucnang']."</a></li>";
+                                $flag = true;
+                            } 
+                            else {
+                                $show .= "<li id='menu-$pos' onclick='minimizieSubmenu(this.id)'";
+                                if ($row['ten_chucnang'] == 'Log out') {
+                                    $show .= " class='logout-btn'";
+                                }
+                                $show .= "><a class='bold-title'>
+                                ".$row['icon'].$row['ten_chucnang']."</a></li>";
+                                $flag = true;
+                            }
+                        }
+                        else {
+                            if ($flag == false) {
+                                $show .= "<li><a>".$row['ten_chucnang']."</a></li>";
+                            }
+                            else {
+                                $show .= "<ul class='dashboard-submenu-items' id='submenu-$pos'>
+                                            <li><a>".$row['ten_chucnang']."</a></li>";
+                                $flag = false;
+                            }
+                        }
+                    }   
+                    echo $show;
+                ?>
+                
                 <div class="space"></div>
             </ul>
         </div>
@@ -67,6 +82,3 @@
     </div>
 </body>
 </html>
-
-<!-- foreach ($_SESSION['user'] as $key=>$val)
-{echo $key." ".$val."<br/>";} -->
