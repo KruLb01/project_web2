@@ -15,11 +15,12 @@
 
 .login {
     display: flex;
-    height: 600px;
+    height: 100%;
     width: 100%;
     background-color: rgb(235, 240, 235);
     justify-content: center;
     align-items: center;
+    position : fixed;
 }
 .login-container {
     width: 60%;
@@ -466,6 +467,10 @@
     text-align: left;
 }
 
+.dashboard-manage-table-action {
+    cursor: pointer;
+    display: inline-block;
+}
 .dashboard-manage-table-action::after {
     content: ". . .";
     font-size: 18px;
@@ -474,15 +479,15 @@
     border-radius: 3px;
     margin-left: 8px;
     background: rgba(145, 145, 145, 0.3);
-    cursor: pointer;
 }
 .dashboard-manage-table-action-items {
     border: 1px solid rgb(160, 160, 160);
     border-radius: 5px;
     position: absolute;
     background: #fff;
-    margin: 29px 0px 0px 10px;
+    margin: 28px 0px 0px 10px;
     display: none;
+    z-index: 1;
 }
 .dashboard-manage-table-action-items li {
     cursor: pointer;
@@ -548,6 +553,104 @@ span.dm-selected {
 span.dm-disable {
     pointer-events: none;
     color: rgb(177, 177, 177);
+    transition: 0.5s;
+}
+/*DM pop-up*/
+.dashboard-manage-pop-up {
+    display: none;  
+    position: fixed; 
+    z-index: 4; 
+    padding-top: 100px; 
+    right: 0;
+    top: 0;
+    width: 80%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+.dashboard-manage-pop-up-items {
+    width: 85%;
+    background: #fdfdfd;
+    margin: 50px auto;
+    padding: 40px 20px 30px;
+    border-radius: 5px;
+    display: flex;
+}
+.dashboard-manage-pop-up-items span {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 5px 20px;
+    color: #557cdf;
+}
+.dashboard-manage-pop-up-info {
+    width: 45%;
+    border-right: 2px solid coral;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dashboard-manage-pop-up-info input {
+    width: 250px;
+    display: block;
+    margin: 8px 0;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px; 
+    border: 1px solid rgb(177, 177, 177);
+}
+.dashboard-manage-pop-up-info input:focus {
+    border: 1px solid #6485da; 
+    font-weight: 600;
+}
+.dashboard-manage-pop-up-act {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+}
+.dashboard-manage-pop-up-act-checkbox span {
+    color: #000;
+    font-weight: 500;
+}
+.dashboard-manage-pop-up-act-checkbox input {
+    margin-right: 4px;
+    width: 15px;
+    height: 15px;
+}
+
+span.dm-pop-up-main {
+    margin-left:-20px;
+    color:coral;
+    font-weight:600;
+}
+.dm-pop-up-btn {
+    margin: 5px 20px;
+}
+.dm-pop-up-btn span {
+    display: inline;
+    background: rgba(145, 145, 145, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+.dm-pop-up-btn span:hover {
+    background: rgba(145, 145, 145, 0.2);
+    color: #376fff;
+    box-shadow:  0 0 1px #376fff,
+    0 0 3px #000;
+}
+
+.dm-pop-up-close-btn {
+    position: absolute;
+    right: 120px;
+    font-size: 20px;
+    top: 170px;
+    cursor: pointer;
+    color: rgb(160, 160, 160, 0.5);
+}
+.dm-pop-up-close-btn:hover {
+    color: rgb(252, 44, 44);
     transition: 0.5s;
 }
 

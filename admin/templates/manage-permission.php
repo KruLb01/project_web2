@@ -65,6 +65,7 @@
         <table class="dashboard-manage-table-items">
             <!--Import-->
         </table>
+        <div class="dashboard-manage-pop-up-container"></div>
         <div class="dashboard-manage-table-pagination disable-copy">
             <div class="dashboard-manage-table-pagination-items">
                 <span id='dm-first-btn' class='dm-disable'><i class="fas fa-fast-backward"></i> First</span>

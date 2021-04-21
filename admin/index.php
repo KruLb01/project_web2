@@ -25,7 +25,7 @@
 
     <!--Dashboard & Content Area here-->
     <div class="dashboard">
-        <div class="menu-dashboard">
+        <div class="menu-dashboard disable-copy">
             <div class="logo-dashboard">
                 <img src="static/images/logo-doc-trans.png" alt="logo-dashboard">
             </div>
