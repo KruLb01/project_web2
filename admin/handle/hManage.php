@@ -35,13 +35,28 @@
                 return;
             }
 
+            if (isset($_GET['add'])) {
+                if (isset($_GET['valCB'])) {
+                    $valCB = explode("-",$_GET['valCB']);
+                }
+                if (isset($_GET['valText'])) {
+                    $valText = explode("-",$_GET['valText']);
+                }
+                $resAdd = $conn->executeQuery("insert into quyen(id_quyen, ten_quyen, mieuta) values('".$valText[0]."', N'".$valText[1]."', N'".$valText[2]."')");
+                for ($i = 0; $i < sizeof($valCB); $i ++) {
+                    $resAdd = $conn->executeQuery("insert into chitiet_quyen_chucnang(id_quyen, id_chucnang) values('".$valText[0]."', '".$valCB[$i]."')");
+                }
+                echo $resAdd;
+                return;
+            }
+
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
                     $val = explode("-",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
-                    $resUpdate = $conn->executeQuery("update quyen set ten_quyen = '".$val[1]."', mieuta = '".$val[2]."' where id_quyen = '".$val[3]."'");
+                    $resUpdate = $conn->executeQuery("update quyen set ten_quyen = '".$val[2]."', mieuta = '".$val[3]."' where id_quyen = '".$val[1]."'");
                     echo $resUpdate;
                     return;
                 }
@@ -325,8 +340,8 @@
                 }
 
                 if ($val[0]== 'text') {
-                    $password=md5($val[3]);
-                    $resUpate = $conn->executeQuery("update nguoi_dung,khach_hang set khach_hang.ho_ten = N'".$val[1]."', nguoi_dung.email = '".$val[2]."', nguoi_dung.mat_khau='".$password."', khach_hang.dia_chi='".$val[4]."', khach_hang.so_dien_thoai='".$val[5]."' where khach_hang.id_nguoidung = '".$val[6]."' and nguoi_dung.id_nguoidung='".$val[6]."'");
+                    $password=md5($val[4]);
+                    $resUpate = $conn->executeQuery("update nguoi_dung,khach_hang set khach_hang.ho_ten = N'".$val[2]."', nguoi_dung.email = '".$val[3]."', nguoi_dung.mat_khau='".$password."', khach_hang.dia_chi='".$val[5]."', nguoi_dung.so_dien_thoai='".$val[6]."' where khach_hang.id_nguoidung = '".$val[1]."' and nguoi_dung.id_nguoidung='".$val[1]."'");
                     echo $resUpate;
                     return;
                 }

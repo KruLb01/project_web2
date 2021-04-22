@@ -17,51 +17,47 @@
         </div>
         <div class="dashboard-manage-show-bar-fnc">
             <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Permission</a>
-
-            <!-- <div class="dashboard-manage-pop-up">
-                <div class="dashboard-manage-pop-up-items">
-                    <i class='fas fa-times dm-pop-up-close-btn'></i>
-                    <div class="dashboard-manage-pop-up-info">
-                        <span>Id Permission :
-                            <input type="text" placeholder='Id permission'>
+            <!--add popup-->
+            <div class="dashboard-manage-pop-up-add">
+                <div class="dashboard-manage-pop-up-add-items">
+                    <i class='fas fa-times dm-pop-up-close-add-btn'></i>
+                    <div class="dashboard-manage-pop-up-add-info">
+                        <span>
+                            Id Permission :
+                            <input type="text" placeholder='Id Permission'>
                         </span>
-                        <span>Name Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Name Permission :
+                            <input type="text" placeholder='Id Permission'>
                         </span>
-                        <span>Note Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Note Permission :
+                            <input type="text" placeholder='Id Permission'>
                         </span>
-                        <div class="dm-pop-up-btn disable-copy">
-                            <span class="dm-pop-up-save-btn">Add new permission</span>
+                        <div class="dm-pop-up-add-btn disable-copy">
+                            <span class="dm-pop-up-add-save-btn">Add new permission</span>
                         </div>
                     </div>
-                    <div class="dashboard-manage-pop-up-act">
+                    <div class="dashboard-manage-pop-up-add-act">
                         <span>Set permission : </span>
-                        <div class="dashboard-manage-pop-up-act-checkbox">
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Accounts</span>
-                            <span><input type="checkbox">Manage Customers</span>
-                            <span><input type="checkbox">Manage Employees</span>
-                            <span><input type="checkbox">Manage Permission</span>
-                            <span><input type="checkbox">Analyst User</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Analyst Products</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Revenue</span>
-                            <span><input type="checkbox">Track Invoice</span>
-                            <span><input type="checkbox">Analyst Profits</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Sales</span>
-                            <span><input type="checkbox">Create Sales</span>
-                            <span><input type="checkbox">Track Sales</span>
-                            <span><input type="checkbox">Analyst Sales</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Activity</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Mail</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Help</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Log out</span>
+                        <div class="dashboard-manage-pop-up-add-act-checkbox">
+                            <?php
+                                $res = $conn->selectData('select * from chuc_nang');
+                                $show = '';
+                                while ($line = mysqli_fetch_array($res)) {
+                                    $show .= "<span ";
+                                    if ((int)$line['vi_tri']%1000==0) {
+                                        $show .= "class='dm-pop-up-add-main'";
+                                    }
+                                    $show .= "><input type='checkbox' value='".$line['id_chucnang']."'>".$line['ten_chucnang']."</span>";
+                                }
+                                echo $show;
+                            ?>
                         </div>
                     </div>
                 </div>
-            </div> -->
-
+            </div>
+            <!--end popup-->
             <i class="fas fa-file-export"></i>
         </div>
     </div>

@@ -697,12 +697,14 @@ $(window).click(function(event) {
     if (event.target == $('.dashboard-manage-pop-up').eq(posAction)[0]) {
         $('.dashboard-manage-pop-up').eq(posAction).css('display','none');
     }
+    if (event.target == $('.dashboard-manage-pop-up-add').eq(0)[0]) {
+        $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
+    }
 })
 $(document).on("click",".dm-pop-up-reset-btn",function() {
     // $('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=checkbox]').prop('checked', false);
 })
 $(document).on("click",".dm-pop-up-save-btn",function() {
-    // console.log($('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=checkbox]'));
     valInput1 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(0).val();
     valInput2 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(1).val();   
     valInput3 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(2).val();   
@@ -710,11 +712,13 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
     valInput5 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(4).val();  
     
     if (valInput1=='' && valInput2=='' && valInput3=='' && valInput4=='' && valInput5==''){
-        alert('yeu cau khong bo trong')
+        alert('Please fill input !');
         return;
     }
+    console.log(123);
     id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
-    $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5+'-'+id_view},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+id_view+'-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5},function(res) {
+        console.log(res);
         if (res.trim()==true) {
             alert('Update successfully !');
             var num = $('#dm-select-show').val();
@@ -771,9 +775,38 @@ $('.dashboard-manage-search-bar-fnc input').keyup(function() {
 })
 
 // // Add - dm 
-// $('#dm-add-btn').click(function() {
-//     console.log(543);
-// })
+let arrCbox_add = [];
+$('#dm-add-btn').click(function() {
+    $('.dashboard-manage-pop-up-add').eq(0).css('display','block');
+})
+$('.dashboard-manage-pop-up-add-act-checkbox input').click(function() {
+    var thisVal = $(this).val();
+    arrCbox_add.find(x => x == thisVal) == undefined ? arrCbox_add.push(thisVal) : arrCbox_add.splice(arrCbox_add.indexOf(thisVal),1);
+})
+$('.dm-pop-up-close-add-btn').click(function() {
+    $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
+})
+$('.dm-pop-up-add-save-btn').click(function() {
+    var general = $('.dashboard-manage-pop-up-add-info input');
+    var input1 = general.eq(0).val();
+    var input2 = general.eq(1).val();
+    var input3 = general.eq(2).val();
 
+    if (input1 == '' || input2 == '' || input3 == '') {
+        alert('Please fill input !');
+        return;
+    }
+
+    $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3},function(res) {
+        if (res.trim() == true) {
+            alert('Add new permission successfully !');
+            var num = $('#dm-select-show').val();
+
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
+                $('.dashboard-manage-table-items').html(res);
+            })
+        } else alert('Failed');
+    })
+})
 
 // End fix
