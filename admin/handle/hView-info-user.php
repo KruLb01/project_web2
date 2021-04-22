@@ -14,7 +14,7 @@
         $other = $_GET['other-information'];
     
         $sql = "update admin, nguoi_dung set admin.ho_ten = N'$username', 
-                admin.email = '$email', 
+                nguoi_dung.email = '$email', 
                 admin.thong_tin_khac = N'$other',
                 nguoi_dung.so_dien_thoai = '$phone'
                 where admin.id_nguoidung = '$id' and nguoi_dung.id_nguoidung = '$id'";
