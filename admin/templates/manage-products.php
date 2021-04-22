@@ -1,6 +1,6 @@
 <div class="dashboard-manage-container">
     <div class="dashboard-manage-title-bar disable-copy">
-        <span id='dm-title'>Manage Permission</span>
+        <span id='dm-title'>Manage Products</span>
     </div>
     <div class="dashboard-manage-show-bar disable-copy">
         <div class="dashboard-manage-show-bar-showfnc">
@@ -121,7 +121,3 @@
     </div>
 
 </div>
-
-
-
-Fix menu chuyen + change menu dashboard + fix quyen customer

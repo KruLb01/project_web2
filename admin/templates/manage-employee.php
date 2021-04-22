@@ -1,6 +1,6 @@
 <div class="dashboard-manage-container">
     <div class="dashboard-manage-title-bar disable-copy">
-        <span id='dm-title'>Manage Permission</span>
+        <span id='dm-title'>Manage Employees</span>
     </div>
     <div class="dashboard-manage-show-bar disable-copy">
         <div class="dashboard-manage-show-bar-showfnc">
@@ -16,7 +16,7 @@
             <span id='dm-show-number'>( 10 - 20 of 100 results )</span>
         </div>
         <div class="dashboard-manage-show-bar-fnc">
-            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Permission</a>
+            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Employees</a>
 
             <!-- <div class="dashboard-manage-pop-up">
                 <div class="dashboard-manage-pop-up-items">
@@ -121,7 +121,3 @@
     </div>
 
 </div>
-
-
-
-Fix menu chuyen + change menu dashboard + fix quyen customer

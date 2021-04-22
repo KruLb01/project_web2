@@ -13,6 +13,10 @@
             include('change-password.php');
         } else if ($action == 'manage-permission') {
             include('manage-permission.php');
+        } else if ($action == 'manage-products') {
+            include('manage-products.php');
+        } else if ($action == 'manage-employee') {
+            include('manage-employee.php');
         }
     } else include('default-content.php');
     echo $flag;
