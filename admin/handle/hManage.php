@@ -77,7 +77,6 @@
                     echo $resUpdate;
                     return;
                 }
-                
             }
             
             $sql = "SELECT *
@@ -171,26 +170,14 @@
 
         if ($page == 'Manage Products'){
 
-
             if (isset($_GET['numPag'])) {
                 $numPag = $_GET['numPag'];
                 if (isset($_GET['textShow'])) {
-                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from quyen'))['count'];
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from nhom_san_pham'))['count'];
                     echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
                     return;
                 }
-                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from quyen'))['count']/$numShow);
-                return;
-            }
-
-            if (isset($_GET['idView'])) {
-                $id = $_GET['idView'];
-                $idRes = $conn->selectData("SELECT chuc_nang.ten_chucnang as i
-                                FROM chuc_nang, chitiet_quyen_chucnang, quyen 
-                                WHERE chuc_nang.id_chucnang = chitiet_quyen_chucnang.id_chucnang 
-                                and chitiet_quyen_chucnang.id_quyen = quyen.id_quyen
-                                AND chitiet_quyen_chucnang.id_quyen = '$id'");
-                while ($line = mysqli_fetch_array($idRes)) echo $line['i'].'/';
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from nhom_san_pham'))['count']/$numShow);
                 return;
             }
 
@@ -200,55 +187,55 @@
                 }
 
                 if ($val[0]== 'text') {
-                    $resUpdate = $conn->executeQuery("update quyen set ten_quyen = '".$val[1]."', mieuta = '".$val[2]."' where id_quyen = '".$val[3]."'");
+                    $resUpdate = $conn->executeQuery("update nhom_san_pham set ten_nhomsanpham = '".$val[2]."', gioi_tinh = '".$val[3]."', mau_sanpham = '".$val[4]."', mieuta = '".$val[5]."' where id_nhomsanpham = '".$val[1]."'");
                     echo $resUpdate;
                     return;
                 }
-                if ($val[0]== 'checkbox') {
-                    if ($val[2]=='insert') {
-                        $resUpdate = $conn->executeQuery("INSERT INTO `chitiet_quyen_chucnang`(`id_quyen`, `id_chucnang`) 
-                        VALUES ('".$val[3]."',(SELECT chuc_nang.id_chucnang FROM chuc_nang WHERE chuc_nang.ten_chucnang = '".$val[1]."'))");
-                    } else if ($val[2]=='delete') {
-                        $resUpdate = $conn->executeQuery("DELETE FROM `chitiet_quyen_chucnang` 
-                        WHERE id_quyen = '".$val[3]."' and id_chucnang = (SELECT id_chucnang FROM chuc_nang WHERE ten_chucnang = '".$val[1]."')");
-                    }
-                    echo $resUpdate;
-                    return;
-                }
+                // if ($val[0]== 'checkbox') {
+                //     if ($val[2]=='insert') {
+                //         $resUpdate = $conn->executeQuery("INSERT INTO `chitiet_quyen_chucnang`(`id_quyen`, `id_chucnang`) 
+                //         VALUES ('".$val[3]."',(SELECT chuc_nang.id_chucnang FROM chuc_nang WHERE chuc_nang.ten_chucnang = '".$val[1]."'))");
+                //     } else if ($val[2]=='delete') {
+                //         $resUpdate = $conn->executeQuery("DELETE FROM `chitiet_quyen_chucnang` 
+                //         WHERE id_quyen = '".$val[3]."' and id_chucnang = (SELECT id_chucnang FROM chuc_nang WHERE ten_chucnang = '".$val[1]."')");
+                //     }
+                //     echo $resUpdate;
+                //     return;
+                // }
                 if ($val[0]=='delete') {
-                    $resUpdate = $conn->executeQuery("delete from quyen where id_quyen = '".$val[1]."'");
-                    $resUpdate = $conn->executeQuery("delete from chitiet_quyen_chucnang where id_quyen = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("delete from nhom_san_pham where id_nhomsanpham = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("delete from san_pham where id_nhomsanpham = '".$val[1]."'");
                     echo $resUpdate;
                     return;
                 }
-                
             }
-            
-            $sql = "SELECT *
-            FROM quyen
-            ORDER by cast(id_quyen as unsigned)
-            LIMIT $pag,$numShow";
 
+            $sql = "select * 
+                    from nhom_san_pham
+                    order by id_nhomsanpham
+                    limit $pag, $numShow";
+            
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {
                     $val = explode("-",$_GET['val']);
                 }
                 if ($val[0] != 'none') {
-                    $sql = "SELECT *
-                    FROM quyen
-                    WHERE " . $val[0] . " like '%" . $val[1] .  "%' 
-                    ORDER by cast(id_quyen as unsigned)
-                    LIMIT $pag,$numShow";
+                    $sql = "SELECT*
+                        FROM nhom_san_pham
+                        WHERE " . $val[0] . " like '%" . $val[1] .  "%' 
+                        ORDER by id_nhomsanpham
+                        LIMIT $pag,$numShow";
                 }
             }
 
             $res = $conn->selectData($sql);
             $show = "
             <tr>
-                <th>Id Permission</th>
-                <th>Name Permission</th>
-                <th>Note Permission</th>
-                <th>Quantity of Accounts</th>
+                <th>Id Products</th>
+                <th>Name Products</th>
+                <th>Gender</th>
+                <th>Stars Rated</th>
+                <th>Buyed</th>
                 <th>Action</th>
             </tr>
             ";
@@ -261,28 +248,30 @@
                         <div class='dashboard-manage-pop-up-items'>
                             <i class='fas fa-times dm-pop-up-close-btn'></i>
                             <div class='dashboard-manage-pop-up-info'>
-                                <span>Id Permission : <input type='text' class='disable' value='".$line['id_quyen']."'></span>
-                                <span>Name Permission : <input type='text' class='dm-can-del' placeholder='".$line['ten_quyen']."'></span>
-                                <span>Note Permission : <input type='text' class='dm-can-del' placeholder='".$line['mieuta']."'></span>
+                                <span>Id Product : <input type='text' class='disable' value='".$line['id_nhomsanpham']."'></span>
+                                <span>Name Product : <input type='text' class='dm-can-del' placeholder='".$line['ten_nhomsanpham']."'></span>
+                                <span>Gender : <input type='text' class='dm-can-del' placeholder='".$line['gioi_tinh']."'></span>
+                                <span>Color Product : <input type='text' class='dm-can-del' placeholder='".$line['mau_sanpham']."'></span>
+                                <span>Description : <input type='text' class='dm-can-del' placeholder='".$line['mieuta']."'></span>
                                 <div class='dm-pop-up-btn disable-copy'>
                                     <span class='dm-pop-up-save-btn'>Save</span>
                                     <span class='dm-pop-up-reset-btn'>Reset</span>
                                 </div>
-                            </div>
-                            <div class='dashboard-manage-pop-up-act'>
-                                <span>Set permission : </span>
-                                <div class='dashboard-manage-pop-up-act-checkbox'>";
-                    $temp = $conn->selectData('select * from chuc_nang');   
-                    while ($tmpLine=mysqli_fetch_array($temp)) {
-                        $show .= "<span class='dm-pop-up-cbox";
-                        if ((int)$tmpLine['vi_tri']%1000==0) {
-                            $show .= " dm-pop-up-main";
-                        }
-                        $show .= "'><input type=checkbox ";
-                        $show .= ">".$tmpLine['ten_chucnang']."</span>";
-                    }
-                        $show .="</div>
-                            </div>
+                            </div>";
+                            // "
+                            // <div class='dashboard-manage-pop-up-act'>
+                            //     <span>Set permission : </span>
+                            //     <div class='dashboard-manage-pop-up-act-checkbox'>";
+                    // $temp = $conn->selectData('select * from chuc_nang');   
+                    // while ($tmpLine=mysqli_fetch_array($temp)) {
+                    //     $show .= "<span class='dm-pop-up-cbox";
+                    //     if ((int)$tmpLine['vi_tri']%1000==0) {
+                    //         $show .= " dm-pop-up-main";
+                    //     }
+                    //     $show .= "'><input type=checkbox ";
+                    //     $show .= ">".$tmpLine['ten_chucnang']."</span>";
+                    // }
+                        $show .="
                         </div>
                     </div>
                     ";
@@ -290,15 +279,21 @@
                 echo $show;
                 return;
             }
-
+            
             $countPos = 0;
             while($line=mysqli_fetch_array($res)) {
+                $gender = '<i class="fas fa-mars" style="color:blue;font-size:24px"></i>';
+                if ($line['gioi_tinh'] == 'Female') {
+                    $gender = '<i class="fas fa-venus" style="color:pink;font-size:24px"></i>';
+                }
+
                 $show .= "
                 <tr>
-                    <td>".$line['id_quyen']."</td>
-                    <td>".$line['ten_quyen']."</td>
-                    <td>".$line['mieuta']."</td>
-                    <td>".$line['so_luong']."</td>
+                    <td>".$line['id_nhomsanpham']."</td>
+                    <td>".$line['ten_nhomsanpham']."</td>
+                    <td>".$gender."</td>
+                    <td>".$line['sosao_danhgia']." <i class='fas fa-star' style='color:orange'></i></td>
+                    <td>0</td>
                     <td>
                         <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
                             <ul class='dashboard-manage-table-action-items'>
