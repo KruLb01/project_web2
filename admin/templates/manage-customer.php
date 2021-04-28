@@ -16,52 +16,54 @@
             <span id='dm-show-number'>( 10 - 20 of 100 results )</span>
         </div>
         <div class="dashboard-manage-show-bar-fnc">
-            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Permission</a>
-
-            <!-- <div class="dashboard-manage-pop-up">
-                <div class="dashboard-manage-pop-up-items">
-                    <i class='fas fa-times dm-pop-up-close-btn'></i>
-                    <div class="dashboard-manage-pop-up-info">
-                        <span>Id Permission :
-                            <input type="text" placeholder='Id permission'>
+            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Customer</a>
+            <!--add popup-->
+            <div class="dashboard-manage-pop-up-add">
+                <div class="dashboard-manage-pop-up-add-items">
+                    <i class='fas fa-times dm-pop-up-close-add-btn'></i>
+                    <div class="dashboard-manage-pop-up-add-info">
+                        <span>
+                            Id Customer :
+                            <input type="text" placeholder='Id Customer'>
                         </span>
-                        <span>Name Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Name Customer :
+                            <input type="text" placeholder='Name Customer'>
                         </span>
-                        <span>Note Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Email Customer :
+                            <input type="text" placeholder='Email Customer'>
                         </span>
-                        <div class="dm-pop-up-btn disable-copy">
-                            <span class="dm-pop-up-save-btn">Add new permission</span>
+                        <span>
+                            Username Customer :
+                            <input type="text" placeholder='Username Customer'>
+                        </span>
+                        <span>
+                            Password Customer :
+                            <input type="password" placeholder='Password Customer'>
+                        </span>
+                        <span>
+                            Address Customer :
+                            <input type="text" placeholder='Address Customer'>
+                        </span>
+                        <span>
+                            Phone number Customer :
+                            <input type="text" placeholder='Phone number Customer'>
+                        </span>
+                        <div class="dm-pop-up-add-btn disable-copy">
+                            <span class="dm-pop-up-add-save-btn">Add new permission</span>
                         </div>
                     </div>
-                    <div class="dashboard-manage-pop-up-act">
+                    <div class="dashboard-manage-pop-up-add-act">
                         <span>Set permission : </span>
-                        <div class="dashboard-manage-pop-up-act-checkbox">
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Accounts</span>
-                            <span><input type="checkbox">Manage Customers</span>
-                            <span><input type="checkbox">Manage Employees</span>
-                            <span><input type="checkbox">Manage Permission</span>
-                            <span><input type="checkbox">Analyst User</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Analyst Products</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Revenue</span>
-                            <span><input type="checkbox">Track Invoice</span>
-                            <span><input type="checkbox">Analyst Profits</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Sales</span>
-                            <span><input type="checkbox">Create Sales</span>
-                            <span><input type="checkbox">Track Sales</span>
-                            <span><input type="checkbox">Analyst Sales</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Activity</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Mail</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Help</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Log out</span>
+                        <div class="dashboard-manage-pop-up-add-act-checkbox">
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='true'> Active</span>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='false'> Block</span>
                         </div>
                     </div>
                 </div>
-            </div> -->
-
+            </div>
+            <!--end popup-->
             <i class="fas fa-file-export"></i>
         </div>
     </div>

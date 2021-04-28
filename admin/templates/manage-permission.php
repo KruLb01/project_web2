@@ -28,11 +28,11 @@
                         </span>
                         <span>
                             Name Permission :
-                            <input type="text" placeholder='Id Permission'>
+                            <input type="text" placeholder='Name Permission'>
                         </span>
                         <span>
                             Note Permission :
-                            <input type="text" placeholder='Id Permission'>
+                            <input type="text" placeholder='Note Permission'>
                         </span>
                         <div class="dm-pop-up-add-btn disable-copy">
                             <span class="dm-pop-up-add-save-btn">Add new permission</span>

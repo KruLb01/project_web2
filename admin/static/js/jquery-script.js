@@ -47,6 +47,10 @@ $('.dashboard-menu-items li').click(function(){
     if (action == 'Manage Customers') {
         location.href = '?action=manage-customers';
     }
+
+    if (action == 'Import Products') {
+        location.href = '?action=import-products';
+    }
 })
 
 
@@ -659,21 +663,22 @@ $(document).on("click" , ".dashboard-manage-table-action-items li" , function() 
     var num = $('#dm-select-show').val();
     if ($(this).text()=='Update') {
         $('.dashboard-manage-pop-up').eq(posAction).css('display','block');
-        // $.get('handle/hManage.php',{page:currentPage,idView:id_view},function(res) {
-        //     handle = res.trim().split('/');
-        //     handle.forEach(e => {
-        //         if (!e.trim()=='') {
-        //             temp = 0;
-        //             while (true) {
-        //                 if ($('.dashboard-manage-pop-up-items').eq(posAction).find('.dm-pop-up-cbox').eq(temp).text().trim()==e) {
-        //                     $('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=checkbox]').eq(temp).prop('checked', true);
-        //                     break;
-        //                 }
-        //                 temp ++;
-        //             }
-        //         } 
-        //     });
-        // })
+        $.get('handle/hManage.php',{page:currentPage,idView:id_view},function(res) {
+            handle = res.trim().split('/');
+            handle.forEach(e => {
+                if (!e.trim()=='') {
+                    temp = 0;
+                    while (true) {
+                        if ($('.dashboard-manage-pop-up-items').eq(posAction).find('.dm-pop-up-cbox').eq(temp).text().trim()==e) {
+                            $('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=checkbox]').eq(temp).prop('checked', true);
+                            $('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=radio]').eq(temp).prop('checked', true);
+                            break;
+                        }
+                        temp ++;
+                    }
+                } 
+            });
+        })
     } else {
         if (confirm('Do you really want to delete '+id_view + ' ?')) {
             $.get('handle/hManage.php',{page:currentPage,update:'true',val:'delete-'+id_view},function(res) {
@@ -713,7 +718,7 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
         alert('Please fill input !');
         return;
     }
-    console.log(123);
+
     id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
     $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+id_view+'-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5},function(res) {
         console.log(res);
@@ -736,16 +741,58 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
         } else alert('Failed !');
     })
 })
-// $(document).on("click",".dashboard-manage-pop-up-items span", function() {
-//     posUpdate = $(this).text().trim();
-//     actionUpdate = $(this).find('input[type=checkbox]').prop('checked') == true ? 'insert' : 'delete';
-//     id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
-//     $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+posUpdate+'-'+actionUpdate+'-'+id_view},function(res) {
-//         if (res.trim()==false) {
-//             alert('Failed !'); 
-//         }
-//     })
-// })
+$(document).on("click",".dashboard-manage-pop-up-items span", function() {
+    id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
+
+    if (currentPage.trim() == 'Manage Permission') {
+        posUpdate = $(this).text().trim();
+        actionUpdate = $(this).find('input[type=checkbox]').prop('checked') == true ? 'insert' : 'delete';
+        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+posUpdate+'-'+actionUpdate+'-'+id_view},function(res) {
+            if (res.trim()==false) {
+                alert('Failed !'); 
+            }
+        })
+    }
+    else if (currentPage.trim() == 'Manage Customers') {
+        var cbox_pos = $(this).index();
+
+        if ($(this).find('input').prop('type')=='radio') {
+            if (!confirm('Change permission login of account '+id_view)) return;
+        }
+        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+cbox_pos+'-'+id_view},function(res) {
+            if (res.trim()==false) {
+                alert('Failed !'); 
+            } else {
+                var pag = $('.dm-selected').text().trim();
+                var num = $('#dm-select-show').val();
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                    $('.dashboard-manage-table-items').html(res);
+                })
+        
+            }
+        })
+    }
+    else if (currentPage.trim() == 'Manage Products') {
+        var cbox_pos = $(this).index();
+
+        if ($(this).find('input').prop('type')=='radio') {
+            if (!confirm('Change gender of product '+id_view)) return;
+        }
+
+        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+cbox_pos+'-'+id_view},function(res) {
+            if (res.trim()==false) {
+                alert('Failed !'); 
+            } else {
+                var pag = $('.dm-selected').text().trim();
+                var num = $('#dm-select-show').val();
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                    $('.dashboard-manage-table-items').html(res);
+                })
+        
+            }
+        })
+    }
+})
 
 // // Filter - dm
 $('.dashboard-manage-search-bar-filter select').change(function() {
@@ -753,7 +800,12 @@ $('.dashboard-manage-search-bar-filter select').change(function() {
 })
 
 // // Search - dm
-let valueFilter = $('.dashboard-manage-search-bar-fnc select').last().val().trim();
+try {
+    let valueFilter = $('.dashboard-manage-search-bar-fnc select').last().val().trim();
+} catch(e) {
+    //do nothing
+}
+
 $('.dashboard-manage-search-bar-fnc select').last().change(function() {
     valueFilter = $(this).val().trim();
     console.log(valueFilter);
@@ -773,38 +825,55 @@ $('.dashboard-manage-search-bar-fnc input').keyup(function() {
 })
 
 // // Add - dm 
-// let arrCbox_add = [];
-// $('#dm-add-btn').click(function() {
-//     $('.dashboard-manage-pop-up-add').eq(0).css('display','block');
-// })
-// $('.dashboard-manage-pop-up-add-act-checkbox input').click(function() {
-//     var thisVal = $(this).val();
-//     arrCbox_add.find(x => x == thisVal) == undefined ? arrCbox_add.push(thisVal) : arrCbox_add.splice(arrCbox_add.indexOf(thisVal),1);
-// })
-// $('.dm-pop-up-close-add-btn').click(function() {
-//     $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
-// })
-// $('.dm-pop-up-add-save-btn').click(function() {
-//     var general = $('.dashboard-manage-pop-up-add-info input');
-//     var input1 = general.eq(0).val();
-//     var input2 = general.eq(1).val();
-//     var input3 = general.eq(2).val();
+let arrCbox_add = [];
+$('#dm-add-btn').click(function() {
+    $('.dashboard-manage-pop-up-add').eq(0).css('display','block');
+})
+$('.dashboard-manage-pop-up-add-act-checkbox input').click(function() {
+    var thisVal = $(this).val();
+    if ( currentPage == 'Manage Permission') {
+        arrCbox_add.find(x => x == thisVal) == undefined ? arrCbox_add.push(thisVal) : arrCbox_add.splice(arrCbox_add.indexOf(thisVal),1);
+    } else if ( currentPage == 'Manage Customers') {
+        arrCbox_add = [];
+        arrCbox_add.push(thisVal);
+    }
+})
+$('.dm-pop-up-close-add-btn').click(function() {
+    $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
+})
+$('.dm-pop-up-add-save-btn').click(function() {
+    var general = $('.dashboard-manage-pop-up-add-info input');
+    var input1 = general.eq(0).val();
+    var input2 = general.eq(1).val();
+    var input3 = general.eq(2).val();
+    var input4 = general.eq(3).val();
+    var input5 = general.eq(4).val();
+    var input6 = general.eq(5).val();
+    var input7 = general.eq(6).val();
 
-//     if (input1 == '' || input2 == '' || input3 == '') {
-//         alert('Please fill input !');
-//         return;
-//     }
+    if (input1 == '' || input2 == '' || input3 == '' || input4 == '' || input5 == '' || input6 == '') {
+        alert('Please fill input !');
+        return;
+    }
 
-//     $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3},function(res) {
-//         if (res.trim() == true) {
-//             alert('Add new permission successfully !');
-//             var num = $('#dm-select-show').val();
+    if (currentPage == 'Manage Customers') {
+        if (arrCbox_add.length == 0) {
+            alert('Please choose permission login');
+            return;   
+        }
+    }
 
-//             $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
-//                 $('.dashboard-manage-table-items').html(res);
-//             })
-//         } else alert('Failed');
-//     })
-// })
+    $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+input7},function(res) {
+        if (res.trim() == true) {
+            alert('Add new permission successfully !');
+            var num = $('#dm-select-show').val();
+            var pag = $('.dm-selected').text().trim();
+
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                $('.dashboard-manage-table-items').html(res);
+            })
+        } else alert('Failed');
+    })
+})
 
 // End fix

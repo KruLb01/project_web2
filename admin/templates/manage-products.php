@@ -16,52 +16,68 @@
             <span id='dm-show-number'>( 10 - 20 of 100 results )</span>
         </div>
         <div class="dashboard-manage-show-bar-fnc">
-            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Permission</a>
+            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Product</a>
 
-            <!-- <div class="dashboard-manage-pop-up">
-                <div class="dashboard-manage-pop-up-items">
-                    <i class='fas fa-times dm-pop-up-close-btn'></i>
-                    <div class="dashboard-manage-pop-up-info">
-                        <span>Id Permission :
-                            <input type="text" placeholder='Id permission'>
+            <!--add popup-->
+            <div class="dashboard-manage-pop-up-add">
+                <div class="dashboard-manage-pop-up-add-items">
+                    <i class='fas fa-times dm-pop-up-close-add-btn'></i>
+                    <div class="dashboard-manage-pop-up-add-info">
+                        <span>
+                            Id Customer :
+                            <input type="text" placeholder='Id Customer'>
                         </span>
-                        <span>Name Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Name Customer :
+                            <input type="text" placeholder='Name Customer'>
                         </span>
-                        <span>Note Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Email Customer :
+                            <input type="text" placeholder='Email Customer'>
                         </span>
-                        <div class="dm-pop-up-btn disable-copy">
-                            <span class="dm-pop-up-save-btn">Add new permission</span>
+                        <div class="dm-pop-up-add-btn disable-copy">
+                            <span class="dm-pop-up-add-save-btn">Add new permission</span>
                         </div>
                     </div>
-                    <div class="dashboard-manage-pop-up-act">
+                    <div class="dashboard-manage-pop-up-add-act">
                         <span>Set permission : </span>
-                        <div class="dashboard-manage-pop-up-act-checkbox">
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Accounts</span>
-                            <span><input type="checkbox">Manage Customers</span>
-                            <span><input type="checkbox">Manage Employees</span>
-                            <span><input type="checkbox">Manage Permission</span>
-                            <span><input type="checkbox">Analyst User</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Analyst Products</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Revenue</span>
-                            <span><input type="checkbox">Track Invoice</span>
-                            <span><input type="checkbox">Analyst Profits</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Sales</span>
-                            <span><input type="checkbox">Create Sales</span>
-                            <span><input type="checkbox">Track Sales</span>
-                            <span><input type="checkbox">Analyst Sales</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Activity</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Mail</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Help</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Log out</span>
+                        <div class="dashboard-manage-pop-up-add-act-checkbox">
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='true'> Active</span>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='false'> Block</span>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
+            <!--end popup-->
 
+            <i class="fas fa-images" style='border-right: 1px solid rgb(153, 153, 153); line-height:26px'></i>
+            <!--image popup-->
+            <div class="dashboard-manage-pop-up-image">
+                <div class="dashboard-manage-pop-up-image-items">
+                    <i id="close-img" class='fas fa-times dm-pop-up-close-image-btn'></i>
+                    <div class="dashboard-manage-pop-up-image-info">
+                        <span>
+                            <i class="fas fa-search"></i> Id Product :
+                            <input type="text" placeholder='Id Product'  id='id-pro'>
+                        </span>
+                        <span>
+                            <i class="fas fa-search"></i> Name Product :
+                            <input type="text" placeholder='Name Product' id='name-pro'>
+                        </span>
+                        <div class="error" style='padding:8px'>Error: Non product was found</div>
+                        <div class="dm-pop-up-image-btn disable-copy">
+                            <span class="dm-pop-up-image-save-btn">Save</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-manage-pop-up-image-act">
+                        <span id='current'>Set Pictures : </span>
+                        <div class="dashboard-manage-pop-up-image-act-checkbox">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end popup-->
             <i class="fas fa-file-export"></i>
         </div>
     </div>
@@ -121,3 +137,137 @@
     </div>
 
 </div>
+
+
+<script>
+    let current, numCurrent;
+    $('.fa-images').eq(0).click(function() {
+        $('.dashboard-manage-pop-up-image').css('display','block');
+    })
+    $('#close-img').click(function() {
+        $('.dashboard-manage-pop-up-image').css('display','none');
+    })
+    $(window).click(function(e) {
+        if (e.target == $('.dashboard-manage-pop-up-image').eq(0)[0]) {
+            $('.dashboard-manage-pop-up-image').eq(0).css('display','none');
+        }
+    })
+    $('#id-pro').keyup(function() {
+        var id_val = $(this).val();
+        var name_val = $('#name-pro').val();
+        $.get('handle/hAdd-img.php', {id:id_val,name:name_val}, function(res) {
+            if (res.trim()=='error') {
+                $('.error').eq(0).css('display','block');
+            }
+            else {
+                $('.error').eq(0).css('display','none');
+                $('.dashboard-manage-pop-up-image-act-checkbox').eq(0).html(res);
+
+                // numCurrent = $('.dashboard-manage-pop-up-image-act-checkbox').find('.show-img').length;
+
+                $.get('handle/hAdd-img.php', {id:id_val,name:name_val,getCurrent:true}, function(res) {
+                    current = res.trim();
+                    $('#current').html('Set pictures for : ' + current);
+                })
+            }
+        })
+    })
+    $('#name-pro').keyup(function() {
+        var id_val = $('#id-pro').val();
+        var name_val = $(this).val();
+        $.get('handle/hAdd-img.php', {id:id_val,name:name_val}, function(res) {
+            if (res.trim()=='error') {
+                $('.error').eq(0).css('display','block');
+            }
+            else {
+                $('.error').eq(0).css('display','none');
+                $('.dashboard-manage-pop-up-image-act-checkbox').eq(0).html(res);
+
+                // numCurrent = $('.dashboard-manage-pop-up-image-act-checkbox').find('.show-img').length;
+
+                $.get('handle/hAdd-img.php', {id:id_val,name:name_val,getCurrent:true}, function(res) {
+                    current = res.trim();
+                    $('#current').html('Set pictures for : ' + current);
+                })
+            }
+        })
+    })
+    let count = 0;
+    $(document).on("change", "#browse-img", function(event) {
+        event.preventDefault();
+        count ++;
+        if ($(this).prop('files') && $(this).prop('files')[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+            $('#img-'+count).attr('src', e.target.result);
+            }
+            reader.readAsDataURL($(this).prop('files')[0]);
+            $('#img-'+count).css('display','inline-block');
+        }
+
+        var file_data = $(this).prop('files')[0];
+        var form_data = new FormData();                  
+        form_data.append('file', file_data);
+        form_data.append('current', current);
+        $.ajax({
+            url: 'handle/hAdd-img.php', 
+            dataType: 'text',  
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(res){
+                var id_val = $('#id-pro').val();
+                var name_val = $('#name-pro').val();
+                $.get('handle/hAdd-img.php', {id:id_val,name:name_val}, function(res2) {
+                    $('.dashboard-manage-pop-up-image-act-checkbox').eq(0).html(res2);
+                })
+            }
+        })
+    })
+    let pos_;
+    $(document).on("click",".dashboard-manage-pop-up-image-act-checkbox .dm-image-show-img", function(event) {
+        var current_img = $(this).index();
+        pos_ = current_img;
+        if (event.target == $('.del-img').eq(current_img)[0]) {
+            if (confirm('Do you really want to delete this picture ?!')) {
+                $.get('handle/hAdd-img.php', {nc:current,ic:current_img,delete:'true'}, function(res) {
+                    if (res.trim()=='Success') {
+                        alert('Deleted successfully');
+                        var id_val = $('#id-pro').val();
+                        var name_val = $('#name-pro').val();
+                        $.get('handle/hAdd-img.php', {id:id_val,name:name_val}, function(res2) {
+                            $('.dashboard-manage-pop-up-image-act-checkbox').eq(0).html(res2);
+                        })
+                    } else alert('Failed');
+                })
+            }
+        }
+    })
+    $(document).on("change",".dashboard-manage-pop-up-image-act-checkbox .show-browse-img", function() {
+        var file_data = $(this).prop('files')[0];
+        var form_data = new FormData();                  
+        form_data.append('file', file_data);
+        form_data.append('update', 'true');
+        form_data.append('current', current);
+        form_data.append('pos', pos_);
+        $.ajax({
+            url: 'handle/hAdd-img.php', 
+            dataType: 'text',  
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(res){
+                var id_val = $('#id-pro').val();
+                var name_val = $('#name-pro').val();
+                $.get('handle/hAdd-img.php', {id:id_val,name:name_val}, function(res2) {
+                    $('.dashboard-manage-pop-up-image-act-checkbox').eq(0).html(res2);
+                })
+            }
+        })
+    })
+</script>

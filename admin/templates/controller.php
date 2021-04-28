@@ -17,8 +17,10 @@
             include('manage-products.php');
         } else if ($action == 'manage-employee') {
             include('manage-employee.php');
-        }else if ($action == 'manage-customers') {
+        } else if ($action == 'manage-customers') {
             include('manage-customer.php');
+        } else if ($action == 'import-products') {
+            include('import-product.php');
         }
 
     } else include('default-content.php');
