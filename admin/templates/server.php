@@ -1,19 +1,11 @@
-<div id="drop-area" style='width:500px;height:500px;background:cyan'></div>
+<?php
+    session_start();
+    $_SESSION['import']['products'] = array();
+    
+    array_push($_SESSION['import']['products'], array("name","time","total"));
+    array_push($_SESSION['import']['products'], array("name","time","total"));
+    array_push($_SESSION['import']['products'], array("name","time","total"));
 
-<script>
-    const dropArea = document.getElementById('drop-area');
-
-    dropArea.addEventListener('dragover', (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    // Style the drag-and-drop as a "copy file" operation.
-    event.dataTransfer.dropEffect = 'copy';
-    });
-
-    dropArea.addEventListener('drop', (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    const fileList = event.dataTransfer.files;
-    console.log(fileList);
-    });
-</script>
+    print_r($_SESSION['import']['products'][1][1]);
+    
+?>

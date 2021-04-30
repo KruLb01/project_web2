@@ -210,6 +210,7 @@
         var form_data = new FormData();                  
         form_data.append('file', file_data);
         form_data.append('current', current);
+        console.log(file_data);
         $.ajax({
             url: 'handle/hAdd-img.php', 
             dataType: 'text',  
