@@ -19,6 +19,7 @@
                 if (md5($password)==$row['mat_khau']) {
                     $check = true;
                     session_start();
+                    $_SESSION['customer']['id'] = $row['id_nguoidung'];
                     $_SESSION['customer']['ho_ten'] = $row['ho_ten'];
                     $_SESSION['customer']['email'] = $row['email'];
                     $_SESSION['customer']['sdt'] = $row['so_dien_thoai'];
