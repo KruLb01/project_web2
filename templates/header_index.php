@@ -1,6 +1,6 @@
 <div class="header-container">
     <div class="header-func">
-        <img src="../static/img/logo/logo-ngang-trans.png" alt="">
+        <img src="./static/img/logo/logo-ngang-trans.png" alt="">
         <span>Home</span>
         <span>Products</span>
         <span>About</span>

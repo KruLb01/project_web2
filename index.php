@@ -13,7 +13,7 @@
 </head>
 <body>
     <?php
-        include('./templates/header.php');
+        include('./templates/header_index.php');
     ?>
 </body>
 </html>
