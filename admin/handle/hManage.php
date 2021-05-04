@@ -309,11 +309,7 @@
         }
 
         if ($page == 'Manage Employees'){
-            $sql = "select * 
-                    from admin, nguoi_dung
-                    where admin.id_nguoidung = nguoi_dung.id_nguoidung
-                    order by cast(admin.id_nguoidung as unsigned)
-                    limit 0, 10";
+ 
         }
 
         if ($page == 'Manage Customers'){

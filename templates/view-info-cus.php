@@ -14,10 +14,11 @@
 <body>
     <?php
         include('header.php');
+        echo $_SESSION['customer']['id'];
     ?>
     <div class="view-info-cus">
         <span id='view-info-cus-title'>View information</span>
-        <form>
+        <form id='form-user'>
             <span>Username: <input type="text" name='username'></span>
             <span class="error"></span>
             <span>Email: <input type="text" name='email'></span>
@@ -32,3 +33,7 @@
     </div>
 </body>
 </html>
+
+<script>
+    console.log($('#form-user').serialize());
+</script>
