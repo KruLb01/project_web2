@@ -25,6 +25,8 @@
             include('manage-import.php');
         } else if ($action == 'track-invoice') {
             include('track-invoice.php');
+        } else if ($action == 'manage-cproduct') {
+            include('manage-cproduct.php');
         }
 
     } else include('default-content.php');

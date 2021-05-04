@@ -919,6 +919,126 @@
                 $countPos++;
             }
         }
+
+        if ($page == 'Manage cProducts') {
+            if (isset($_GET['numPag'])) {
+                $numPag = $_GET['numPag'];
+                if (isset($_GET['textShow'])) {
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from san_pham'))['count'];
+                    echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
+                    return;
+                }
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from san_pham'))['count']/$numShow);
+                return;
+            }
+
+            if (isset($_GET['popUp']) && isset($_GET['clickPos'])) {
+                $click = $_GET['clickPos'];
+                $nameInput = explode("&",$click)[0];
+                $sizeInput = explode("&",$click)[1];
+                $show = '';
+                $res = $conn->selectData("select * from san_pham 
+                                where id_nhomsanpham = (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'$nameInput')
+                                and size = $sizeInput");
+
+                $show = "
+                    <span id='dm-popup-title'>View details of $nameInput size $sizeInput</span>
+                    <i class='fas fa-times dm-pop-up-close-btn'></i>
+                    <div class='dm-details-content'>
+                    <table class='dm-details-content-items'>
+                    <tr>
+                        <th>Name Products</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Save</th>
+                    </tr>
+                ";
+                while ($line = mysqli_fetch_array($res)) {
+                    $so_luong = (int) $line['so_luong'];
+                    $gia_sanpham = (int) $line['gia_sanpham'];
+                    
+                    $show .= "
+                    <tr>
+                        <td>$nameInput</td>
+                        <td>$sizeInput</td>
+                        <td><input type='text' name='quantity' value='".number_format($so_luong)."'></td>
+                        <td><input type='text' name='price' value='".number_format($gia_sanpham)." VNĐ'></td>
+                        <td><button class=save-btn>Save</button></td>
+                    </tr>
+                    ";
+                }
+                $show .= "
+                    </table>
+                    </div>
+                ";
+                echo $show;
+                return;
+            }
+            if (isset($_GET['popUp'])) return;
+
+            $sql="select *
+            from nhom_san_pham, san_pham
+            where nhom_san_pham.id_nhomsanpham = san_pham.id_nhomsanpham
+            ORDER by ten_nhomsanpham, size asc
+            LIMIT $pag,$numShow";
+
+            if (isset($_GET['search'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+                if ($val[0] != 'none') {
+                    if ($val[0] == 'ten_nhomsanpham') {
+                        $sql = "select *
+                        from nhom_san_pham, san_pham
+                        where nhom_san_pham.id_nhomsanpham = san_pham.id_nhomsanpham
+                        and nhom_san_pham.ten_nhomsanpham LIKE '%".$val[1]."%'
+                        ORDER by ten_nhomsanpham, size asc
+                        LIMIT $pag,$numShow";
+                    }
+                    else {
+                        $sql = "SELECT*
+                        from nhom_san_pham, san_pham
+                        where nhom_san_pham.id_nhomsanpham = san_pham.id_nhomsanpham
+                        and " . $val[0] . " like '%" . $val[1] .  "%' 
+                        ORDER by ten_nhomsanpham, size asc
+                        LIMIT $pag,$numShow";
+                    }
+                }
+            }
+
+            $res = $conn->selectData($sql);
+            $show = "
+            <tr>
+                <th>Name Products</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>In stock</th>
+                <th>Action</th>
+            </tr>
+            ";
+
+            $countPos = 0;
+            while($line=mysqli_fetch_array($res)) {
+                $show .= "
+                <tr>
+                    <td>".$line['ten_nhomsanpham']."</td>
+                    <td>".$line['size']."</td>
+                    <td>".$line['gia_sanpham']."</td>
+                    <td>".$line['so_luong']."</td>
+                    <td>
+                        <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
+                            <ul class='dashboard-manage-table-action-items'>
+                                <li>Details</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                ";
+                $countPos++;
+            }
+        }
         echo $show;
     }
 

@@ -59,6 +59,10 @@ $('.dashboard-menu-items li').click(function(){
     if (action == 'Track Invoice') {
         location.href = '?action=track-invoice';
     }
+
+    if (action == 'Manage cProducts') {
+        location.href = '?action=manage-cproduct';
+    }
 })
 
 
@@ -665,7 +669,7 @@ $(document).on("click" , ".dashboard-manage-table-items .dashboard-manage-table-
     }
 });
 
-// // Fix from here 
+// // // Fix from here 
 $(document).on("click" , ".dashboard-manage-table-action-items li" , function() {
     var id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
     var num = $('#dm-select-show').val();
@@ -799,7 +803,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
     }
 })
 
-// // // // // Filter - dm
+// // // // // // Filter - dm
 $('.dashboard-manage-search-bar-filter select').change(function() {
     // console.log($(this).val());
 })

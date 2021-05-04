@@ -432,7 +432,7 @@
     border: none;
     font-weight: 900;   
     color: #666;
-    background: rgb(199, 199, 199, 0.1);
+    background: transparent;
     cursor: pointer;
 }
 .dashboard-manage-search-bar-filter input {
@@ -692,6 +692,20 @@ span#dm-popup-title {
     font-size: 18px;
     padding: 8px;
     border-top: 1px solid rgb(160, 160, 160, 0.5);
+}
+.dm-details-content-items input {
+    font-size: 18px;
+    max-width: 200px;
+    padding: 2px;
+    border: none;
+}
+.dm-details-content-items input:focus {
+    border: 1px solid coral;
+}
+.dm-details-content-items button {
+    font-size: 18px;
+    padding: 2px;
+    cursor: pointer;
 }
 .dm-details-more {
     border-top: 2px solid rgb(199, 199, 199);
