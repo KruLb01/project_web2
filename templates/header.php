@@ -21,7 +21,7 @@
                             <span><i class="fas fa-user"></i> '.$_SESSION['customer']['ho_ten'].'</span>
                             <span>View information</span>
                         </div>
-                        <span>Change password</span>
+                        <span><a href="doi_mk.php">Change password</a></span>
                         <span>Settings</span>
                         <span>Log out</span>
             </div>';

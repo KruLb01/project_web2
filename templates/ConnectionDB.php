@@ -38,6 +38,20 @@
                 }
             }
         }
+
+        public function executesql($sql)
+        {
+            if($this->connection)
+            {
+                $result = mysqli_query($this->connection,$sql);
+                if(!$result){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+
         public function closeConnection()
         {
             mysqli_close($this->connection);
