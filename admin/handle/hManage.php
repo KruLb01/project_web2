@@ -489,7 +489,6 @@
         }
 
         if ($page == 'Manage Customers'){
-
             if (isset($_GET['numPag'])) {
                 $numPag = $_GET['numPag'];
                 if (isset($_GET['textShow'])) {
@@ -653,6 +652,273 @@
             }
         }
 
+        if ($page == "Manage Import") {
+            if (isset($_GET['numPag'])) {
+                $numPag = $_GET['numPag'];
+                if (isset($_GET['textShow'])) {
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from phieu_nhap'))['count'];
+                    echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
+                    return;
+                }
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from phieu_nhap'))['count']/$numShow);
+                return;
+            }
+            if (isset($_GET['popUp']) && isset($_GET['clickPos'])) {
+                $click = $_GET['clickPos'];
+                $show = '';
+                $res = $conn->selectData("select * from chitiet_phieunhap where id_phieunhap ='".$click."'");
+
+                $sum = 0;
+
+                $show = "
+                    <span id='dm-popup-title'>View details of $click</span>
+                    <i class='fas fa-times dm-pop-up-close-btn'></i>
+                    <div class='dm-details-content'>
+                    <table class='dm-details-content-items'>
+                    <tr>
+                        <th>Name Products</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                        <th>Total</th>
+                    </tr>
+                ";
+                while ($line = mysqli_fetch_array($res)) {
+                    $so_luong = (int) $line['so_luong'];
+                    $gia_nhap = (int) $line['gia_nhap'];
+                    $total = $so_luong * $gia_nhap;
+                    $sum += $total;
+
+                    $name = mysqli_fetch_array($conn->selectData("select ten_nhomsanpham from nhom_san_pham where id_nhomsanpham = ( SELECT id_nhomsanpham FROM san_pham WHERE id_sanpham = '".$line['id_sanpham']."' )"))['ten_nhomsanpham'];
+                    $size = mysqli_fetch_array($conn->selectData("select size from san_pham where id_sanpham = '".$line['id_sanpham']."'"))['size'];
+
+                    $show .= "
+                    <tr>
+                        <td>$name</td>
+                        <td>$size</td>
+                        <td>".number_format($so_luong)."</td>
+                        <td>".number_format($gia_nhap)." VNĐ</td>
+                        <td>".number_format($total)." VNĐ</td>
+                    </tr>
+                    ";
+                }
+                $sql = "select id_nhanviennhap, id_nhacungcap from phieu_nhap where id_phieunhap ='$click'";
+                
+                $nv = mysqli_fetch_array($conn->selectData($sql))['id_nhanviennhap'];
+                $ncc = mysqli_fetch_array($conn->selectData($sql))['id_nhacungcap'];
+
+                $show .= "
+                    </table>
+                    </div>
+                    <div class='dm-details-more'>
+                        <div class='dm-d-left'>
+                            <span>Id importer: $nv</span>
+                            <span>Id provider: $ncc</span>
+                        </div>
+                        <div class='dm-d-right'>
+                            <span>Total: ".number_format($sum)." VNĐ</span>
+                        </div>
+                    </div>
+                ";
+                echo $show;
+                return;
+            }
+            if (isset($_GET['popUp'])) return;
+
+
+            $sql="select *
+            from phieu_nhap
+            ORDER by ngay_nhap desc
+            LIMIT $pag,$numShow";
+
+            if (isset($_GET['search'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+                if ($val[0] != 'none') {
+                    if ($val[0]=='ngay_nhap') {
+                        if (count($val)==4) $val[1] = $val[3] . "-" . $val[2] . "-" . $val[1];
+                        if (count($val)==3) $val[1] = $val[2] . "-" . $val[1];
+                    }
+                    $sql = "SELECT*
+                    FROM phieu_nhap
+                    WHERE " . $val[0] . " like '%" . $val[1] .  "%' 
+                    ORDER by ngay_nhap desc
+                    LIMIT $pag,$numShow";
+                }
+            }
+
+            $res = $conn->selectData($sql);
+            $show = "
+            <tr>
+                <th>Id Imports</th>
+                <th>Id Importers</th>
+                <th>Id Providers</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            ";
+
+            $countPos = 0;
+            while($line=mysqli_fetch_array($res)) {
+                $date = explode('-',$line['ngay_nhap']);
+                $timeConvert = mktime(0,0,0,(int)$date[1],(int)$date[2],(int)$date[0]);
+                $time = date("M d, Y", $timeConvert);
+                $show .= "
+                <tr>
+                    <td>".$line['id_phieunhap']."</td>
+                    <td>".$line['id_nhanviennhap']."</td>
+                    <td>".$line['id_nhacungcap']."</td>
+                    <td>".$time."</td>
+                    <td>".number_format((int)$line['tong_gia_nhap'])." VNĐ</td>
+                    <td>
+                        <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
+                            <ul class='dashboard-manage-table-action-items'>
+                                <li>Details</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                ";
+                $countPos++;
+            }
+        }
+
+        if ($page == 'Track Invoice') {
+            if (isset($_GET['numPag'])) {
+                $numPag = $_GET['numPag'];
+                if (isset($_GET['textShow'])) {
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from hoa_don'))['count'];
+                    echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
+                    return;
+                }
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from hoa_don'))['count']/$numShow);
+                return;
+            }
+
+            if (isset($_GET['popUp']) && isset($_GET['clickPos'])) {
+                $click = $_GET['clickPos'];
+                $show = '';
+                $res = $conn->selectData("select * from chitiet_hoadon where id_hoadon ='".$click."'");
+
+                $sum = 0;
+
+                $show = "
+                    <span id='dm-popup-title'>View details of $click</span>
+                    <i class='fas fa-times dm-pop-up-close-btn'></i>
+                    <div class='dm-details-content'>
+                    <table class='dm-details-content-items'>
+                    <tr>
+                        <th>Name Products</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                        <th>Total</th>
+                    </tr>
+                ";
+                while ($line = mysqli_fetch_array($res)) {
+                    $so_luong = (int) $line['so_luong'];
+                    $gia_nhap = (int) $line['gia'];
+                    $total = $so_luong * $gia_nhap;
+                    $sum += $total;
+
+                    $name = mysqli_fetch_array($conn->selectData("select ten_nhomsanpham from nhom_san_pham where id_nhomsanpham = ( SELECT id_nhomsanpham FROM san_pham WHERE id_sanpham = '".$line['id_sanpham']."' )"))['ten_nhomsanpham'];
+                    $size = mysqli_fetch_array($conn->selectData("select size from san_pham where id_sanpham = '".$line['id_sanpham']."'"))['size'];
+
+                    $show .= "
+                    <tr>
+                        <td>$name</td>
+                        <td>$size</td>
+                        <td>".number_format($so_luong)."</td>
+                        <td>".number_format($gia_nhap)." VNĐ</td>
+                        <td>".number_format($total)." VNĐ</td>
+                    </tr>
+                    ";
+                }
+                $sql = "select id_nguoidung, id_nhanvienban from hoa_don where id_hoadon ='$click'";
+                
+                $nv = mysqli_fetch_array($conn->selectData($sql))['id_nguoidung'];
+                $ncc = mysqli_fetch_array($conn->selectData($sql))['id_nhanvienban'];
+
+                $show .= "
+                    </table>
+                    </div>
+                    <div class='dm-details-more'>
+                        <div class='dm-d-left'>
+                            <span>Id customer: $nv</span>
+                            <span>Id seller: $ncc</span>
+                        </div>
+                        <div class='dm-d-right'>
+                            <span>Total: ".number_format($sum)." VNĐ</span>
+                        </div>
+                    </div>
+                ";
+                echo $show;
+                return;
+            }
+            if (isset($_GET['popUp'])) return;
+
+            $sql="select *
+            from hoa_don
+            ORDER by ngay_mua desc
+            LIMIT $pag,$numShow";
+
+            if (isset($_GET['search'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+                if ($val[0] != 'none') {
+                    if ($val[0]=='ngay_mua') {
+                        if (count($val)==4) $val[1] = $val[3] . "-" . $val[2] . "-" . $val[1];
+                        if (count($val)==3) $val[1] = $val[2] . "-" . $val[1];
+                    }
+                    $sql = "SELECT*
+                    FROM hoa_don
+                    WHERE " . $val[0] . " like '%" . $val[1] .  "%' 
+                    ORDER by ngay_mua desc
+                    LIMIT $pag,$numShow";
+                }
+            }
+
+            $res = $conn->selectData($sql);
+            $show = "
+            <tr>
+                <th>Id Invoices</th>
+                <th>Id Customers</th>
+                <th>Id Sellers</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            ";
+
+            $countPos = 0;
+            while($line=mysqli_fetch_array($res)) {
+                $date = explode('-',$line['ngay_mua']);
+                $timeConvert = mktime(0,0,0,(int)$date[1],(int)$date[2],(int)$date[0]);
+                $time = date("M d, Y", $timeConvert);
+                $show .= "
+                <tr>
+                    <td>".$line['id_hoadon']."</td>
+                    <td>".$line['id_nguoidung']."</td>
+                    <td>".$line['id_nhanvienban']."</td>
+                    <td>".$time."</td>
+                    <td>".number_format((int)$line['tong_gia'])." VNĐ</td>
+                    <td>
+                        <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
+                            <ul class='dashboard-manage-table-action-items'>
+                                <li>Details</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                ";
+                $countPos++;
+            }
+        }
         echo $show;
     }
 

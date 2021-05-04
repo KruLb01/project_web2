@@ -653,6 +653,69 @@ span.dm-pop-up-main {
     color: rgb(252, 44, 44);
     transition: 0.5s;
 }
+
+.dm-popup-details {
+    width: 85%;
+    background: #fdfdfd;
+    margin: 50px auto;
+    padding: 40px 20px 30px;
+    border-radius: 5px;
+}
+span#dm-popup-title {
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    color: #6485da;
+    font-weight: 600;
+    width: 80%;
+    margin: 10px auto 30px;
+    border-left: 3px solid coral;
+    border-right: 3px solid coral;
+}
+.dm-details-content {
+    width: 100%;
+}
+.dm-details-content-items {
+    width: 95%;
+    margin: 10px auto;
+    border-collapse: collapse;
+}
+.dm-details-content-items th {
+    text-align: left;
+    color: #1ccfae;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px;
+}
+.dm-details-content-items td {
+    text-align: left;
+    font-size: 18px;
+    padding: 8px;
+    border-top: 1px solid rgb(160, 160, 160, 0.5);
+}
+.dm-details-more {
+    border-top: 2px solid rgb(199, 199, 199);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 19px;
+    color: coral;
+    font-weight: 600;
+}
+.dm-d-left {
+    width: 50%;
+    padding: 0 10px;
+}
+.dm-d-left span {
+    padding: 0 10px;
+}
+.dm-d-left span:first-child {
+    border-right: 2px solid #6485da;
+}
+.dm-d-right {
+    padding: 0 20px;
+}
+
 /*DM - pop up add*/
 .dashboard-manage-pop-up-add {
     display: none;  
@@ -1096,7 +1159,6 @@ span.del-img {
     text-align: left; 
     cursor: pointer;
 }
-
 
 /*Header bar*/
 .header {

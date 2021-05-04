@@ -21,6 +21,10 @@
             include('manage-customer.php');
         } else if ($action == 'import-products') {
             include('import-product.php');
+        } else if ($action == 'manage-import') {
+            include('manage-import.php');
+        } else if ($action == 'track-invoice') {
+            include('track-invoice.php');
         }
 
     } else include('default-content.php');
