@@ -657,7 +657,7 @@ $(document).on("click" , ".dashboard-manage-table-items .dashboard-manage-table-
     }
 });
 
-// // // Fix from here 
+// // // // Fix from here 
 $(document).on("click" , ".dashboard-manage-table-action-items li" , function() {
     var id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
     var num = $('#dm-select-show').val();
@@ -692,7 +692,6 @@ $(document).on("click" , ".dashboard-manage-table-action-items li" , function() 
         }
     }
 });
-
 $(document).on("click",".dm-pop-up-close-btn", function() {
     $('.dashboard-manage-pop-up').eq(posAction).css('display','none');
 })
@@ -721,7 +720,6 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
 
     id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
     $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+id_view+'-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5},function(res) {
-        console.log(res);
         if (res.trim()==true) {
             alert('Update successfully !');
             var num = $('#dm-select-show').val();
@@ -753,7 +751,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
             }
         })
     }
-    else if (currentPage.trim() == 'Manage Customers') {
+    else if (currentPage.trim() == 'Manage Customers' || currentPage.trim() == 'Manage Employees') {
         var cbox_pos = $(this).index();
 
         if ($(this).find('input').prop('type')=='radio') {
@@ -768,7 +766,6 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
                 $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
                     $('.dashboard-manage-table-items').html(res);
                 })
-        
             }
         })
     }
@@ -794,7 +791,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
     }
 })
 
-// // Filter - dm
+// // // Filter - dm
 $('.dashboard-manage-search-bar-filter select').change(function() {
     // console.log($(this).val());
 })
@@ -833,7 +830,7 @@ $('.dashboard-manage-pop-up-add-act-checkbox input').click(function() {
     var thisVal = $(this).val();
     if ( currentPage == 'Manage Permission') {
         arrCbox_add.find(x => x == thisVal) == undefined ? arrCbox_add.push(thisVal) : arrCbox_add.splice(arrCbox_add.indexOf(thisVal),1);
-    } else if ( currentPage == 'Manage Customers') {
+    } else if ( currentPage == 'Manage Customers' || currentPage == 'Manage Employees' || currentPage == 'Manage Products') {
         arrCbox_add = [];
         arrCbox_add.push(thisVal);
     }
@@ -856,14 +853,46 @@ $('.dm-pop-up-add-save-btn').click(function() {
         return;
     }
 
-    if (currentPage == 'Manage Customers') {
+    if (currentPage == 'Manage Customers' || currentPage == 'Manage Employees') {
         if (arrCbox_add.length == 0) {
             alert('Please choose permission login');
             return;   
         }
     }
 
+    if (currentPage == 'Manage Products') {
+        if (arrCbox_add.length == 0) {
+            alert('Please choose gender for product');
+            return;   
+        }
+    }
+
+    if (currentPage == 'Manage Employees') {
+        var add_permission = $('.dashboard-manage-pop-up-add-info select').val();
+        $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+add_permission},function(res) {
+            if (res.trim() == true) {
+                alert('Add new employee successfully !');
+                var num = $('#dm-select-show').val();
+                var pag = $('.dm-selected').text().trim();
+    
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                    $('.dashboard-manage-table-items').html(res);
+                })
+
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+                    $('#dm-show-number').html(res);
+                })
+            
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+                    $('.dashboard-manage-pop-up-container').html(res);
+                })
+            } else alert('Failed');
+        })
+        return;
+    }
+
     $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+input7},function(res) {
+        console.log(res);
         if (res.trim() == true) {
             alert('Add new permission successfully !');
             var num = $('#dm-select-show').val();
@@ -872,8 +901,16 @@ $('.dm-pop-up-add-save-btn').click(function() {
             $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
                 $('.dashboard-manage-table-items').html(res);
             })
+
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+                $('#dm-show-number').html(res);
+            })
+        
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+                $('.dashboard-manage-pop-up-container').html(res);
+            })
         } else alert('Failed');
     })
 })
 
-// End fix
+// // End fix

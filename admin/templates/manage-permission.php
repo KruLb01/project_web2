@@ -105,7 +105,7 @@
             <div class="dashboard-manage-table-pagination-items">
                 <span id='dm-first-btn' class='dm-disable'><i class="fas fa-fast-backward"></i> First</span>
                 <?php
-                    $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from quyen'))['count']/10);
+                    $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from quyen where id_quyen != "customer"'))['count']/10);
                     echo "<span class='dm-pagination-items dm-selected'>1</span>";
                     for ($i = 2; $i <= $count; $i ++) {
                         echo '<span class="dm-pagination-items">'.$i.'</span>';
@@ -118,6 +118,19 @@
 
 </div>
 
-
+<script>
+    $('.dashboard-manage-pop-up-add-info input').eq(0).keyup(function() {
+        var value_id = $(this).val().trim();
+        $.get('handle/validateAdd.php', {page:'permission',id:value_id}, function(res) {
+            if (res.trim()=='Error') {
+                $('.dm-pop-up-add-save-btn').eq(0).addClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid red');
+            } else {
+                $('.dm-pop-up-add-save-btn').eq(0).removeClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid #6485da');
+            }
+        })
+    })
+</script>
 
 Fix menu chuyen + change menu dashboard + fix quyen customer

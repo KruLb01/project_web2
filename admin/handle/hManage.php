@@ -16,11 +16,11 @@
             if (isset($_GET['numPag'])) {
                 $numPag = $_GET['numPag'];
                 if (isset($_GET['textShow'])) {
-                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from quyen'))['count'];
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from quyen where id_quyen != "customer"'))['count'];
                     echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
                     return;
                 }
-                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from quyen'))['count']/$numShow);
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from quyen where id_quyen != "customer"'))['count']/$numShow);
                 return;
             }
 
@@ -81,6 +81,7 @@
             
             $sql = "SELECT *
             FROM quyen
+            WHERE id_quyen != 'customer'
             ORDER by cast(id_quyen as unsigned)
             LIMIT $pag,$numShow";
 
@@ -92,6 +93,7 @@
                     $sql = "SELECT *
                     FROM quyen
                     WHERE " . $val[0] . " like '%" . $val[1] .  "%' 
+                    and id_quyen != 'customer'
                     ORDER by cast(id_quyen as unsigned)
                     LIMIT $pag,$numShow";
                 }
@@ -187,6 +189,20 @@
                                 FROM nhom_san_pham
                                 WHERE id_nhomsanpham = '$id'");
                 while ($line = mysqli_fetch_array($idRes)) echo $line['i'].'/';
+                return;
+            }
+
+            if (isset($_GET['add'])) {
+                if (isset($_GET['valCB'])) {
+                    $valCB = explode("-",$_GET['valCB']);
+                    $gender = $valCB[0] == true ? 'Male' : 'Female';
+                }
+                if (isset($_GET['valText'])) {
+                    $valText = explode("-",$_GET['valText']);
+                }
+                $resAdd = $conn->executeQuery("insert into nhom_san_pham(id_nhomsanpham, ten_nhomsanpham, gioi_tinh, mieuta, mau_sanpham)
+                                                values('".$valText[0]."', '".$valText[1]."', '$gender', '".$valText[3]."', '".$valText[2]."')");
+                echo $resAdd;
                 return;
             }
 
@@ -309,7 +325,167 @@
         }
 
         if ($page == 'Manage Employees'){
- 
+            if (isset($_GET['numPag'])) {
+                $numPag = $_GET['numPag'];
+                if (isset($_GET['textShow'])) {
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from admin,nguoi_dung where admin.id_nguoidung=nguoi_dung.id_nguoidung'))['count'];
+                    echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
+                    return;
+                }
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from admin,nguoi_dung where admin.id_nguoidung=nguoi_dung.id_nguoidung'))['count']/$numShow);
+                return;
+            }
+
+            if (isset($_GET['idView'])) {
+                $id = $_GET['idView'];
+                $idRes = mysqli_fetch_array($conn->selectData("SELECT tinh_trang_taikhoan as i
+                                                        FROM nguoi_dung
+                                                        WHERE id_nguoidung = '$id'"))['i'] == 0 ? 'Block' : 'Active';
+                echo $idRes.'/';
+                return;
+            }
+
+            if (isset($_GET['add'])) {
+                if (isset($_GET['valCB'])) {
+                    $valCB = explode("-",$_GET['valCB']);
+                }
+                if (isset($_GET['valText'])) {
+                    $valText = explode("-",$_GET['valText']);
+                    $pass = md5($valText[4]);
+                }
+                $resAdd = $conn->executeQuery("insert into nguoi_dung(id_nguoidung, tai_khoan, mat_khau, email, so_dien_thoai, quyen, tinh_trang_taikhoan) 
+                                                values('".$valText[0]."', '".$valText[3]."', '".$pass."', '".$valText[2]."', '".$valText[5]."', '".$valText[6]."', ".$valCB[0].")");
+                $resAdd = $conn->executeQuery("insert into admin(id_nguoidung, ho_ten, thong_tin_khac) values('".$valText[0]."', '".$valText[1]."', '')");
+                echo $resAdd;
+                return;
+            }
+
+            if (isset($_GET['update'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+
+                if ($val[0]== 'text') {
+                    $resUpate = $conn->executeQuery("update admin,nguoi_dung set admin.ho_ten = N'".$val[2]."', nguoi_dung.so_dien_thoai = '".$val[3]."', nguoi_dung.email ='".$val[4]."', nguoi_dung.mat_khau ='".md5($val[5])."' where admin.id_nguoidung = '".$val[1]."' and nguoi_dung.id_nguoidung='".$val[1]."'");
+                    echo $resUpate;
+                    return;
+                }
+                if ($val[0]== 'checkbox') {
+                    $statusAccount = $val[1] == 0 ? 'true' : 'false';
+                    $resUpdate = $conn->executeQuery("update nguoi_dung set tinh_trang_taikhoan = $statusAccount where id_nguoidung = '".$val[2]."'");
+                    echo $resUpdate;
+                    return;
+                }
+                if ($val[0]=='delete') {
+                    $resUpdate = $conn->executeQuery("delete from admin where id_nguoidung = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("delete from nguoi_dung where id_nguoidung = '".$val[1]."'");
+                    echo $resUpdate;
+                    return;
+                }
+            }    
+            
+            $sql = "select *
+            from admin,nguoi_dung
+            where admin.id_nguoidung = nguoi_dung.id_nguoidung
+            ORDER by cast(admin.id_nguoidung as unsigned)
+            LIMIT $pag,$numShow";
+
+            if (isset($_GET['search'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+                if ($val[0] != 'none') {
+                    if ($val[0]=='id_nguoidung'){
+                        $sql = "SELECT *
+                        FROM admin,nguoi_dung
+                        WHERE admin.id_nguoidung=nguoi_dung.id_nguoidung and 
+                        nguoi_dung." . $val[0] . " like '%" . $val[1] .  "%' 
+                        ORDER by cast(nguoi_dung.id_nguoidung as unsigned)
+                        LIMIT $pag,$numShow";
+                    } else {
+                        $sql = "SELECT *
+                        FROM admin,nguoi_dung
+                        WHERE admin.id_nguoidung=nguoi_dung.id_nguoidung and 
+                        " . $val[0] . " like '%" . $val[1] .  "%' 
+                        ORDER by cast(nguoi_dung.id_nguoidung as unsigned)
+                        LIMIT $pag,$numShow";
+                    }
+                }
+            }
+
+            // echo $sql;
+            // return;
+            
+            $res = $conn->selectData($sql);
+            $show = "
+            <tr>
+                <th>Id Employees</th>
+                <th>Name Employees</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Permission</th>
+                <th>Action</th>
+            </tr>
+            ";
+
+            if (isset($_GET['popUp'])) {
+                $show = '';
+                while($line=mysqli_fetch_array($res)) {
+                    $show .= "
+                    <div class='dashboard-manage-pop-up'>
+                        <div class='dashboard-manage-pop-up-items'>
+                            <i class='fas fa-times dm-pop-up-close-btn'></i>
+                            <div class='dashboard-manage-pop-up-info'>
+                                <span>Id Employee : <input type='text' class='disable' value='".$line['id_nguoidung']."'></span>
+                                <span>Name Employee : <input type='text' class='dm-can-del' placeholder='".$line['ho_ten']."'></span>
+                                <span>Phone Employee : <input type='text' class='dm-can-del' placeholder='".$line['so_dien_thoai']."'></span>
+                                <span>Email Employee : <input type='text' class='dm-can-del' placeholder='".$line['email']."'></span>
+                                <span>Password Employee : <input type='text' class='dm-can-del' placeholder='*****'></span>
+                                <div class='dm-pop-up-btn disable-copy'>
+                                    <span class='dm-pop-up-save-btn'>Save</span>
+                                    <span class='dm-pop-up-reset-btn'>Reset</span>
+                                </div>
+                            </div>";
+                    $show .= "
+                    <div class='dashboard-manage-pop-up-act'>
+                        <span>Set login : </span>
+                        <div class='dashboard-manage-pop-up-act-checkbox'>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status'> Active</span>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status'> Block</span>
+                        </div>
+                    </div>
+                    ";
+                    $show .="
+                        </div>
+                    </div>
+                    ";
+                }
+                echo $show;
+                return;
+            }
+
+            $countPos = 0;
+            while($line=mysqli_fetch_array($res)) {
+                $status = $line['tinh_trang_taikhoan'] == true ? 'Activing': 'Blocked';
+                $show .= "
+                <tr>
+                    <td>".$line['id_nguoidung']."</td>
+                    <td>".$line['ho_ten']."</td>
+                    <td>".$line['so_dien_thoai']."</td>
+                    <td>".$status."</td>
+                    <td>".$line['quyen']."</td>
+                    <td>
+                        <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
+                            <ul class='dashboard-manage-table-action-items'>
+                                <li>Update</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                ";
+                $countPos++;
+            }   
         }
 
         if ($page == 'Manage Customers'){
@@ -362,7 +538,7 @@
                 }
                 if ($val[0]== 'checkbox') {
                     $statusAccount = $val[1] == 0 ? 'true' : 'false';
-                    $resUpdate = $conn->executeQuery("update nguoi_dung set tinh_trang_taikhoan = $statusAccount where id_nguoidung = ".$val[2]);
+                    $resUpdate = $conn->executeQuery("update nguoi_dung set tinh_trang_taikhoan = $statusAccount where id_nguoidung = '".$val[2]."'");
                     echo $resUpdate;
                     return;
                 }

@@ -24,31 +24,35 @@
                     <i class='fas fa-times dm-pop-up-close-add-btn'></i>
                     <div class="dashboard-manage-pop-up-add-info">
                         <span>
-                            Id Customer :
-                            <input type="text" placeholder='Id Customer'>
+                            Id Product :
+                            <input type="text" placeholder='Id Product'>
                         </span>
                         <span>
-                            Name Customer :
-                            <input type="text" placeholder='Name Customer'>
+                            Name Product :
+                            <input type="text" placeholder='Name Product'>
                         </span>
                         <span>
-                            Email Customer :
-                            <input type="text" placeholder='Email Customer'>
+                            Color Product :
+                            <input type="text" placeholder='Color Product'>
+                        </span>
+                        <span>
+                            Description Product :
+                            <input type="text" placeholder='Description Product'>
                         </span>
                         <div class="dm-pop-up-add-btn disable-copy">
-                            <span class="dm-pop-up-add-save-btn">Add new permission</span>
+                            <span class="dm-pop-up-add-save-btn">Add new product</span>
                         </div>
                     </div>
                     <div class="dashboard-manage-pop-up-add-act">
-                        <span>Set permission : </span>
+                        <span>Set gender : </span>
                         <div class="dashboard-manage-pop-up-add-act-checkbox">
-                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='true'> Active</span>
-                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='false'> Block</span>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='true'> Male</span>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='false'> Female</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end popup-->
+            <!--end popup-->    
 
             <i class="fas fa-images" style='border-right: 1px solid rgb(153, 153, 153); line-height:26px'></i>
             <!--image popup-->
@@ -135,9 +139,22 @@
             </div>
         </div>
     </div>
-
 </div>
 
+<script>
+    $('.dashboard-manage-pop-up-add-info input').eq(0).keyup(function() {
+        var value_id = $(this).val().trim();
+        $.get('handle/validateAdd.php', {page:'product',id:value_id}, function(res) {
+            if (res.trim()=='Error') {
+                $('.dm-pop-up-add-save-btn').eq(0).addClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid red');
+            } else {
+                $('.dm-pop-up-add-save-btn').eq(0).removeClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid #6485da');
+            }
+        })
+    })
+</script>
 
 <script>
     let current, numCurrent;

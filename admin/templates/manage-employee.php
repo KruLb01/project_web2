@@ -17,51 +17,60 @@
         </div>
         <div class="dashboard-manage-show-bar-fnc">
             <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Employees</a>
-
-            <!-- <div class="dashboard-manage-pop-up">
-                <div class="dashboard-manage-pop-up-items">
-                    <i class='fas fa-times dm-pop-up-close-btn'></i>
-                    <div class="dashboard-manage-pop-up-info">
-                        <span>Id Permission :
-                            <input type="text" placeholder='Id permission'>
+            <!--add popup-->
+            <div class="dashboard-manage-pop-up-add">
+                <div class="dashboard-manage-pop-up-add-items">
+                    <i class='fas fa-times dm-pop-up-close-add-btn'></i>
+                    <div class="dashboard-manage-pop-up-add-info">
+                        <span>
+                            Id Employee :
+                            <input type="text" placeholder='Id Customer'>
                         </span>
-                        <span>Name Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Name Employee :
+                            <input type="text" placeholder='Name Customer'>
                         </span>
-                        <span>Note Permission :
-                            <input type="text" placeholder='Id permission'>
+                        <span>
+                            Email Employee :
+                            <input type="text" placeholder='Email Customer'>
                         </span>
-                        <div class="dm-pop-up-btn disable-copy">
-                            <span class="dm-pop-up-save-btn">Add new permission</span>
+                        <span>
+                            Username Employee :
+                            <input type="text" placeholder='Username Customer'>
+                        </span>
+                        <span>
+                            Password Employee :
+                            <input type="password" placeholder='Password Customer'>
+                        </span>
+                        <span>
+                            Phone number Employee :
+                            <input type="text" placeholder='Phone number Customer'>
+                        </span>
+                        <span>
+                            Permission Employee :
+                            <select name="" id="">
+                                <?php
+                                    $res = $conn->selectData("select * from quyen where id_quyen != 'customer' order by id_quyen");
+                                    while ($line = mysqli_fetch_array($res)) {
+                                        echo "<option value='".$line['id_quyen']."'>".$line['ten_quyen']."</option>";
+                                    }
+                                ?>
+                            </select>
+                        </span>
+                        <div class="dm-pop-up-add-btn disable-copy">
+                            <span class="dm-pop-up-add-save-btn">Add new employee</span>
                         </div>
                     </div>
-                    <div class="dashboard-manage-pop-up-act">
+                    <div class="dashboard-manage-pop-up-add-act">
                         <span>Set permission : </span>
-                        <div class="dashboard-manage-pop-up-act-checkbox">
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Accounts</span>
-                            <span><input type="checkbox">Manage Customers</span>
-                            <span><input type="checkbox">Manage Employees</span>
-                            <span><input type="checkbox">Manage Permission</span>
-                            <span><input type="checkbox">Analyst User</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Manage Products</span>
-                            <span><input type="checkbox">Analyst Products</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Revenue</span>
-                            <span><input type="checkbox">Track Invoice</span>
-                            <span><input type="checkbox">Analyst Profits</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Manage Sales</span>
-                            <span><input type="checkbox">Create Sales</span>
-                            <span><input type="checkbox">Track Sales</span>
-                            <span><input type="checkbox">Analyst Sales</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Activity</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Mail</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Help</span>
-                            <span class="dm-pop-up-main"><input type="checkbox">Log out</span>
+                        <div class="dashboard-manage-pop-up-add-act-checkbox">
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='true'> Active</span>
+                            <span class='dm-pop-up-cbox'><input type=radio name='status' value='false'> Block</span>
                         </div>
                     </div>
                 </div>
-            </div> -->
-
+            </div>
+            <!--end popup-->
             <i class="fas fa-file-export"></i>
         </div>
     </div>
@@ -92,8 +101,11 @@
                     <input type="text" placeholder='Search...'>as 
                     <select name="" id="" style='color:#8aa8f7'>
                         <option value="none">-</option>
-                        <option value="id_quyen">Id</option>
-                        <option value="ten_quyen">Name</option>
+                        <option value="id_nguoidung">Id</option>
+                        <option value="ho_ten">Name</option>
+                        <option value="so_dien_thoai">Phone</option>
+                        <option value="email">Email</option>
+                        <option value="quyen">Permission</option>
                     </select>
                 </span>
             </div>
@@ -119,5 +131,19 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<script>
+    $('.dashboard-manage-pop-up-add-info input').eq(0).keyup(function() {
+        var value_id = $(this).val().trim();
+        $.get('handle/validateAdd.php', {page:'employee',id:value_id}, function(res) {
+            if (res.trim()=='Error') {
+                $('.dm-pop-up-add-save-btn').eq(0).addClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid red');
+            } else {
+                $('.dm-pop-up-add-save-btn').eq(0).removeClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid #6485da');
+            }
+        })
+    })
+</script>

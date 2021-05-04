@@ -51,7 +51,7 @@
                             <input type="text" placeholder='Phone number Customer'>
                         </span>
                         <div class="dm-pop-up-add-btn disable-copy">
-                            <span class="dm-pop-up-add-save-btn">Add new permission</span>
+                            <span class="dm-pop-up-add-save-btn">Add new customer</span>
                         </div>
                     </div>
                     <div class="dashboard-manage-pop-up-add-act">
@@ -126,6 +126,19 @@
 
 </div>
 
-
+<script>
+    $('.dashboard-manage-pop-up-add-info input').eq(0).keyup(function() {
+        var value_id = $(this).val().trim();
+        $.get('handle/validateAdd.php', {page:'customer',id:value_id}, function(res) {
+            if (res.trim()=='Error') {
+                $('.dm-pop-up-add-save-btn').eq(0).addClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid red');
+            } else {
+                $('.dm-pop-up-add-save-btn').eq(0).removeClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(0).css('border','1px solid #6485da');
+            }
+        })
+    })
+</script>
 
 Fix menu chuyen + change menu dashboard + fix quyen customer
