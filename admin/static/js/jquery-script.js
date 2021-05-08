@@ -692,8 +692,9 @@ $(document).on("click" , ".dashboard-manage-table-action-items li" , function() 
             });
         })
     } else if ($(this).text()=='Delete') {
+        var size = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(1).text();        
         if (confirm('Do you really want to delete '+id_view + ' ?')) {
-            $.get('handle/hManage.php',{page:currentPage,update:'true',val:'delete-'+id_view},function(res) {
+            $.get('handle/hManage.php',{page:currentPage,update:'true',val:'delete-'+id_view+'-'+size},function(res) {
                 if (res.trim()==true) {
                     alert('Deleted successfully !');
                     $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
@@ -833,95 +834,116 @@ $('.dashboard-manage-search-bar-fnc input').keyup(function() {
 })
 
 // // // Add - dm 
-// let arrCbox_add = [];
-// $('#dm-add-btn').click(function() {
-//     $('.dashboard-manage-pop-up-add').eq(0).css('display','block');
-// })
-// $('.dashboard-manage-pop-up-add-act-checkbox input').click(function() {
-//     var thisVal = $(this).val();
-//     if ( currentPage == 'Manage Permission') {
-//         arrCbox_add.find(x => x == thisVal) == undefined ? arrCbox_add.push(thisVal) : arrCbox_add.splice(arrCbox_add.indexOf(thisVal),1);
-//     } else if ( currentPage == 'Manage Customers' || currentPage == 'Manage Employees' || currentPage == 'Manage Products') {
-//         arrCbox_add = [];
-//         arrCbox_add.push(thisVal);
-//     }
-// })
-// $('.dm-pop-up-close-add-btn').click(function() {
-//     $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
-// })
-// $('.dm-pop-up-add-save-btn').click(function() {
-//     var general = $('.dashboard-manage-pop-up-add-info input');
-//     var input1 = general.eq(0).val();
-//     var input2 = general.eq(1).val();
-//     var input3 = general.eq(2).val();
-//     var input4 = general.eq(3).val();
-//     var input5 = general.eq(4).val();
-//     var input6 = general.eq(5).val();
-//     var input7 = general.eq(6).val();
+let arrCbox_add = [];
+$('#dm-add-btn').click(function() {
+    $('.dashboard-manage-pop-up-add').eq(0).css('display','block');
+})
+$('.dashboard-manage-pop-up-add-act-checkbox input').click(function() {
+    var thisVal = $(this).val();
+    if ( currentPage == 'Manage Permission') {
+        arrCbox_add.find(x => x == thisVal) == undefined ? arrCbox_add.push(thisVal) : arrCbox_add.splice(arrCbox_add.indexOf(thisVal),1);
+    } else if ( currentPage == 'Manage Customers' || currentPage == 'Manage Employees' || currentPage == 'Manage Products') {
+        arrCbox_add = [];
+        arrCbox_add.push(thisVal);
+    }
+})
+$('.dm-pop-up-close-add-btn').click(function() {
+    $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
+})
+$('.dm-pop-up-add-save-btn').click(function() {
+    var general = $('.dashboard-manage-pop-up-add-info input');
+    var input1 = general.eq(0).val();
+    var input2 = general.eq(1).val();
+    var input3 = general.eq(2).val();
+    var input4 = general.eq(3).val();
+    var input5 = general.eq(4).val();
+    var input6 = general.eq(5).val();
+    var input7 = general.eq(6).val();
 
-//     if (input1 == '' || input2 == '' || input3 == '' || input4 == '' || input5 == '' || input6 == '') {
-//         alert('Please fill input !');
-//         return;
-//     }
+    if (input1 == '' || input2 == '' || input3 == '' || input4 == '' || input5 == '' || input6 == '') {
+        alert('Please fill input !');
+        return;
+    }
 
-//     if (currentPage == 'Manage Customers' || currentPage == 'Manage Employees') {
-//         if (arrCbox_add.length == 0) {
-//             alert('Please choose permission login');
-//             return;   
-//         }
-//     }
+    if (currentPage == 'Manage Customers' || currentPage == 'Manage Employees') {
+        if (arrCbox_add.length == 0) {
+            alert('Please choose permission login');
+            return;   
+        }
+    }
 
-//     if (currentPage == 'Manage Products') {
-//         if (arrCbox_add.length == 0) {
-//             alert('Please choose gender for product');
-//             return;   
-//         }
-//     }
+    if (currentPage == 'Manage Products') {
+        if (arrCbox_add.length == 0) {
+            alert('Please choose gender for product');
+            return;   
+        }
+    }
 
-//     if (currentPage == 'Manage Employees') {
-//         var add_permission = $('.dashboard-manage-pop-up-add-info select').val();
-//         $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+add_permission},function(res) {
-//             if (res.trim() == true) {
-//                 alert('Add new employee successfully !');
-//                 var num = $('#dm-select-show').val();
-//                 var pag = $('.dm-selected').text().trim();
+    if (currentPage == 'Manage cProducts') return;
+
+    // if (currentPage == 'Manage cProducts') {
+    //     $.get('handle/hManage.php',{page:currentPage,add:'true',valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6},function(res) {
+    //         if (res.trim() == true) {
+    //             alert('Add new employee successfully !');
+    //             var num = $('#dm-select-show').val();
+    //             var pag = $('.dm-selected').text().trim();
     
-//                 $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
-//                     $('.dashboard-manage-table-items').html(res);
-//                 })
+    //             $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+    //                 $('.dashboard-manage-table-items').html(res);
+    //             })
 
-//                 $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
-//                     $('#dm-show-number').html(res);
-//                 })
+    //             $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+    //                 $('#dm-show-number').html(res);
+    //             })
+    //         } else alert('Failed');
+    //     })
+    //     return;
+    // }
+
+    if (currentPage == 'Manage Employees') {
+        var add_permission = $('.dashboard-manage-pop-up-add-info select').val();
+        $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+add_permission},function(res) {
+            if (res.trim() == true) {
+                alert('Add new employee successfully !');
+                var num = $('#dm-select-show').val();
+                var pag = $('.dm-selected').text().trim();
+    
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                    $('.dashboard-manage-table-items').html(res);
+                })
+
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+                    $('#dm-show-number').html(res);
+                })
             
-//                 $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
-//                     $('.dashboard-manage-pop-up-container').html(res);
-//                 })
-//             } else alert('Failed');
-//         })
-//         return;
-//     }
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+                    $('.dashboard-manage-pop-up-container').html(res);
+                })
+            } else alert('Failed');
+        })
+        return;
+    }
 
-//     $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+input7},function(res) {
-//         console.log(res);
-//         if (res.trim() == true) {
-//             alert('Add new permission successfully !');
-//             var num = $('#dm-select-show').val();
-//             var pag = $('.dm-selected').text().trim();
+    $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+input7},function(res) {
+        console.log(res);
+        if (res.trim() == true) {
+            alert('Add new permission successfully !');
+            var num = $('#dm-select-show').val();
+            var pag = $('.dm-selected').text().trim();
 
-//             $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
-//                 $('.dashboard-manage-table-items').html(res);
-//             })
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                $('.dashboard-manage-table-items').html(res);
+            })
 
-//             $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
-//                 $('#dm-show-number').html(res);
-//             })
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+                $('#dm-show-number').html(res);
+            })
         
-//             $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
-//                 $('.dashboard-manage-pop-up-container').html(res);
-//             })
-//         } else alert('Failed');
-//     })
-// })
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+                $('.dashboard-manage-pop-up-container').html(res);
+            })
+        } else alert('Failed');
+    })
+})
 
 // // End fix

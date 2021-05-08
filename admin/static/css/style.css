@@ -555,6 +555,10 @@ span.dm-disable {
     color: rgb(177, 177, 177);
     transition: 0.5s;
 }
+.dm-disable-btn {
+    pointer-events: none;
+    transition: 0.5s;
+}
 /*DM pop-up*/
 .dashboard-manage-pop-up {
     display: none;  
@@ -697,10 +701,13 @@ span#dm-popup-title {
     font-size: 18px;
     max-width: 200px;
     padding: 2px;
-    border: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid rgb(160, 160, 160);
 }
 .dm-details-content-items input:focus {
-    border: 1px solid coral;
+    border-bottom: 1px solid coral;
 }
 .dm-details-content-items button {
     font-size: 18px;

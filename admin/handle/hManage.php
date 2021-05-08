@@ -976,6 +976,36 @@
                 return;
             }
             if (isset($_GET['popUp'])) return;
+            
+            if (isset($_GET['add'])) {
+                // if (isset($_GET['valCB'])) {
+                //     $valCB = explode("-",$_GET['valCB']);
+                // }
+                if (isset($_GET['valText'])) {
+                    $valText = explode("-",$_GET['valText']);
+                }
+                $resAdd = $conn->executeQuery("insert into san_pham(id_sanpham, id_nhomsanpham, size, gia_sanpham, so_luong) values('".$valText[0]."', (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'".$valText[1]."'), '".$valText[2]."', '".$valText[4]."', '".$valText[3]."')");
+                echo $resAdd;
+                return;
+            }
+
+            if (isset($_GET['update'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+
+                if ($val[0]== 'text') {
+                    $resUpdate = $conn->executeQuery("update san_pham set so_luong = '".$val[3]."', gia_sanpham = '".$val[4]."' where id_nhomsanpham = (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = '".$val[1]."') and size = '".$val[2]."'");
+                    echo $resUpdate;
+                    return;
+                }
+                if ($val[0]=='delete') {
+                    $resUpdate = $conn->executeQuery("delete from san_pham where id_nhomsanpham = (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = '".$val[1]."') and size = '".$val[2]."'");
+                    echo $resUpdate;
+                    return;
+                }
+            }
+            
 
             $sql="select *
             from nhom_san_pham, san_pham

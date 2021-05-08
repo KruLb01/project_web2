@@ -28,6 +28,16 @@
                                     where id_nhomsanpham = '$id'");
         }
 
+        if ($page == 'cproducts') {
+            $res = $conn->selectData("select * from san_pham 
+                                    where id_sanpham = '$id'");
+        }
+
+        if ($page == 'cproducts1') {
+            $res = $conn->selectData("select * from san_pham 
+                                    where id_nhomsanpham = (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'$id')");
+        }
+
         if (mysqli_num_rows($res)!=0) {
             echo 'Error';
         } else echo 'Continue';
