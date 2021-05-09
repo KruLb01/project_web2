@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../static/css/all.css">
     <LINK REL="SHORTCUT ICON" HREF="./static/images/favicon.ico">
     <script src="static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="static/js/jquery-3.6.0.min.js"></script>
     <script>
         $.getScript('./static/js/jquery-script.js', function(data, status, j) {})

@@ -63,6 +63,10 @@ $('.dashboard-menu-items li').click(function(){
     if (action == 'Manage cProducts') {
         location.href = '?action=manage-cproduct';
     }
+
+    if (action == 'Activity') {
+        location.href = '?action=activity';
+    }
 })
 
 

@@ -27,8 +27,9 @@
             include('track-invoice.php');
         } else if ($action == 'manage-cproduct') {
             include('manage-cproduct.php');
+        } else if ($action == 'activity') {
+            include('activity.php');
         }
-
     } else include('default-content.php');
     echo $flag;
 ?>

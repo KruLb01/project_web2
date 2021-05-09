@@ -1181,6 +1181,238 @@ span.del-img {
     cursor: pointer;
 }
 
+/*Page activity*/
+.activity {
+    background: rgb(153, 153, 153, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 0 3px rgb(153, 153, 153, 0.3),
+        0 0 2px #000;
+    width: 95%;
+    margin: 80px auto 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.activity-title {
+    background: wheat;
+    height: 50px;
+    width: 80%;
+    margin-top: -20px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(153, 153, 153, 0.3),
+        0 0 2px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.activity-title>span {
+    color: #1db196;
+    font-size: 23px;
+    font-weight: 900;
+}
+.activity-choose {
+    width: 95%;
+    margin: 10px auto;
+}
+.ac-product {
+    border-bottom: 2px solid rgb(247, 153, 119, 0.7);
+    padding: 10px 0;
+}
+.ac-product input {
+    max-width: 200px;
+    padding: 2px;
+    font-size: 17px;
+    margin: 0 5px;
+    border-radius: 5px;
+    border: none;
+}
+.ac-product input[type='text'] {
+    background: rgb(153, 153, 153, 0.4);
+}
+.ac-product span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #19ac90;
+}
+.ac-product i {
+    color: orange;
+    font-size: 18px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.ac-product button {
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #19ac90;
+    box-shadow: 0 0 3px #19ac90,
+        0 0 2px #000;
+    color: #fff;
+    border: none;
+}
+.activity-compare {
+    width: 95%;
+    margin: 10px auto;
+    border-bottom: 2px solid rgb(247, 153, 119, 0.7);
+    padding-bottom: 15px;
+}
+.activity-compare>span {
+    color: #19ac90;
+    font-size: 18px;
+    font-weight: bold;
+}
+.activity-compare input {
+    max-width: 200px;
+    padding: 2px;
+    font-size: 17px;
+    margin: 0 5px;
+    border-radius: 5px;
+    border: none;
+}
+.activity-compare button {
+    font-size: 18px;
+    padding: 5px;
+    margin: 0 3px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #19ac90;
+    box-shadow: 0 0 3px #19ac90,
+        0 0 2px #000;
+    color: #fff;
+    border: none;
+}
+#chart {
+    width: 90%;
+    margin: 20px auto;
+}
+#chart-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#chart>span {
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #19ac90;
+}
+.pie-chart {
+    padding: 10px 0;
+    width: 40%;
+}
+.line-chart {
+    padding: 10px 0;
+    width: 95%;
+}
+.activity-popup {
+    display: none;  
+    position: fixed; 
+    z-index: 4; 
+    padding-top: 100px; 
+    right: 0;
+    top: 0;
+    width: 80%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+.ap-container {
+    width: 85%;
+    background: #fdfdfd;
+    margin: 50px auto;
+    padding: 40px 20px 30px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.ap-search {
+    width: 95%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+}
+.ap-search span {
+    margin: 0 10px;
+    padding: 10px;
+    border-bottom: 2px solid rgb(153, 153, 153, 0.3);
+    font-size: 18px;
+    font-weight: bold;
+    color: #557cdf;
+}
+.ap-search span>i {
+    cursor: pointer;
+    color: rgb(255, 112, 112);
+}
+.ap-search span>i:hover {
+    color: red;
+}
+.ap-search input {
+    font-size: 17px;
+    padding: 2px;
+    margin: 0 8px;
+    border: none;
+    border-bottom: 2px solid rgb(153, 153, 153, 0.3);
+}
+.ap-search input:focus {
+    border-bottom: 2px solid rgb(153, 153, 153);
+}
+.ap-search select {
+    font-size: 17px;
+    padding: 2px;
+    margin: 0 8px;
+    border: none;
+}
+.ap-more {
+    width: 90%;
+    margin: 0px auto;
+    padding: 10px 0;
+    border-bottom: 2px solid coral;
+    display: flex;
+    justify-content: center;
+}
+.ap-more button {
+    cursor: pointer;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 5px;
+    color: #557cdf;
+    border: none;
+    background: rgb(153, 153, 153, 0.4);
+    border-radius: 5px;
+}
+.ap-more button:hover {
+    box-shadow: 0 0 3px rgb(153, 153, 153, 0.3),
+        0 0 3px #000;
+}
+.ap-result {
+    width: 100%;
+}
+.ap-result table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+.ap-result table th {
+    text-align: left;
+    color: #557cdf;
+    font-size: 18px;
+    padding-bottom: 8px;
+}
+.ap-result table td {
+    font-size: 17px;
+    padding: 5px 0;
+    border-top: 1px solid rgb(153, 153, 153, 0.3);
+}
+
+
+
 /*Header bar*/
 .header {
     /* height: 60px; */
