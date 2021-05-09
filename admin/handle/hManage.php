@@ -83,7 +83,7 @@
             FROM quyen
             WHERE id_quyen != 'customer' 
             ORDER by ";
-            if (isset($_GET['title'])&&$_GET['sort']) {
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Id Permission") {
@@ -246,7 +246,7 @@
             $sql = "select * 
                     from nhom_san_pham
                     order by ";
-            if (isset($_GET['title'])&&$_GET['sort']) {
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Id Products") {
@@ -394,7 +394,7 @@
                 }
 
                 if ($val[0]== 'text') {
-                    $resUpate = $conn->executeQuery("update admin,nguoi_dung set admin.ho_ten = N'".$val[2]."', nguoi_dung.so_dien_thoai = '".$val[3]."', nguoi_dung.email ='".$val[4]."', nguoi_dung.mat_khau ='".md5($val[5])."' where admin.id_nguoidung = '".$val[1]."' and nguoi_dung.id_nguoidung='".$val[1]."'");
+                    $resUpate = $conn->executeQuery("update admin,nguoi_dung set admin.ho_ten = N'".$val[2]."', nguoi_dung.so_dien_thoai = '".$val[3]."', nguoi_dung.email ='".$val[4]."', nguoi_dung.mat_khau ='".md5($val[5])."', nguoi_dung.quyen = '".$val[7]."' where admin.id_nguoidung = '".$val[1]."' and nguoi_dung.id_nguoidung='".$val[1]."'");
                     echo $resUpate;
                     return;
                 }
@@ -416,9 +416,10 @@
             from admin,nguoi_dung
             where admin.id_nguoidung = nguoi_dung.id_nguoidung 
             ORDER by ";
-            if (isset($_GET['title'])&&$_GET['sort']) {
+            if (isset($_GET['title'])&&isset($_GET['sort'])) {
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
+                if ($title=="") $sql .= "cast(admin.id_nguoidung as unsigned) ";
                 if ($title=="Id Employees") {
                     $sql .= "admin.id_nguoidung $sort ";
                 } else if ($title=="Name Employees") {
@@ -428,7 +429,11 @@
                 } else if ($title=="Permission") {
                     $sql .= "quyen $sort ";
                 }
-            } else $sql .= "cast(admin.id_nguoidung as unsigned) ";
+            }
+            else {
+                $sql .= "cast(admin.id_nguoidung as unsigned) ";
+                echo 1;
+            }
             $sql .= " LIMIT $pag,$numShow";
 
             if (isset($_GET['search'])) {
@@ -482,6 +487,22 @@
                                 <span>Phone Employee : <input type='text' class='dm-can-del' placeholder='".$line['so_dien_thoai']."'></span>
                                 <span>Email Employee : <input type='text' class='dm-can-del' placeholder='".$line['email']."'></span>
                                 <span>Password Employee : <input type='text' class='dm-can-del' placeholder='*****'></span>
+                                <span>
+                                    Permission Employee :
+                                    <select>
+                                        ";
+                        $res1 = $conn->selectData("select * from quyen where id_quyen = '".$line['quyen']."'");
+                        while ($row = mysqli_fetch_array($res1)) {
+                            $show .= "<option value='".$row['id_quyen']."'>".$row['ten_quyen']."</option>";
+                        }
+
+                        $res2 = $conn->selectData("select * from quyen where id_quyen != 'customer' and id_quyen != '".$line['quyen']."' order by id_quyen");
+                        while ($row = mysqli_fetch_array($res2)) {
+                            $show .= "<option value='".$row['id_quyen']."'>".$row['ten_quyen']."</option>";
+                        }
+                        $show .= "
+                                    </select>
+                                </span>
                                 <div class='dm-pop-up-btn disable-copy'>
                                     <span class='dm-pop-up-save-btn'>Save</span>
                                     <span class='dm-pop-up-reset-btn'>Reset</span>
@@ -596,7 +617,7 @@
                 from khach_hang,nguoi_dung 
                 where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung 
                 ORDER by ";
-            if (isset($_GET['title'])&&$_GET['sort']) {
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Id Customers") {
@@ -783,7 +804,7 @@
             $sql="select *
             from phieu_nhap
             ORDER by ";
-            if (isset($_GET['title'])&&$_GET['sort']) {
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Id Imports") {
@@ -1080,7 +1101,7 @@
             from nhom_san_pham, san_pham
             where nhom_san_pham.id_nhomsanpham = san_pham.id_nhomsanpham
             ORDER by ";
-            if (isset($_GET['title'])&&$_GET['sort']) {
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Size") {

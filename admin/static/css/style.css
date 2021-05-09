@@ -605,6 +605,15 @@ span.dm-disable {
     border-radius: 5px; 
     border: 1px solid rgb(177, 177, 177);
 }
+.dashboard-manage-pop-up-info select {
+    display: block;
+    width: 250px;
+    margin: 8px 0;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px; 
+    border: 1px solid rgb(177, 177, 177);
+}
 .dashboard-manage-pop-up-info input:focus {
     border: 1px solid #6485da; 
     font-weight: 600;

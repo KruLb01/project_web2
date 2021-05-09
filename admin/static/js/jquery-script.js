@@ -731,14 +731,15 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
     valInput3 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(2).val();   
     valInput4 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(3).val();   
     valInput5 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(4).val();  
-    
-    if (valInput1=='' && valInput2=='' && valInput3=='' && valInput4=='' && valInput5==''){
+    valInput6 = $('.dashboard-manage-pop-up-items').eq(posAction).find('select').eq(0).val();  
+
+    if (valInput2=='' || valInput3=='' || valInput4=='' || valInput5==''){
         alert('Please fill input !');
         return;
     }
 
     id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
-    $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+id_view+'-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+id_view+'-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5+'-'+valInput6},function(res) {
         if (res.trim()==true) {
             alert('Update successfully !');
             var num = $('#dm-select-show').val();
