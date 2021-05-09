@@ -524,6 +524,8 @@ function checkEmptyChangePassword() {
 let number_dm_pi = $('.dashboard-manage-table-pagination-items span').length;
 let compareSpan = $('.dashboard-manage-table-pagination-items span');
 let posAction;
+let sort = "asc";
+let title = "";
 
 $('.dashboard-manage-table-items').ready(function() {
     currentPage = $('#dm-title').text().trim();
@@ -551,7 +553,7 @@ $('#dm-last-btn').click(function() {
     compareSpan.eq(number_dm_pi-2).addClass('dm-selected');
 
     var num = $('#dm-select-show').val();
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:number_dm_pi-2},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:number_dm_pi-2,title:title,sort:sort},function(res) {
         $('.dashboard-manage-table-items').html(res);
     })
 
@@ -559,7 +561,7 @@ $('#dm-last-btn').click(function() {
         $('#dm-show-number').html(res);
     })
 
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:number_dm_pi-2,popUp:'true'},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:number_dm_pi-2,title:title,sort:sort,popUp:'true'},function(res) {
         $('.dashboard-manage-pop-up-container').html(res);
     })
 })
@@ -570,7 +572,7 @@ $('#dm-first-btn').click(function() {
     compareSpan.eq(1).addClass('dm-selected');
 
     var num = $('#dm-select-show').val();
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',title:title,sort:sort},function(res) {
         $('.dashboard-manage-table-items').html(res);
     })
 
@@ -578,7 +580,7 @@ $('#dm-first-btn').click(function() {
         $('#dm-show-number').html(res);
     })
 
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',popUp:'true'},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',title:title,sort:sort,popUp:'true'},function(res) {
         $('.dashboard-manage-pop-up-container').html(res);
     })
 })
@@ -595,7 +597,7 @@ $('.dashboard-manage-table-pagination-items span').click(function() {
             $('#dm-last-btn').removeClass('dm-disable');
         }
         
-        $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+        $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
             $('.dashboard-manage-table-items').html(res);
         })
 
@@ -603,7 +605,7 @@ $('.dashboard-manage-table-pagination-items span').click(function() {
             $('#dm-show-number').html(res);
         })
 
-        $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+        $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true',title:title,sort:sort},function(res) {
             $('.dashboard-manage-pop-up-container').html(res);
         })
     }
@@ -625,11 +627,11 @@ $('.dashboard-manage-table-pagination-items span').click(function() {
 $('#dm-select-show').change(function() {
     var num = $(this).val();
 
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',title:title,sort:sort},function(res) {
         $('.dashboard-manage-table-items').html(res);
     })
 
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',numPag:'true',textShow:'true'},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',numPag:'true',textShow:'true',title:title,sort:sort},function(res) {
         $('#dm-show-number').html(res);
     })
 
@@ -650,7 +652,7 @@ $('#dm-select-show').change(function() {
     })
     resetCountPi();
 
-    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',popUp:'true'},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',popUp:'true',title:title,sort:sort},function(res) {
         $('.dashboard-manage-pop-up-container').html(res);
     })
 })
@@ -701,7 +703,7 @@ $(document).on("click" , ".dashboard-manage-table-action-items li" , function() 
             $.get('handle/hManage.php',{page:currentPage,update:'true',val:'delete-'+id_view+'-'+size},function(res) {
                 if (res.trim()==true) {
                     alert('Deleted successfully !');
-                    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
+                    $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',title:title,sort:sort},function(res) {
                         $('.dashboard-manage-table-items').html(res);
                     });
                 }
@@ -740,7 +742,8 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
         if (res.trim()==true) {
             alert('Update successfully !');
             var num = $('#dm-select-show').val();
-            $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1'},function(res) {
+            var pag = $('.dm-selected').text().trim();
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
                 $('.dashboard-manage-table-items').html(res);
             });
             $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(0).val('');
@@ -780,7 +783,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
             } else {
                 var pag = $('.dm-selected').text().trim();
                 var num = $('#dm-select-show').val();
-                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
                     $('.dashboard-manage-table-items').html(res);
                 })
             }
@@ -799,10 +802,9 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
             } else {
                 var pag = $('.dm-selected').text().trim();
                 var num = $('#dm-select-show').val();
-                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
                     $('.dashboard-manage-table-items').html(res);
                 })
-        
             }
         })
     }
@@ -935,7 +937,7 @@ $('.dm-pop-up-add-save-btn').click(function() {
             var num = $('#dm-select-show').val();
             var pag = $('.dm-selected').text().trim();
 
-            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
                 $('.dashboard-manage-table-items').html(res);
             })
 
@@ -943,7 +945,7 @@ $('.dm-pop-up-add-save-btn').click(function() {
                 $('#dm-show-number').html(res);
             })
         
-            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+            $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true',title:title,sort:sort},function(res) {
                 $('.dashboard-manage-pop-up-container').html(res);
             })
         } else alert('Failed');
@@ -951,3 +953,24 @@ $('.dm-pop-up-add-save-btn').click(function() {
 })
 
 // // End fix
+
+
+// Sap xep tang/giam dan 
+$(document).on("click", ".dashboard-manage-table tr th", function() {
+    title = $(this).text().trim();
+    var pag = $('.dm-selected').text().trim();
+    var num = $('#dm-select-show').val();
+
+    if (sort=="asc") sort = "desc";
+    else sort = "asc";
+    
+    if (title!="Action"&&title!="Status") {
+        $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
+            $('.dashboard-manage-table-items').html(res);
+        })
+
+        $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort,popUp:'true'},function(res) {
+            $('.dashboard-manage-pop-up-container').html(res);
+        })
+    }
+})

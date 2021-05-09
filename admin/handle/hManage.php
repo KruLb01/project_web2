@@ -81,9 +81,22 @@
             
             $sql = "SELECT *
             FROM quyen
-            WHERE id_quyen != 'customer'
-            ORDER by cast(id_quyen as unsigned)
-            LIMIT $pag,$numShow";
+            WHERE id_quyen != 'customer' 
+            ORDER by ";
+            if (isset($_GET['title'])&&$_GET['sort']) {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Permission") {
+                    $sql .= "cast(id_quyen as unsigned) $sort ";
+                } else if ($title=="Name Permission") {
+                    $sql .= "ten_quyen $sort ";
+                } else if ($title=="Note Permission") {
+                    $sql .= "mieuta $sort ";
+                } else if ($title=="Quantity of Accounts") {
+                    $sql .= "so_luong $sort ";
+                }
+            } else $sql .= "cast(id_quyen as unsigned) ";
+            $sql .= " LIMIT $pag,$numShow";
 
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {
@@ -232,8 +245,23 @@
 
             $sql = "select * 
                     from nhom_san_pham
-                    order by id_nhomsanpham
-                    limit $pag, $numShow";
+                    order by ";
+            if (isset($_GET['title'])&&$_GET['sort']) {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Products") {
+                    $sql .= "id_nhomsanpham $sort ";
+                } else if ($title=="Name Products") {
+                    $sql .= "ten_nhomsanpham $sort ";
+                } else if ($title=="Gender") {
+                    $sql .= "gioi_tinh $sort ";
+                } else if ($title=="Star Rated") {
+                    $sql .= "sosao_danhgia $sort ";
+                } else if ($title=="Buyed") {
+                    $sql .= "id_nhomsanpham $sort ";
+                }
+            } else $sql .= "id_nhomsanpham ";
+            $sql .= " limit $pag, $numShow";
             
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {
@@ -386,9 +414,22 @@
             
             $sql = "select *
             from admin,nguoi_dung
-            where admin.id_nguoidung = nguoi_dung.id_nguoidung
-            ORDER by cast(admin.id_nguoidung as unsigned)
-            LIMIT $pag,$numShow";
+            where admin.id_nguoidung = nguoi_dung.id_nguoidung 
+            ORDER by ";
+            if (isset($_GET['title'])&&$_GET['sort']) {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Employees") {
+                    $sql .= "admin.id_nguoidung $sort ";
+                } else if ($title=="Name Employees") {
+                    $sql .= "ho_ten $sort ";
+                } else if ($title=="Phone") {
+                    $sql .= "so_dien_thoai $sort ";
+                } else if ($title=="Permission") {
+                    $sql .= "quyen $sort ";
+                }
+            } else $sql .= "cast(admin.id_nguoidung as unsigned) ";
+            $sql .= " LIMIT $pag,$numShow";
 
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {
@@ -551,12 +592,25 @@
                 
             }
             
-            $sql="select *
-                from khach_hang,nguoi_dung
-                where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung
-                ORDER by cast(khach_hang.id_nguoidung as unsigned)
-                LIMIT $pag,$numShow";
-
+            $sql="select * 
+                from khach_hang,nguoi_dung 
+                where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung 
+                ORDER by ";
+            if (isset($_GET['title'])&&$_GET['sort']) {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Customers") {
+                    $sql .= "cast(khach_hang.id_nguoidung as unsigned) $sort ";
+                } else if ($title=="Name Customers") {
+                    $sql .= "ho_ten $sort ";
+                } else if ($title=="Address Customers") {
+                    $sql .= "dia_chi $sort ";
+                } else if ($title=="Phone Number") {
+                    $sql .= "so_dien_thoai $sort ";
+                }
+            } else $sql .= "cast(khach_hang.id_nguoidung as unsigned) ";
+            $sql .= " LIMIT $pag,$numShow";
+            
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {
                     $val = explode("-",$_GET['val']);
@@ -728,8 +782,23 @@
 
             $sql="select *
             from phieu_nhap
-            ORDER by ngay_nhap desc
-            LIMIT $pag,$numShow";
+            ORDER by ";
+            if (isset($_GET['title'])&&$_GET['sort']) {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Imports") {
+                    $sql .= "id_phieunhap $sort ";
+                } else if ($title=="Id Importers") {
+                    $sql .= "id_nhanviennhap $sort ";
+                } else if ($title=="Id Providers") {
+                    $sql .= "id_nhacungcap $sort ";
+                } else if ($title=="Date") {
+                    $sql .= "ngay_nhap $sort ";
+                } else if ($title=="Total") {
+                    $sql .= "tong_gia_nhap $sort ";
+                }
+            } else $sql .= "ngay_nhap desc ";
+            $sql .= " LIMIT $pag,$numShow";
 
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {
@@ -1010,8 +1079,21 @@
             $sql="select *
             from nhom_san_pham, san_pham
             where nhom_san_pham.id_nhomsanpham = san_pham.id_nhomsanpham
-            ORDER by ten_nhomsanpham, size asc
-            LIMIT $pag,$numShow";
+            ORDER by ";
+            if (isset($_GET['title'])&&$_GET['sort']) {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Size") {
+                    $sql .= "size $sort ";
+                } else if ($title=="Name Products") {
+                    $sql .= "ten_nhomsanpham $sort ";
+                } else if ($title=="Price") {
+                    $sql .= "gia_sanpham $sort ";
+                } else if ($title=="In stock") {
+                    $sql .= "so_luong $sort ";
+                }
+            } else $sql .= "ten_nhomsanpham, size asc ";
+            $sql .= " LIMIT $pag,$numShow";
 
             if (isset($_GET['search'])) {
                 if (isset($_GET['val'])) {

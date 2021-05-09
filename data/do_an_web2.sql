@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 05:04 AM
+-- Generation Time: May 09, 2021 at 06:07 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -38,18 +38,23 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_nguoidung`, `ho_ten`, `thong_tin_khac`) VALUES
-('admin', 'Leos Heros', 'I am alive ! <3'),
+('admin', 'Leo Heros', 'I am alive ! <3'),
 ('manager', 'Kao Heros', 'F*ck this project :<'),
-('admin1', 'Heros', ''),
+('admin1', 'Lê Thanh Hòa', ''),
 ('admin2', 'Heros', ''),
 ('admin3', 'Heros', ''),
 ('admin4', 'Heros', ''),
 ('admin5', 'Heros', ''),
-('admin6', 'Heros', ''),
 ('admin7', 'Heros', ''),
 ('admin8', 'Heros', ''),
 ('admin9', 'Heros', ''),
-('admin10', 'Heros', '');
+('admin10', 'Heros', ''),
+('employee1', 'Lê Thanh Hòa', ''),
+('employee1', 'Lê Thanh Hòa', ''),
+('employee1', 'Lê Thanh Hòa', ''),
+('employee1', 'Lê Thanh Hòa', ''),
+('nv001', 'Lê Thanh Hòa', ''),
+('nv002', 'Lê Thanh Hòa', '');
 
 -- --------------------------------------------------------
 
@@ -83,11 +88,26 @@ CREATE TABLE `chitiet_giaohang` (
 --
 
 CREATE TABLE `chitiet_hoadon` (
-  `id_hoadon` varchar(10) NOT NULL,
-  `id_sanpham` varchar(10) NOT NULL,
+  `id_hoadon` varchar(50) NOT NULL,
+  `id_sanpham` varchar(50) NOT NULL,
   `so_luong` int(10) NOT NULL,
-  `gia` int(10) NOT NULL
+  `gia` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chitiet_hoadon`
+--
+
+INSERT INTO `chitiet_hoadon` (`id_hoadon`, `id_sanpham`, `so_luong`, `gia`) VALUES
+('1', '1a', 2, 150000),
+('2', '1a', 1, 150000),
+('2', '1b', 1, 150000),
+('2', '1d', 1, 100000),
+('3', '1a', 3, 100000),
+('3', '1b', 2, 50000),
+('3', '1c', 2, 150000),
+('3', '1d', 6, 50000),
+('3', '2a', 2, 150000);
 
 -- --------------------------------------------------------
 
@@ -96,11 +116,30 @@ CREATE TABLE `chitiet_hoadon` (
 --
 
 CREATE TABLE `chitiet_phieunhap` (
-  `id_phieunhap` varchar(10) NOT NULL,
-  `id_sanpham` varchar(10) NOT NULL,
+  `id_phieunhap` varchar(100) NOT NULL,
+  `id_sanpham` varchar(100) NOT NULL,
   `so_luong` int(10) NOT NULL,
-  `gia_nhap` int(10) NOT NULL
+  `gia_nhap` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chitiet_phieunhap`
+--
+
+INSERT INTO `chitiet_phieunhap` (`id_phieunhap`, `id_sanpham`, `so_luong`, `gia_nhap`) VALUES
+('PN-608adf831d1a69.00308392', '1a', 20, 300000),
+('PN-608adf831d1a69.00308392', '1d', 40, 10000000),
+('PN-608ae01d488729.61747488', '1c', 50, 1500000),
+('PN-608ae043ac4643.44705225', '1e', 23, 6566666),
+('PN-608af3f1e08026.87042665', '1b', 2, 578800),
+('PN-608af411577b20.38880033', '1d', 4, 900800),
+('PN-608b7885aed043.36778805', '1c', 20, 600000),
+('PN-608b7897a2ae20.98024703', '1c', 3, 600000),
+('PN-608b7a42be7e48.18949338', '1a', 1, 1000000),
+('PN-608b7ae53d8be0.55186967', '1a', 2, 2000000),
+('PN-608b7c3333eb42.40498033', '1b', 50, 2000000),
+('PN-608b7db385c171.04005761', '1a', 3, 2000000),
+('PN-608b7db385c171.04005761', '1e', 4, 400000);
 
 -- --------------------------------------------------------
 
@@ -168,7 +207,8 @@ INSERT INTO `chitiet_quyen_chucnang` (`id_quyen`, `id_chucnang`) VALUES
 ('admin', '7'),
 ('admin', '8'),
 ('admin', '20'),
-('admin', '21');
+('admin', '21'),
+('admin', '22');
 
 -- --------------------------------------------------------
 
@@ -206,8 +246,8 @@ INSERT INTO `chuc_nang` (`id_chucnang`, `ten_chucnang`, `mieuta`, `vi_tri`, `ico
 (4, 'Manage Permission', '', '1003', ''),
 (5, 'Analyze User', '', '1004', ''),
 (6, 'Manage Store', '', '2000', '<i class=\"fas fa-cubes\" style=\"padding-right: 8px;\"></i>'),
-(7, 'Manage Products', '', '2001', ''),
-(8, 'Import Products', '', '2002', ''),
+(7, 'Manage Products', '', '2010', ''),
+(8, 'Import Products', '', '2020', ''),
 (9, 'Manage Revenue', '', '3000', '<i class=\"fas fa-receipt\" style=\"padding-right: 10px;padding-left:4px\"></i>'),
 (10, 'Track Invoice', '', '3001', ''),
 (11, 'Analyze Profits', '', '3002', ''),
@@ -219,8 +259,9 @@ INSERT INTO `chuc_nang` (`id_chucnang`, `ten_chucnang`, `mieuta`, `vi_tri`, `ico
 (17, 'Mail', '', '6000', '<i class=\"fas fa-mail-bulk\" style=\"padding-right: 8px;\"></i>'),
 (18, 'Help', '', '7000', '<i class=\"fas fa-question\"  style=\"padding-right: 14px;\"></i>'),
 (19, 'Log out', '', '8000', '<i class=\"fas fa-sign-out-alt\"  style=\"padding-right: 10px;\"></i>'),
-(20, 'Manage Import', '', '2003', ''),
-(21, 'Manage Provider', '', '2004', '');
+(20, 'Manage Import', '', '2030', ''),
+(21, 'Manage Provider', '', '2040', ''),
+(22, 'Manage cProducts', '', '2011', '');
 
 -- --------------------------------------------------------
 
@@ -243,11 +284,20 @@ CREATE TABLE `danh_gia` (
 --
 
 CREATE TABLE `dong_san_pham` (
-  `id_dongsanpham` int(10) NOT NULL,
-  `ten_dongsanpham` int(10) NOT NULL,
-  `thuonghieu_sanpham` int(10) NOT NULL,
-  `mota` int(10) NOT NULL
+  `id_dongsanpham` varchar(20) NOT NULL,
+  `ten_dongsanpham` varchar(100) NOT NULL,
+  `thuonghieu_sanpham` varchar(100) NOT NULL,
+  `mota` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dong_san_pham`
+--
+
+INSERT INTO `dong_san_pham` (`id_dongsanpham`, `ten_dongsanpham`, `thuonghieu_sanpham`, `mota`) VALUES
+('BH', 'Bitis Hunter', 'Bitis', ''),
+('NA', 'Nike Air', 'Nike', ''),
+('NJ', 'Nike Air Jodan', 'Nike', '');
 
 -- --------------------------------------------------------
 
@@ -272,6 +322,14 @@ CREATE TABLE `hinh_anh` (
   `link_hinhanh` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `hinh_anh`
+--
+
+INSERT INTO `hinh_anh` (`id_hinhanh`, `link_hinhanh`) VALUES
+('Bitis Hunter Orange-608acb158de408.09638614.png', 'images/Bitis Hunter Orange-608acb158de408.09638614.png'),
+('Bitis Hunter Orange-608acb234d9756.07461710.png', 'images/Bitis Hunter Orange-608acb234d9756.07461710.png');
+
 -- --------------------------------------------------------
 
 --
@@ -283,6 +341,14 @@ CREATE TABLE `hinh_nhomsanpham` (
   `id_hinh` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `hinh_nhomsanpham`
+--
+
+INSERT INTO `hinh_nhomsanpham` (`id_nhomsanpham`, `id_hinh`) VALUES
+('2', 'Bitis Hunter Orange-608acb158de408.09638614.png'),
+('2', 'Bitis Hunter Orange-608acb234d9756.07461710.png');
+
 -- --------------------------------------------------------
 
 --
@@ -290,13 +356,22 @@ CREATE TABLE `hinh_nhomsanpham` (
 --
 
 CREATE TABLE `hoa_don` (
-  `id_hoadon` varchar(10) NOT NULL,
-  `id_nguoidung` varchar(10) NOT NULL,
-  `id_nhanvienban` varchar(10) NOT NULL,
+  `id_hoadon` varchar(50) NOT NULL,
+  `id_nguoidung` varchar(50) NOT NULL,
+  `id_nhanvienban` varchar(50) NOT NULL,
   `ngay_mua` date NOT NULL,
-  `tong_gia` int(10) NOT NULL,
-  `id_sale` varchar(10) NOT NULL
+  `tong_gia` int(32) NOT NULL,
+  `id_sale` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hoa_don`
+--
+
+INSERT INTO `hoa_don` (`id_hoadon`, `id_nguoidung`, `id_nhanvienban`, `ngay_mua`, `tong_gia`, `id_sale`) VALUES
+('1', '1', 'admin', '2021-05-01', 300000, ''),
+('2', '2', 'admin', '2021-05-01', 400000, ''),
+('3', '5', 'manager', '2021-03-01', 1300000, '');
 
 -- --------------------------------------------------------
 
@@ -368,7 +443,8 @@ INSERT INTO `khach_hang` (`id_nguoidung`, `ho_ten`, `dia_chi`, `thong_tin_khac`)
 (50, 'Kali Heros', 'On the Moon', ''),
 (51, 'Kali Heros', 'On the Moon', ''),
 (53, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', ''),
-(54, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', '');
+(54, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', ''),
+(55, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', '');
 
 -- --------------------------------------------------------
 
@@ -392,7 +468,7 @@ CREATE TABLE `nguoi_dung` (
 
 INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_dien_thoai`, `quyen`, `tinh_trang_taikhoan`) VALUES
 ('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'admin@gmail.com', '0706316621', 'admin', 1),
-('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
+('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0),
 ('2', 'customer2', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('3', 'customer3', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('4', 'customer4', '1', 'customer@gmail.com', '1234324', 'customer', 0),
@@ -444,19 +520,21 @@ INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_
 ('50', 'customer50', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('51', 'customer51', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('52', 'customer52', '1', 'customer@gmail.com', '1234324', 'customer', 1),
-('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 1),
-('admin1', 'admin1', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin2', 'admin2', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
+('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 0),
+('admin1', 'admin1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 1),
+('admin2', 'admin2', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
 ('admin3', 'admin3', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin4', 'admin4', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin5', 'admin5', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin6', 'admin6', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin7', 'admin7', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
+('admin7', 'admin7', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
 ('admin8', 'admin8', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin9', 'admin9', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin10', 'admin10', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('53', 'customer53', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
-('54', 'customer54', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0);
+('54', 'customer54nek', 'c8f3c7fc80cf9be66ea3bdf64ba1c82d', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
+('55', 'customer55', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0),
+('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1),
+('nv002', 'nv0002', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1);
 
 -- --------------------------------------------------------
 
@@ -465,10 +543,19 @@ INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_
 --
 
 CREATE TABLE `nha_cung_cap` (
-  `id_nhacungcap` varchar(10) NOT NULL,
-  `ten_nhacungcap` varchar(10) NOT NULL,
-  `diachi_nhacungcap` varchar(10) NOT NULL
+  `id_nhacungcap` varchar(100) NOT NULL,
+  `ten_nhacungcap` varchar(100) NOT NULL,
+  `diachi_nhacungcap` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nha_cung_cap`
+--
+
+INSERT INTO `nha_cung_cap` (`id_nhacungcap`, `ten_nhacungcap`, `diachi_nhacungcap`) VALUES
+('1', 'Sun House ', 'On the Ear'),
+('2', 'Moon House Corp', 'On the Earth'),
+('3', 'March House Corp', 'On the Earth');
 
 -- --------------------------------------------------------
 
@@ -492,18 +579,19 @@ CREATE TABLE `nhom_san_pham` (
 --
 
 INSERT INTO `nhom_san_pham` (`id_nhomsanpham`, `ten_nhomsanpham`, `gioi_tinh`, `mieuta`, `sosao_danhgia`, `soluot_danhgia`, `id_dongsanpham`, `mau_sanpham`) VALUES
-(1, 'Bitis Hunter Blue', 'Male', 'In stock', '5', '20', '', 'Blue'),
-(2, 'Bitis Hunter Orange', 'Female', '', '4', '30', '', 'Orange'),
-(3, 'Bitis Hunter Neon', 'Male', 'In stock', '5', '50', '', 'Neon'),
-(4, 'Bitis Hunter No.4', 'Male', '123', '5', '50', '', 'Red'),
-(5, 'Bitis Hunter No.test', 'Male', '', '5', '50', '', 'Gray'),
-(6, 'Bitis Hunter No.6', 'Female', 'Sold Out', '5', '50', '', 'Green'),
-(7, 'Bitis Hunter No.test', 'Male', '', '5', '50', '', 'Gray'),
-(8, 'Bitis Hunter No.8', 'Female', 'Sold out', '5', '50', '', 'HoloGram'),
-(9, 'Bitis Hunter No.test', 'Male', '', '5', '50', '', 'Gray'),
-(10, 'Bitis Hunter No.test', 'Female', '', '5', '50', '', 'Gray'),
-(11, 'Bitis Hunter No.test', 'Male', '', '5', '50', '', 'Gray'),
-(12, 'Bitis Hunter No.test', 'Male', '', '5', '50', '', 'Gray');
+(1, 'Bitis Hunter Blue', 'Male', 'In stock', '5', '20', 'BH', 'Blue'),
+(2, 'Bitis Hunter Orange', 'Female', '', '4', '30', 'BH', 'Orange'),
+(3, 'Bitis Hunter Neon', 'Male', 'In stock', '5', '50', 'BH', 'Neon'),
+(4, 'Bitis Hunter No.4', 'Male', '123', '5', '50', 'BH', 'Red'),
+(5, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
+(6, 'Bitis Hunter No.6', 'Male', 'Sold Out', '5', '50', 'BH', 'Green'),
+(7, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
+(8, 'Bitis Hunter No.8', 'Male', 'Sold out', '5', '50', 'BH', 'HoloGram'),
+(9, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
+(10, 'Bitis Hunter No.test', 'Female', '', '5', '50', 'BH', 'Gray'),
+(11, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
+(12, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
+(13, 'Bitis Hunter no.13', 'Male', 'Product 13th', '', '', 'BH', 'Brown');
 
 -- --------------------------------------------------------
 
@@ -512,12 +600,30 @@ INSERT INTO `nhom_san_pham` (`id_nhomsanpham`, `ten_nhomsanpham`, `gioi_tinh`, `
 --
 
 CREATE TABLE `phieu_nhap` (
-  `id_phieunhap` varchar(10) NOT NULL,
+  `id_phieunhap` varchar(100) NOT NULL,
   `id_nhanviennhap` varchar(10) NOT NULL,
   `id_nhacungcap` varchar(10) NOT NULL,
   `ngay_nhap` date NOT NULL,
-  `tong_gia_nhap` int(10) NOT NULL
+  `tong_gia_nhap` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `phieu_nhap`
+--
+
+INSERT INTO `phieu_nhap` (`id_phieunhap`, `id_nhanviennhap`, `id_nhacungcap`, `ngay_nhap`, `tong_gia_nhap`) VALUES
+('PN-608adf831d1a69.00308392', 'admin', '1', '2021-04-29', 406000000),
+('PN-608ae01d488729.61747488', 'admin', '1', '2021-04-29', 75000000),
+('PN-608ae043ac4643.44705225', 'admin', '1', '2021-04-29', 151033318),
+('PN-608af3f1e08026.87042665', 'admin', '1', '2021-04-30', 1157600),
+('PN-608af411577b20.38880033', 'admin', '1', '2021-04-30', 3603200),
+('PN-608b7885aed043.36778805', 'admin', '1', '2021-04-30', 12000000),
+('PN-608b7897a2ae20.98024703', 'admin', '1', '2021-04-30', 1800000),
+('PN-608b7a42be7e48.18949338', 'admin', '1', '2021-04-30', 1000000),
+('PN-608b7ae53d8be0.55186967', 'admin', '1', '2021-04-30', 4000000),
+('PN-608b7c3333eb42.40498033', 'admin', '1', '2021-04-30', 100000000),
+('PN-608b7db385c171.04005761', 'admin', '1', '2021-04-30', 7600000),
+('test', 'admin', '1', '2021-05-30', 0);
 
 -- --------------------------------------------------------
 
@@ -599,9 +705,23 @@ CREATE TABLE `san_pham` (
   `id_sanpham` varchar(10) NOT NULL,
   `id_nhomsanpham` varchar(10) NOT NULL,
   `size` varchar(10) NOT NULL,
-  `gia_sanpham` int(10) NOT NULL,
+  `gia_sanpham` varchar(100) NOT NULL,
   `so_luong` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `san_pham`
+--
+
+INSERT INTO `san_pham` (`id_sanpham`, `id_nhomsanpham`, `size`, `gia_sanpham`, `so_luong`) VALUES
+('1b', '1', '38', '550000', 82),
+('1c', '1', '39', '600000', 83),
+('1d', '1', '40', '650000', 84),
+('1e', '1', '41', '650000', 52),
+('1a', '1', '37', '500000', 37),
+('1f', '1', '42', '600000', 30),
+('1g', '1', '43', '500000', 233),
+('2a', '2', '37', '500000', 20);
 
 --
 -- Indexes for dumped tables
@@ -639,13 +759,13 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT for table `chuc_nang`
 --
 ALTER TABLE `chuc_nang`
-  MODIFY `id_chucnang` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_chucnang` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `khach_hang`
 --
 ALTER TABLE `khach_hang`
-  MODIFY `id_nguoidung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_nguoidung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `nhom_san_pham`
