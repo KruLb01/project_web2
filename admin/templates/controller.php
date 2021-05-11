@@ -29,6 +29,8 @@
             include('manage-cproduct.php');
         } else if ($action == 'activity') {
             include('activity.php');
+        } else if ($action == 'manage-providers') {
+            include('manage-providers.php');
         }
     } else include('default-content.php');
     echo $flag;

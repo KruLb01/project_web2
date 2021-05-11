@@ -1,6 +1,6 @@
 <div class="dashboard-manage-container">
     <div class="dashboard-manage-title-bar disable-copy">
-        <span id='dm-title'>Manage cProducts</span>
+        <span id='dm-title'>Manage Providers</span>
     </div>
     <div class="dashboard-manage-show-bar disable-copy">
         <div class="dashboard-manage-show-bar-showfnc">
@@ -16,7 +16,7 @@
             <span id='dm-show-number'>( 10 - 20 of 100 results )</span>
         </div>
         <div class="dashboard-manage-show-bar-fnc">
-            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Product</a>
+            <a id='dm-add-btn'><i class="fas fa-plus-circle"></i> Add Provider</a>
 
             <!-- add popup -->
             <div class="dashboard-manage-pop-up-add">
@@ -24,27 +24,19 @@
                     <i class='fas fa-times dm-pop-up-close-add-btn'></i>
                     <div class="dashboard-manage-pop-up-add-info" style="border:none;width:100%">
                         <span>
-                            Id cProduct :
+                            Id Provider :
                             <input type="text" placeholder='Id Product'>
                         </span>
                         <span>
-                            Name Product :
+                            Name Provider :
                             <input type="text" placeholder='Name Product'>
                         </span>
                         <span>
-                            Size Product :
+                            Address Provider :
                             <input type="text" placeholder='Size Product'>
                         </span>
-                        <span>
-                            Quantity cProduct :
-                            <input type="text" placeholder='Quantity Product'>
-                        </span>
-                        <span>
-                            Price cProduct :
-                            <input type="text" placeholder='Price Product'>
-                        </span>
                         <div class="dm-pop-up-add-btn disable-copy">
-                            <span class="dm-pop-up-add-save-btn">Add new product</span>
+                            <span class="dm-pop-up-add-save-btn">Add new provider</span>
                         </div>
                     </div>
                 </div>
@@ -81,8 +73,9 @@
                     <input type="text" placeholder='Search...'>as 
                     <select name="" id="" style='color:#8aa8f7'>
                         <option value="none">-</option>
-                        <option value="ten_nhomsanpham">Name Product</option>
-                        <option value="size">Size</option>
+                        <option value="id_nhacungcap">Id</option>
+                        <option value="ten_nhacungcap">Name</option>
+                        <option value="diachi_nhacungcap">Address</option>
                     </select>
                 </span>
             </div>
@@ -98,7 +91,7 @@
             <div class="dashboard-manage-table-pagination-items">
                 <span id='dm-first-btn' class='dm-disable'><i class="fas fa-fast-backward"></i> First</span>
                 <?php
-                    $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from san_pham'))['count']/10);
+                    $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from nha_cung_cap'))['count']/10);
                     echo "<span class='dm-pagination-items dm-selected'>1</span>";
                     for ($i = 2; $i <= $count; $i ++) {
                         echo '<span class="dm-pagination-items">'.$i.'</span>';
@@ -119,12 +112,12 @@
 <script>
     let just_click;
     $(document).on("click", ".dashboard-manage-table-items tr", function(){
-        just_click = $(this).find('td').eq(0).text().trim()+"&"+$(this).find('td').eq(1).text().trim();
+        just_click = $(this).find('td').eq(0).text().trim()+"&"+$(this).find('td').eq(1).text().trim()+"&"+$(this).find('td').eq(2).text().trim();
     })
     $(document).on("click" , ".dashboard-manage-table-action-items li" , function() {
         if ($(this).text().trim() == 'Details') {
             $('.dashboard-manage-pop-up').css('display','block');
-            $.get('handle/hManage.php', {page:'Manage cProducts',popUp:'true',clickPos:just_click}, function(res){
+            $.get('handle/hManage.php', {page:'Manage Providers',popUp:'true',clickPos:just_click}, function(res){
                 $(".dm-popup-details").eq(0).html(res);
             })
         } 
@@ -141,26 +134,22 @@
     $(document).on("click", ".dm-popup-details", function(e) {
         if (e.target==$(this).find('.save-btn').eq(0)[0]) {
             var val1 = $(this).find('td').eq(0).text().trim();
-            var val2 = $(this).find('td').eq(1).text().trim();
-            var val3 = $(this).find('input').eq(0).val().trim();
-            var val4 = $(this).find('input').eq(1).val().trim();
+            var val2 = $(this).find('input').eq(0).val().trim();
+            var val3 = $(this).find('input').eq(1).val().trim();
         
-            if (val3 == '' || val4 == '') {
+            if (val2 == '' || val3 == '') {
                 alert("Please fill input");
                 return;
             }
 
-            if (confirm("Really update this product ?!")==false) return;
+            if (confirm("Really update this provider ?!")==false) return;
             
-            // Convert 
-            val4 = val4.replace(/[VNĐ]|,/g,'').trim();
-
-            $.get("handle/hManage.php", {page:"Manage cProducts",update:'true',val:'text-'+val1+'-'+val2+'-'+val3+'-'+val4}, function(res) {
+            $.get("handle/hManage.php", {page:"Manage Providers",update:'true',val:'text-'+val1+'-'+val2+'-'+val3}, function(res) {
                 if (res.trim()==true) {
                     alert("Updated successfully !");
 
                     var num = $('#dm-select-show').val();
-                    $.get('handle/hManage.php',{page:"Manage cProducts",num:num,pag:'1'},function(res) {
+                    $.get('handle/hManage.php',{page:"Manage Providers",num:num,pag:'1'},function(res) {
                         $('.dashboard-manage-table-items').html(res);
                     });
                 }
@@ -172,8 +161,8 @@
     })
     $(document).on("keyup", ".dm-popup-details input", function(e) {
         if (e.target == $(".dm-popup-details").find('input').eq(0)[0]) {
-            var current = $(this).val();
-            if (!isNumeric(current)) {
+            var current = $(this).val().trim();
+            if (current.length<6) {
                 $(".dm-popup-details").find('input').eq(0).css('border-bottom','1px solid red');
                 $(".dm-popup-details").find('.save-btn').eq(0).addClass('dm-disable-btn');
             } else {
@@ -181,8 +170,8 @@
                 $(".dm-popup-details").find('.save-btn').eq(0).removeClass('dm-disable-btn');
             }
         } else if (e.target == $(".dm-popup-details").find('input').eq(1)[0]) {
-            var current = $(this).val().replace(/[VNĐ]|,/g,'').trim(); 
-            if (!isNumeric(current)) {
+            var current = $(this).val().trim();
+            if (current.length<6) {
                 $(".dm-popup-details").find('input').eq(1).css('border-bottom','1px solid red');
                 $(".dm-popup-details").find('.save-btn').eq(0).addClass('dm-disable-btn');
             } else {
@@ -191,9 +180,6 @@
             }
         }
     })
-    function isNumeric(value) {
-        return /^\d+$/.test(value);
-    }
 
     // Check before add
     var general = $('.dashboard-manage-pop-up-add-info input');
@@ -201,29 +187,15 @@
         0:false,
         1:false,
         2:false,
-        3:false,
-        4:false,
     };
-    // $('.dashboard-manage-pop-up-add-info input').eq(0).keyup(function(){
-    //     var id = general.eq(0).val().trim();
-    //     $.get("handle/validateAdd.php", {page:'cproducts',id:id}, function(res) {
-    //         if (res.trim()=='Error')  {
-    //             setDisable(0);
-    //         } else {
-    //             setEnable(0);
-    //         }
-    //     })  
-    // })
     $('.dashboard-manage-pop-up-add-info input').keyup(function(e) {
         var id = general.eq(0).val().trim();
         var name = general.eq(1).val().trim();
-        var size = general.eq(2).val().trim();
-        var quantity = general.eq(3).val().trim();
-        var price = general.eq(4).val().replace(/[VNĐ]|,/g,'').trim();
+        var address = general.eq(2).val().trim();
 
         // Check
         if (e.target==general.eq(0)[0]) {
-            $.get("handle/validateAdd.php", {page:'cproducts',id:id}, function(res) {
+            $.get("handle/validateAdd.php", {page:'providers',id:id}, function(res) {
                 if (res.trim()=='Error')  {
                     setDisable(0);
                     flagc[0] = false;
@@ -235,8 +207,8 @@
         }
 
         if (e.target==general.eq(1)[0]) {
-            $.get("handle/validateAdd.php", {page:'cproducts1',id:name}, function(res) {
-                if (res.trim()=='Continue')  {
+            $.get("handle/validateAdd.php", {page:'providers1',id:name}, function(res) {
+                if (res.trim()=='Error')  {
                     setDisable(1);
                     flagc[1] = false;
                 } else {
@@ -247,7 +219,7 @@
         }
 
         if (e.target==general.eq(2)[0]) {
-            if (!isNumeric(size)) {
+            if (address.length < 6) {
                 setDisable(2);
                 flagc[2] = false;
             } else {
@@ -255,37 +227,15 @@
                 flagc[2] = true;
             }
         }
-
-        if (e.target==general.eq(3)[0]) {
-            if (!isNumeric(quantity)) {
-                setDisable(3);
-                flagc[3] = false;
-            } else {
-                setEnable(3);
-                flagc[3] = true;
-            }
-        }
-
-        if (e.target==general.eq(4)[0]) {
-            if (!isNumeric(price)) {
-                setDisable(4);
-                flagc[4] = false;
-            } else {
-                setEnable(4);
-                flagc[4] = true;
-            }
-        }
     })
 
     $('.dm-pop-up-add-save-btn').click(function(){
         var id = general.eq(0).val().trim();
         var name = general.eq(1).val().trim();
-        var size = general.eq(2).val().trim();
-        var quantity = general.eq(3).val().trim();
-        var price = general.eq(4).val().replace(/[VNĐ]|,/g,'').trim();
+        var address = general.eq(2).val().trim();
 
-        if (id!=''&&name!=''&&size!=''&&quantity!=''&&price!='') {
-            for (var i = 0; i < 5; i++) {
+        if (id!=''&&name!=''&&address!='') {
+            for (var i = 0; i < 3; i++) {
                 if (flagc[i]==false) {
                     alert("Unvalid input");
                     return;
@@ -293,9 +243,9 @@
             }
         } else return;
 
-        $.get('handle/hManage.php', {page:'Manage cProducts',add:'true',valText:id+'-'+name+'-'+size+'-'+quantity+'-'+price}, function(res) {
+        $.get('handle/hManage.php', {page:'Manage Providers',add:'true',valText:id+'-'+name+'-'+address}, function(res) {
             if (res.trim() == true) {
-                alert('Add new cproducts successfully !');
+                alert('Add new provider successfully !');
                 var num = $('#dm-select-show').val();
                 var pag = $('.dm-selected').text().trim();
     
@@ -306,7 +256,6 @@
                 $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
                     $('#dm-show-number').html(res);
                 })
-
                 resetField();
             } else alert('Failed');
         })
@@ -316,8 +265,6 @@
         general.eq(0).val("");
         general.eq(1).val("");
         general.eq(2).val("");
-        general.eq(3).val("");
-        general.eq(4).val("");
     }
 
     function setDisable(pos) {

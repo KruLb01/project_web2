@@ -38,6 +38,18 @@
                                     where id_nhomsanpham = (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'$id')");
         }
 
+        if ($page == 'providers') {
+            $res = $conn->selectData("select * from nha_cung_cap 
+                                    where id_nhacungcap = $id");
+        }
+
+        if ($page == 'providers1') {
+            $res = $conn->selectData("select * from nha_cung_cap 
+                                    where ten_nhacungcap =  $id");
+        }
+
+
+
         if (mysqli_num_rows($res)!=0) {
             echo 'Error';
         } else echo 'Continue';

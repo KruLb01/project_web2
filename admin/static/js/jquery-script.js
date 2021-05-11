@@ -67,6 +67,10 @@ $('.dashboard-menu-items li').click(function(){
     if (action == 'Activity') {
         location.href = '?action=activity';
     }
+
+    if (action == 'Manage Providers') {
+        location.href = '?action=manage-providers';
+    }
 })
 
 
@@ -675,7 +679,7 @@ $(document).on("click" , ".dashboard-manage-table-items .dashboard-manage-table-
     }
 });
 
-// // // Fix from here 
+// // // // Fix from here 
 $(document).on("click" , ".dashboard-manage-table-action-items li" , function() {
     var id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
     var num = $('#dm-select-show').val();
@@ -722,9 +726,9 @@ $(window).click(function(event) {
         $('.dashboard-manage-pop-up-add').eq(0).css('display','none');
     }
 })
-// // $(document).on("click",".dm-pop-up-reset-btn",function() {
-// //     // $('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=checkbox]').prop('checked', false);
-// // })
+// // // $(document).on("click",".dm-pop-up-reset-btn",function() {
+// // //     // $('.dashboard-manage-pop-up-items').eq(posAction).find('input[type=checkbox]').prop('checked', false);
+// // // })
 $(document).on("click",".dm-pop-up-save-btn",function() {
     valInput1 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(0).val();
     valInput2 = $('.dashboard-manage-pop-up-items').eq(posAction).find('input.dm-can-del').eq(1).val();   
@@ -811,7 +815,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
     }
 })
 
-// // // // // // Filter - dm
+// // // // // // // Filter - dm
 $('.dashboard-manage-search-bar-filter select').change(function() {
     // console.log($(this).val());
 })
@@ -840,7 +844,7 @@ $('.dashboard-manage-search-bar-fnc input').keyup(function() {
     }
 })
 
-// // // Add - dm 
+// // // // Add - dm 
 let arrCbox_add = [];
 $('#dm-add-btn').click(function() {
     $('.dashboard-manage-pop-up-add').eq(0).css('display','block');
@@ -886,7 +890,7 @@ $('.dm-pop-up-add-save-btn').click(function() {
         }
     }
 
-    if (currentPage == 'Manage cProducts') return;
+    if (currentPage == 'Manage cProducts' || currentPage == 'Manage Providers') return;
 
     // if (currentPage == 'Manage cProducts') {
     //     $.get('handle/hManage.php',{page:currentPage,add:'true',valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6},function(res) {

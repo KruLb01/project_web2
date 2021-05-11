@@ -432,7 +432,6 @@
             }
             else {
                 $sql .= "cast(admin.id_nguoidung as unsigned) ";
-                echo 1;
             }
             $sql .= " LIMIT $pag,$numShow";
 
@@ -1172,6 +1171,141 @@
                 $countPos++;
             }
         }
+
+        if ($page == "Manage Providers") {
+            if (isset($_GET['numPag'])) {
+                $numPag = $_GET['numPag'];
+                if (isset($_GET['textShow'])) {
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from nha_cung_cap'))['count'];
+                    echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
+                    return;
+                }
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from nha_cung_cap'))['count']/$numShow);
+                return;
+            }
+
+            if (isset($_GET['popUp']) && isset($_GET['clickPos'])) {
+                $click = $_GET['clickPos'];
+                $idInput = explode("&",$click)[0];
+                $nameInput = explode("&",$click)[1];
+                $addressInput = explode("&",$click)[2];
+                $show = '';
+                $res = $conn->selectData("select * from nha_cung_cap 
+                                where id_nhacungcap = '$idInput'");
+
+                $show = "
+                    <span id='dm-popup-title'>View details of $nameInput</span>
+                    <i class='fas fa-times dm-pop-up-close-btn'></i>
+                    <div class='dm-details-content'>
+                    <table class='dm-details-content-items'>
+                    <tr>
+                        <th>Id Provider</th>
+                        <th>Name Provider</th>
+                        <th>Address Provider</th>
+                        <th>Save</th>
+                    </tr>
+                ";
+                while ($line = mysqli_fetch_array($res)) {
+                    $show .= "
+                    <tr>
+                        <td>$idInput</td>
+                        <td><input type='text' name='name' value='$nameInput'></td>
+                        <td><input type='text' name='address' value='$addressInput'></td>
+                        <td><button class=save-btn>Save</button></td>
+                    </tr>
+                    ";
+                }
+                $show .= "
+                    </table>
+                    </div>
+                ";
+                echo $show;
+                return;
+            }
+            if (isset($_GET['popUp'])) return;
+
+            if (isset($_GET['add'])) {
+                if (isset($_GET['valText'])) {
+                    $valText = explode("-",$_GET['valText']);
+                }
+                $resAdd = $conn->executeQuery("insert into nha_cung_cap(id_nhacungcap, ten_nhacungcap, diachi_nhacungcap) values('".$valText[0]."', '".$valText[1]."', '".$valText[2]."')");
+                echo $resAdd;
+                return;
+            }
+
+            if (isset($_GET['update'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+
+                if ($val[0]== 'text') {
+                    $resUpdate = $conn->executeQuery("update nha_cung_cap set ten_nhacungcap = N'".$val[2]."', diachi_nhacungcap = N'".$val[3]."' where id_nhacungcap = '".$val[1]."'");
+                    echo $resUpdate;
+                    return;
+                }
+                if ($val[0]=='delete') {
+                    $resUpdate = $conn->executeQuery("delete from nha_cung_cap where id_nhacungcap = '".$val[1]."'");
+                    echo $resUpdate;
+                    return;
+                }
+            }
+
+            $sql="select *
+            from nha_cung_cap
+            ORDER by ";
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Providers") {
+                    $sql .= "id_nhacungcap $sort ";
+                } else if ($title=="Name Providers") {
+                    $sql .= "ten_nhacungcap $sort ";
+                } else if ($title=="Address Providers") {
+                    $sql .= "diachi_nhacungcap $sort ";
+                }
+            } else $sql .= "id_nhacungcap asc ";
+            $sql .= " LIMIT $pag,$numShow";
+
+            if (isset($_GET['search'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+                if ($val[0] != 'none') {
+                    $sql = "select * from nha_cung_cap where ".$val[0]." like '%".$val[1]."%' order by id_nhacungcap limit $pag, $numShow";
+                }
+            }
+
+            $res = $conn->selectData($sql);
+            $show = "
+            <tr>
+                <th>Id Providers</th>
+                <th>Name Providers</th>
+                <th>Address Providers</th>
+                <th>Action</th>
+            </tr>
+            ";
+
+            $countPos = 0;
+            while($line=mysqli_fetch_array($res)) {
+                $show .= "
+                <tr>
+                    <td>".$line['id_nhacungcap']."</td>
+                    <td>".$line['ten_nhacungcap']."</td>
+                    <td>".$line['diachi_nhacungcap']."</td>
+                    <td>
+                        <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
+                            <ul class='dashboard-manage-table-action-items'>
+                                <li>Details</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                ";
+                $countPos++;
+            }
+        }
+
         echo $show;
     }
 
