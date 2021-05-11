@@ -1751,6 +1751,18 @@ span.del-img {
     .activity-compare span {
         margin: 8px 0;
     }
+
+    /*manage*/
+    .dashboard-manage-fromto {
+        display: flex;
+        flex-direction: column;
+    }
+    .dashboard-manage-fromto button {
+        width:100px;
+    }
+    .dashboard-manage-fromto span {
+        padding: 8px 0;
+    }
 }
 @media only screen and (max-width:600px) {
     /*Responsive page login*/
@@ -1815,6 +1827,15 @@ span.del-img {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+
+    /*manage*/
+    .dashboard-manage-search-bar {
+        overflow-x: scroll;
+    }
+    .dashboard-manage-fromto {
+        overflow-x: scroll;
     }
 }
 @media only screen and (max-width:800px) {
@@ -2021,4 +2042,55 @@ span.del-img {
         text-align: center;
         padding: 5px;
     }
+}
+
+/*Unknown*/
+#handle-btn {
+    margin: 0 8px;
+    padding: 5px;
+    font-size: 19px;
+    border: none;
+    color: #1ccfae;
+    cursor: pointer;
+    font-weight: 600;
+    background: rgb(160, 160, 160, 0.3);
+    border-radius: 5px;
+}
+.dashboard-manage-fromto {
+    background: rgb(199, 199, 199, 0.3);
+    width: 100%;
+    padding: 20px 30px;
+}
+.dashboard-manage-fromto span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #557cdf;
+}
+.dashboard-manage-fromto input[type=date] {
+    border: none;
+    font-size: 19px;
+    margin: 0 8px;
+    border-radius: 5px;
+    padding: 2px;
+}
+.dashboard-manage-fromto button {
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    background: #557cdf;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+.dashboard-manage-fromto button:hover {
+    box-shadow: 0 0 3px #557cdf,
+        0 0 3px #000;
+}
+.dashboard-manage-fromto select {
+    font-size: 19px;
+    padding: 2px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 8px;
 }

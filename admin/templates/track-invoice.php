@@ -24,19 +24,26 @@
     <div class="dashboard-manage-search-bar disable-copy">
         <div class="dashboard-manage-search-bar-fnc">
             <span><i class="fas fa-filter"></i></span>
-            <div class="dashboard-manage-search-bar-filter">
+            <div class="dashboard-manage-search-bar-filter filter-only">
                 <span>
-                    Id:
+                    Status:
                     <select name="" id="">
-                        <option value="all">All</option>
+                        <option value="-">-</option>
+                        <option value="waiting">Waiting</option>
+                        <option value="delivering">Delivering</option>
+                        <option value="delivered">Delivered</option>
                     </select>
                 </span>
             </div>
-            <div class="dashboard-manage-search-bar-filter">
+            <div class="dashboard-manage-search-bar-filter filter-only">
                 <span>
-                    Name: 
+                    Total: 
                     <select name="" id="">
-                        <option value="">All</option>
+                        <option value="-">-</option>
+                        <option value="<1000000">< 1,000,000 VNĐ</option>
+                        <option value=">1000000">> 1,000,000 VNĐ</option>
+                        <option value=">5000000">> 5,000,000 VNĐ</option>
+                        <option value=">10000000">> 10,000,000 VNĐ</option>
                     </select>
                 </span>
             </div>
@@ -55,6 +62,16 @@
                 </span>
             </div>
         </div>
+    </div>
+    <div class="dashboard-manage-line"></div>
+    <div class="dashboard-manage-fromto">
+        <span>From <input type="date"></span>
+        <span>To <input type="date" value="<?php echo date("Y-m-d");?>"></span>
+        <span>as <select name="" id="">
+            <option value="ngay_mua">Date Bought</option>
+            <option value="ngay_giao">Date Delivered</option>
+        </select></span>
+        <button id="fromto-btn">Filter</button>
     </div>
     <div class="dashboard-manage-line"></div>
     <div class="dashboard-manage-table">
@@ -86,13 +103,15 @@
 
 <script>
     let just_click;
+    let status;
     $(document).on("click", ".dashboard-manage-table-items tr", function(){
         just_click = $(this).find('td').eq(0).text().trim();
+        status = $(this).find('td').eq(5).text().trim();
     })
     $(document).on("click" , ".dashboard-manage-table-action-items li" , function() {
         if ($(this).text().trim() == 'Details') {
             $('.dashboard-manage-pop-up').css('display','block');
-            $.get('handle/hManage.php', {page:'Track Invoice',popUp:'true',clickPos:just_click}, function(res){
+            $.get('handle/hManage.php', {page:'Track Invoice',popUp:'true',clickPos:just_click, status:status}, function(res){
                 $(".dm-popup-details").eq(0).html(res);
             })
         }
@@ -105,7 +124,69 @@
         $('.dashboard-manage-pop-up').css('display','none');
     }
     })
+    $(document).on("click", ".dashboard-manage-pop-up #handle-btn", function(){
+        $.get("handle/hManage.php", {page:"Track Invoice",update:'true',val:'text-'+$(this).text().trim()+`-${just_click}`}, function(res) {
+            if (res.trim()==true) {
+                alert("Updated status !");
+
+                var num = $('#dm-select-show').val();
+                $.get('handle/hManage.php',{page:"Track Invoice",num:num,pag:'1'},function(res) {
+                    $('.dashboard-manage-table-items').html(res);
+                });
+            }
+            else {
+                alert("Failed");
+            }
+        })
+    })
 </script>
 
+<!--Handle filter-->
+<script>
+    let condition = "";
+    let filter_value = "";
+    $(".filter-only").click(function() {
+        condition = $(this).index() == 1 ? "Status" : "Total";
+    })
+    $(".filter-only select").change(function() {
+        var pag = $('.dm-selected').text().trim();
+        var num = $('#dm-select-show').val();
 
-huy don dat hang !
+        filter_value = $(this).val().trim();
+    
+        $.get("handle/hManage.php", {page:"Track Invoice", filter:true, condition:condition, filter_value:filter_value, num:num, pag:pag}, function(res) {
+            $('.dashboard-manage-table-items').html(res);
+
+            if (filter_value=="-") {
+                var count =  <?php echo $count?>;
+                if (count!=1) {
+                    $("#dm-last-btn").removeClass("dm-disable");
+                    var show = `<?php  
+                        echo "<span class='dm-pagination-items dm-selected'>1</span>";
+                        for ($i = 2; $i <= $count; $i ++) {
+                            echo '<span class="dm-pagination-items">'.$i.'</span>';
+                        }
+                    ?>`;
+                    $('.dashboard-manage-table-pagination-items').find(".dm-pagination-items").remove();
+                    $('#dm-first-btn').after(show);
+                }
+            } else {
+                var show = "<span class='dm-pagination-items dm-selected'>1</span>";
+                $('.dashboard-manage-table-pagination-items').find(".dm-pagination-items").remove();
+                $('#dm-first-btn').after(show);
+                $("#dm-last-btn").addClass("dm-disable");
+            }
+        })
+    })
+    $("#fromto-btn").click(function(){
+        var ds = $(".dashboard-manage-fromto").find("input[type=date]").eq(0).val();
+        var de = $(".dashboard-manage-fromto").find("input[type=date]").eq(1).val();
+        var condition = $(".dashboard-manage-fromto").find("select").eq(0).val();
+        var pag = $('.dm-selected').text().trim();
+        var num = $('#dm-select-show').val();
+
+        $.get("handle/hManage.php", {page:"Track Invoice", filter:true, condition:condition, filter_value:`${ds}~${de}`, num:num, pag:pag}, function(res){
+            $('.dashboard-manage-table-items').html(res);
+        })
+    })
+</script>

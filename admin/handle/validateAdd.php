@@ -48,6 +48,16 @@
                                     where ten_nhacungcap =  $id");
         }
 
+        if ($page == 'gproducts') {
+            $res = $conn->selectData("select * from dong_san_pham 
+                                    where id_dongsanpham = $id");
+        }
+
+        if ($page == 'gproducts1') {
+            $res = $conn->selectData("select * from dong_san_pham 
+                                    where ten_dongsanpham = $id");
+        }
+
 
 
         if (mysqli_num_rows($res)!=0) {

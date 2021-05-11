@@ -249,11 +249,11 @@
                 var num = $('#dm-select-show').val();
                 var pag = $('.dm-selected').text().trim();
     
-                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                $.get('handle/hManage.php',{page:'Manage Providers',num:num,pag:pag},function(res) {
                     $('.dashboard-manage-table-items').html(res);
                 })
 
-                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+                $.get('handle/hManage.php',{page:'Manage Providers',num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
                     $('#dm-show-number').html(res);
                 })
                 resetField();

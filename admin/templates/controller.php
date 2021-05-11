@@ -31,6 +31,8 @@
             include('activity.php');
         } else if ($action == 'manage-providers') {
             include('manage-providers.php');
+        } else if ($action == 'manage-gproduct') {
+            include('manage-gproduct.php');
         }
     } else include('default-content.php');
     echo $flag;
