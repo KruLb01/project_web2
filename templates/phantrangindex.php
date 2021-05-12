@@ -14,6 +14,7 @@
         if($result!==null)
         {
             while($row = mysqli_fetch_array($result)){
+                $gender = $row['gioi_tinh'] == "Male" ? "Nam" : "Nữ";
                 $url = mysqli_fetch_array($con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'"))['link_hinhanh'];
                 echo '<li class="prod-item">
                     <div class="prod-image">
@@ -27,7 +28,7 @@
                     </div>
                     <div class="prod-info">
                         <div class="prod-gender">
-                            <span>Giới tính: '.$row['gioi_tinh'].'</span>
+                            <span>Giới tính: '.$gender.'</span>
                         </div>
                         <div class="prod-color">
                             <span>Màu: '.$row['mau_sanpham'].'</span>

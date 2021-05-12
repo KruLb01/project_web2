@@ -5,7 +5,8 @@
         $action = $_GET['action'];
         if ($action == 'logout') {
             session_start();
-            unset($_SESSION['user']);
+            // unset($_SESSION['user']);
+            session_destroy();
             $flag = true;
         } else if ($action == 'view-info-user') {
             include('view-info-user.php');

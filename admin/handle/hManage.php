@@ -214,8 +214,8 @@
                 if (isset($_GET['valText'])) {
                     $valText = explode("-",$_GET['valText']);
                 }
-                $resAdd = $conn->executeQuery("insert into nhom_san_pham(id_nhomsanpham, ten_nhomsanpham, gioi_tinh, mieuta, mau_sanpham)
-                                                values('".$valText[0]."', '".$valText[1]."', '$gender', '".$valText[3]."', '".$valText[2]."')");
+                $resAdd = $conn->executeQuery("insert into nhom_san_pham(id_nhomsanpham, ten_nhomsanpham, gioi_tinh, mieuta, mau_sanpham, id_dongsanpham)
+                                                values('".$valText[0]."', '".$valText[1]."', '$gender', '".$valText[3]."', '".$valText[2]."', '".$valText[4]."')");
                 echo $resAdd;
                 return;
             }
@@ -285,6 +285,7 @@
                 <th>Gender</th>
                 <th>Stars Rated</th>
                 <th>Buyed</th>
+                <th>Total</th>
                 <th>Action</th>
             </tr>
             ";
@@ -327,6 +328,8 @@
             
             $countPos = 0;
             while($line=mysqli_fetch_array($res)) {
+                $total = mysqli_fetch_array($conn->selectData("select sum(so_luong) as tong from nhom_san_pham, san_pham where nhom_san_pham.id_nhomsanpham = san_pham.id_nhomsanpham and nhom_san_pham.id_nhomsanpham = '".$line['id_nhomsanpham']."'"))['tong'];
+                if ($total == "") $total = 0;
                 $gender = '<i class="fas fa-mars" style="color:blue;font-size:24px"></i>';
                 if ($line['gioi_tinh'] == 'Female') {
                     $gender = '<i class="fas fa-venus" style="color:pink;font-size:24px"></i>';
@@ -339,6 +342,7 @@
                     <td>".$gender."</td>
                     <td>".$line['sosao_danhgia']." <i class='fas fa-star' style='color:orange'></i></td>
                     <td>0</td>
+                    <td>$total</td>
                     <td>
                         <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
                             <ul class='dashboard-manage-table-action-items'>
@@ -385,6 +389,7 @@
                 $resAdd = $conn->executeQuery("insert into nguoi_dung(id_nguoidung, tai_khoan, mat_khau, email, so_dien_thoai, quyen, tinh_trang_taikhoan) 
                                                 values('".$valText[0]."', '".$valText[3]."', '".$pass."', '".$valText[2]."', '".$valText[5]."', '".$valText[6]."', ".$valCB[0].")");
                 $resAdd = $conn->executeQuery("insert into admin(id_nguoidung, ho_ten, thong_tin_khac) values('".$valText[0]."', '".$valText[1]."', '')");
+                $resAdd = $conn->executeQuery("update quyen set so_luong = so_luong + 1 where id_quyen = '".$valText[6]."'");
                 echo $resAdd;
                 return;
             }
@@ -406,6 +411,7 @@
                     return;
                 }
                 if ($val[0]=='delete') {
+                    $resUpdate = $conn->executeQuery("update quyen set so_luong = so_luong - 1 where id_quyen = (select quyen from nguoi_dung where id_nguoidung = '".$val[1]."')");
                     $resUpdate = $conn->executeQuery("delete from admin where id_nguoidung = '".$val[1]."'");
                     $resUpdate = $conn->executeQuery("delete from nguoi_dung where id_nguoidung = '".$val[1]."'");
                     echo $resUpdate;
@@ -582,6 +588,7 @@
                 $resAdd = $conn->executeQuery("insert into nguoi_dung(id_nguoidung, tai_khoan, mat_khau, email, so_dien_thoai, quyen, tinh_trang_taikhoan) 
                                                 values('".$valText[0]."', '".$valText[3]."', '".$pass."', '".$valText[2]."', '".$valText[6]."', 'customer', ".$valCB[0].")");
                 $resAdd = $conn->executeQuery("insert into khach_hang(id_nguoidung, ho_ten, dia_chi) values('".$valText[0]."', '".$valText[1]."', '".$valText[5]."')");
+                $resAdd = $conn->executeQuery("update quyen set so_luong = so_luong + 1 where id_quyen 'customer'");
                 echo $resAdd;
                 return;
             }
@@ -606,6 +613,7 @@
                 if ($val[0]=='delete') {
                     $resUpdate = $conn->executeQuery("delete from nguoi_dung where id_nguoidung = '".$val[1]."'");
                     $resUpdate = $conn->executeQuery("delete from khach_hang where id_nguoidung = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("update quyen set so_luong = so_luong - 1 where id_quyen = 'customer'");
                     echo $resUpdate;
                     return;
                 }
@@ -962,6 +970,17 @@
                     if ($val[1]=="Delivery") {
                         $resUpdate = $conn->executeQuery("update hoa_don set id_nhanvienban = '".$_SESSION['user']['id']."' where id_hoadon = '".$val[2]."'");
                         $resUpdate = $conn->executeQuery("insert into chitiet_giaohang(id_hoadon, phuongthuc_giaohang, ngay_giao, tinhtrang_giaohang) values('".$val[2]."', 'GH-1', '', false)");
+
+                        $sqlHandle = "SELECT * FROM san_pham, 
+                                                (SELECT id_sanpham, so_luong 
+                                                FROM hoa_don, chitiet_hoadon 
+                                                WHERE hoa_don.id_hoadon = chitiet_hoadon.id_hoadon 
+                                                AND hoa_don.id_hoadon = '".$val[2]."') as b 
+                                    WHERE san_pham.id_sanpham = b.id_sanpham";
+                        $resHandle = $conn->selectData($sqlHandle);
+                        while ($row = mysqli_fetch_array($resHandle)) {
+                            $conn->executeQuery("update san_pham set san_pham.so_luong = san_pham.so_luong - ".$row['so_luong']." where id_sanpham = '".$row['id_sanpham']."'");
+                        }
                     } else if ($val[1]=="Delivered") {
                         $resUpdate = $conn->executeQuery("update chitiet_giaohang set tinhtrang_giaohang = true, ngay_giao = '".date("Y-m-d")."' where id_hoadon = '".$val[2]."'");
                     }
@@ -969,8 +988,19 @@
                     return;
                 }
                 if ($val[0]=='delete') {
+                    $sqlHandle = "SELECT * FROM san_pham, 
+                                        (SELECT id_sanpham, so_luong 
+                                        FROM hoa_don, chitiet_hoadon 
+                                        WHERE hoa_don.id_hoadon = chitiet_hoadon.id_hoadon 
+                                        AND hoa_don.id_hoadon = '".$val[1]."') as b 
+                            WHERE san_pham.id_sanpham = b.id_sanpham";
+                    $resHandle = $conn->selectData($sqlHandle);
+                    while ($row = mysqli_fetch_array($resHandle)) {
+                        $conn->executeQuery("update san_pham set san_pham.so_luong = san_pham.so_luong + ".$row['so_luong']." where id_sanpham = '".$row['id_sanpham']."'");
+                    }
                     $resUpdate = $conn->executeQuery("delete from hoa_don where hoa_don.id_hoadon = '".$val[1]."'");
                     $resUpdate = $conn->executeQuery("delete from chitiet_giaohang where chitiet_giaohang.id_hoadon = '".$val[1]."'");
+
                     echo $resUpdate;
                     return;
                 }

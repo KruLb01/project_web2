@@ -3,7 +3,7 @@
     // $conn = new connectData('1');
     
     $countCustomers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from khach_hang, nguoi_dung where khach_hang.id_nguoidung = nguoi_dung.id_nguoidung'))['quantity'];
-    $countUsers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from admin'))['quantity'];
+    $countUsers = mysqli_fetch_array($conn->selectData('select count(*) as quantity from admin, nguoi_dung where admin.id_nguoidung = nguoi_dung.id_nguoidung'))['quantity'];
     $countProducts = mysqli_fetch_array($conn->selectData('select count(*) as quantity from nhom_san_pham'))['quantity'];
     $countSales = mysqli_fetch_array($conn->selectData('select count(*) as quantity from sale'))['quantity'];
 

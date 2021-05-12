@@ -39,6 +39,17 @@
                             Description Product :
                             <input type="text" placeholder='Description Product'>
                         </span>
+                        <span>
+                            Id gProduct :
+                            <select name="" id="">
+                                <?php
+                                    $res = $conn->selectData("select * from dong_san_pham order by ten_dongsanpham");
+                                    while ($line = mysqli_fetch_array($res)) {
+                                        echo "<option value='".$line['id_dongsanpham']."'>".$line['ten_dongsanpham']."</option>";
+                                    }
+                                ?>
+                            </select>
+                        </span>
                         <div class="dm-pop-up-add-btn disable-copy">
                             <span class="dm-pop-up-add-save-btn">Add new product</span>
                         </div>

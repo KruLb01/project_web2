@@ -940,6 +940,30 @@ $('.dm-pop-up-add-save-btn').click(function() {
         return;
     }
 
+    if (currentPage == 'Manage Products') {
+        var add_permission = $('.dashboard-manage-pop-up-add-info select').val();
+        $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+add_permission},function(res) {
+            if (res.trim() == true) {
+                alert('Add new product successfully !');
+                var num = $('#dm-select-show').val();
+                var pag = $('.dm-selected').text().trim();
+    
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag},function(res) {
+                    $('.dashboard-manage-table-items').html(res);
+                })
+
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,numPag:'true',textShow:'true'},function(res) {
+                    $('#dm-show-number').html(res);
+                })
+            
+                $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,popUp:'true'},function(res) {
+                    $('.dashboard-manage-pop-up-container').html(res);
+                })
+            } else alert('Failed');
+        })
+        return;
+    }
+
     $.get('handle/hManage.php',{page:currentPage,add:'true',valCB:arrCbox_add.join('-'),valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6+'-'+input7},function(res) {
         console.log(res);
         if (res.trim() == true) {

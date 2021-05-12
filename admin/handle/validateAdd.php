@@ -58,8 +58,6 @@
                                     where ten_dongsanpham = $id");
         }
 
-
-
         if (mysqli_num_rows($res)!=0) {
             echo 'Error';
         } else echo 'Continue';

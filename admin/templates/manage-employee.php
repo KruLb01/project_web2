@@ -121,7 +121,7 @@
             <div class="dashboard-manage-table-pagination-items">
                 <span id='dm-first-btn' class='dm-disable'><i class="fas fa-fast-backward"></i> First</span>
                 <?php
-                    $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from quyen'))['count']/10);
+                    $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from nguoi_dung, admin where nguoi_dung.id_nguoidung = admin.id_nguoidung'))['count']/10);
                     echo "<span class='dm-pagination-items dm-selected'>1</span>";
                     for ($i = 2; $i <= $count; $i ++) {
                         echo '<span class="dm-pagination-items">'.$i.'</span>';

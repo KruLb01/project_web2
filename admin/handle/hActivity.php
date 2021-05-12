@@ -29,6 +29,7 @@
                     }
                 }
                 $res = $conn->selectData($sql);
+                $show .= $sql;
                 while ($row = mysqli_fetch_array($res)) {
                     $show .= "
                         <tr>
