@@ -83,6 +83,10 @@ $('.dashboard-menu-items li').click(function(){
     if (action == 'Help') {
         location.href = '?action=help';
     }
+
+    if (action == 'Track Sales') {
+        location.href = '?action=track-sales';
+    }
 })
 
 
@@ -903,7 +907,7 @@ $('.dm-pop-up-add-save-btn').click(function() {
         }
     }
 
-    if (currentPage == 'Manage cProducts' || currentPage == 'Manage Providers' || currentPage == 'Manage gProducts') return;
+    if (currentPage == 'Manage cProducts' || currentPage == 'Manage Providers' || currentPage == 'Manage gProducts' || currentPage == "Track Sales") return;
 
     // if (currentPage == 'Manage cProducts') {
     //     $.get('handle/hManage.php',{page:currentPage,add:'true',valText:input1+'-'+input2+'-'+input3+'-'+input4+'-'+input5+'-'+input6},function(res) {
@@ -1005,7 +1009,9 @@ $(document).on("click", ".dashboard-manage-table tr th", function() {
 
     if (sort=="asc") sort = "desc";
     else sort = "asc";
-    
+    if (currentPage=="Manage Products"&&title=="Total") return;
+    if (currentPage=="Track Invoice"&&title=="Date Delivered") return;
+    if (currentPage=="Track Sales"&&title=="Effect on") return;
     if (title!="Action"&&title!="Status") {
         $.get('handle/hManage.php',{page:currentPage,num:num,pag:pag,title:title,sort:sort},function(res) {
             $('.dashboard-manage-table-items').html(res);

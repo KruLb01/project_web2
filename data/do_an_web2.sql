@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 05:55 AM
+-- Generation Time: May 12, 2021 at 08:53 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -40,21 +40,11 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`id_nguoidung`, `ho_ten`, `thong_tin_khac`) VALUES
 ('admin', 'Leos Heros', 'I am alive ! <3'),
 ('manager', 'Kao Heros', 'F*ck this project :<'),
-('admin1', 'Lê Thanh Hòa', ''),
-('admin2', 'Heros', ''),
-('admin3', 'Heros', ''),
-('admin4', 'Heros', ''),
-('admin5', 'Heros', ''),
-('admin7', 'Heros', ''),
-('admin8', 'Heros', ''),
-('admin9', 'Heros', ''),
-('admin10', 'Heros', ''),
 ('employee1', 'Lê Thanh Hòa', ''),
 ('employee1', 'Lê Thanh Hòa', ''),
 ('employee1', 'Lê Thanh Hòa', ''),
 ('employee1', 'Lê Thanh Hòa', ''),
-('nv001', 'Lê Thanh Hòa', ''),
-('nv002', 'Lê Thanh Hòa', '');
+('nv001', 'Lê Thanh Hòa', '');
 
 -- --------------------------------------------------------
 
@@ -78,7 +68,7 @@ CREATE TABLE `chitiet_giaohang` (
   `id_hoadon` varchar(50) NOT NULL,
   `phuongthuc_giaohang` varchar(50) NOT NULL,
   `ngay_giao` date NOT NULL,
-  `tinhtrang_giaohang` tinyint(1) NOT NULL
+  `tinhtrang_giaohang` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -86,10 +76,15 @@ CREATE TABLE `chitiet_giaohang` (
 --
 
 INSERT INTO `chitiet_giaohang` (`id_hoadon`, `phuongthuc_giaohang`, `ngay_giao`, `tinhtrang_giaohang`) VALUES
-('2', 'GH-2', '2021-05-11', 1),
-('11', 'GH-1', '2021-05-11', 1),
-('9', 'GH-1', '0000-00-00', 0),
-('4', 'GH-1', '0000-00-00', 0);
+('23', 'GH-1', '0000-00-00', 2),
+('24', 'GH-1', '2021-05-12', 3),
+('25', 'GH-1', '0000-00-00', 2),
+('26', 'GH-1', '2021-05-12', 3),
+('27', 'GH-1', '0000-00-00', 1),
+('28', 'GH-1', '0000-00-00', 2),
+('29', 'GH-1', '2021-05-12', 3),
+('30', 'GH-1', '2021-05-12', 3),
+('31', 'GH-1', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -109,15 +104,15 @@ CREATE TABLE `chitiet_hoadon` (
 --
 
 INSERT INTO `chitiet_hoadon` (`id_hoadon`, `id_sanpham`, `so_luong`, `gia`) VALUES
-('23', '1S33', 10, 15500000),
+('23', '1S33', 10, 1550000),
 ('24', '1S31', 1, 1000000),
 ('25', '1S31', 1, 1000000),
-('26', '9S33', 10, 20000000),
-('27', '2S31', 2, 3000000),
+('26', '9S33', 10, 2000000),
+('27', '2S31', 2, 1500000),
 ('28', '2S31', 1, 1500000),
 ('29', '2S31', 1, 1500000),
 ('30', '2S31', 1, 1500000),
-('31', '2S31', 5, 7500000);
+('31', '2S31', 5, 2000000);
 
 -- --------------------------------------------------------
 
@@ -137,19 +132,9 @@ CREATE TABLE `chitiet_phieunhap` (
 --
 
 INSERT INTO `chitiet_phieunhap` (`id_phieunhap`, `id_sanpham`, `so_luong`, `gia_nhap`) VALUES
-('PN-608adf831d1a69.00308392', '1a', 20, 300000),
-('PN-608adf831d1a69.00308392', '1d', 40, 10000000),
-('PN-608ae01d488729.61747488', '1c', 50, 1500000),
-('PN-608ae043ac4643.44705225', '1e', 23, 6566666),
-('PN-608af3f1e08026.87042665', '1b', 2, 578800),
-('PN-608af411577b20.38880033', '1d', 4, 900800),
-('PN-608b7885aed043.36778805', '1c', 20, 600000),
-('PN-608b7897a2ae20.98024703', '1c', 3, 600000),
-('PN-608b7a42be7e48.18949338', '1a', 1, 1000000),
-('PN-608b7ae53d8be0.55186967', '1a', 2, 2000000),
-('PN-608b7c3333eb42.40498033', '1b', 50, 2000000),
-('PN-608b7db385c171.04005761', '1a', 3, 2000000),
-('PN-608b7db385c171.04005761', '1e', 4, 400000);
+('PN-609b75613c30d8.21739231', '2S31', 20, 200000),
+('PN-609b75613c30d8.21739231', '1S33', 20, 300000),
+('PN-609bf5a8a85c33.15643328', '2S31', 20, 200000);
 
 -- --------------------------------------------------------
 
@@ -171,33 +156,25 @@ INSERT INTO `chitiet_quyen_chucnang` (`id_quyen`, `id_chucnang`) VALUES
 ('admin', '1'),
 ('admin', '2'),
 ('admin', '3'),
-('admin', '5'),
 ('admin', '6'),
 ('admin', '9'),
 ('admin', '10'),
-('admin', '11'),
 ('admin', '12'),
 ('admin', '17'),
 ('manager', '1'),
 ('manager', '2'),
 ('manager', '3'),
 ('manager', '4'),
-('manager', '5'),
 ('manager', '6'),
 ('manager', '9'),
 ('manager', '10'),
-('manager', '11'),
 ('manager', '12'),
-('manager', '13'),
 ('manager', '14'),
-('manager', '15'),
 ('manager', '16'),
 ('manager', '17'),
 ('manager', '18'),
 ('manager', '19'),
-('admin', '13'),
 ('admin', '14'),
-('admin', '15'),
 ('admin', '16'),
 ('admin', '18'),
 ('admin', '19'),
@@ -219,7 +196,13 @@ INSERT INTO `chitiet_quyen_chucnang` (`id_quyen`, `id_chucnang`) VALUES
 ('admin', '20'),
 ('admin', '21'),
 ('admin', '22'),
-('admin', '23');
+('admin', '23'),
+('manager', '23'),
+('manager', '7'),
+('manager', '22'),
+('manager', '8'),
+('manager', '20'),
+('manager', '21');
 
 -- --------------------------------------------------------
 
@@ -231,6 +214,13 @@ CREATE TABLE `chitiet_sale` (
   `id_sale` varchar(10) NOT NULL,
   `id_nhomsanpham` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chitiet_sale`
+--
+
+INSERT INTO `chitiet_sale` (`id_sale`, `id_nhomsanpham`) VALUES
+('2', '10');
 
 -- --------------------------------------------------------
 
@@ -255,17 +245,13 @@ INSERT INTO `chuc_nang` (`id_chucnang`, `ten_chucnang`, `mieuta`, `vi_tri`, `ico
 (2, 'Manage Customers', '', '1001', ''),
 (3, 'Manage Employees', '', '1002', ''),
 (4, 'Manage Permission', '', '1003', ''),
-(5, 'Analyze User', '', '1004', ''),
 (6, 'Manage Store', '', '2000', '<i class=\"fas fa-cubes\" style=\"padding-right: 8px;\"></i>'),
 (7, 'Manage Products', '', '2010', ''),
 (8, 'Import Products', '', '2020', ''),
 (9, 'Manage Revenue', '', '3000', '<i class=\"fas fa-receipt\" style=\"padding-right: 10px;padding-left:4px\"></i>'),
 (10, 'Track Invoice', '', '3001', ''),
-(11, 'Analyze Profits', '', '3002', ''),
 (12, 'Manage Sales', '', '4000', '<i class=\"fas fa-money-bill-alt\" style=\"padding-right: 8px;\"></i>'),
-(13, 'Create Sales', '', '4001', ''),
 (14, 'Track Sales', '', '4002', ''),
-(15, 'Analyze Sales', '', '4003', ''),
 (16, 'Activity', '', '5000', '<i class=\"fas fa-chart-line\" style=\"padding-right: 10px;\"></i>'),
 (17, 'Mail', '', '6000', '<i class=\"fas fa-mail-bulk\" style=\"padding-right: 8px;\"></i>'),
 (18, 'Help', '', '7000', '<i class=\"fas fa-question\"  style=\"padding-right: 14px;\"></i>'),
@@ -472,15 +458,15 @@ CREATE TABLE `hoa_don` (
 --
 
 INSERT INTO `hoa_don` (`id_hoadon`, `id_nguoidung`, `id_nhanvienban`, `ngay_mua`, `tong_gia`, `id_sale`) VALUES
-(23, '1', '', '2021-05-11', 15500000, '15'),
-(24, '1', '', '2021-05-11', 1000000, '14'),
+(23, '1', 'manager', '2021-05-11', 15500000, '15'),
+(24, '1', 'manager', '2021-05-11', 1000000, '14'),
 (25, '1', '', '2021-05-11', 1000000, '15'),
-(26, '1', '', '2021-05-11', 20000000, '13'),
+(26, '1', 'manager', '2021-05-11', 20000000, '13'),
 (27, '2', '', '2021-05-11', 3000000, '12'),
-(28, '2', '', '2021-05-11', 1500000, '11'),
-(29, '2', '', '2021-05-11', 1500000, '11'),
-(30, '2', '', '2021-05-11', 1500000, '12'),
-(31, '2', '', '2021-05-11', 7500000, '12');
+(28, '2', 'manager', '2021-05-11', 1500000, '11'),
+(29, '2', 'manager', '2021-05-11', 1500000, '11'),
+(30, '2', 'manager', '2021-05-11', 1500000, '12'),
+(31, '2', '', '2021-05-11', 10000000, '12');
 
 -- --------------------------------------------------------
 
@@ -552,8 +538,7 @@ INSERT INTO `khach_hang` (`id_nguoidung`, `ho_ten`, `dia_chi`, `thong_tin_khac`)
 (50, 'Kali Heros', 'On the Moon', ''),
 (51, 'Kali Heros', 'On the Moon', ''),
 (53, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', ''),
-(54, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', ''),
-(55, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', '');
+(54, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', '');
 
 -- --------------------------------------------------------
 
@@ -577,7 +562,7 @@ CREATE TABLE `nguoi_dung` (
 
 INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_dien_thoai`, `quyen`, `tinh_trang_taikhoan`) VALUES
 ('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 0),
-('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0),
+('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('2', 'customer2', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('3', 'customer3', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('4', 'customer4', '1', 'customer@gmail.com', '1234324', 'customer', 0),
@@ -630,20 +615,9 @@ INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_
 ('51', 'customer51', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('52', 'customer52', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 0),
-('admin1', 'admin1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 1),
-('admin2', 'admin2', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
-('admin3', 'admin3', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
-('admin4', 'admin4', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin5', 'admin5', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin7', 'admin7', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
-('admin8', 'admin8', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin9', 'admin9', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin10', 'admin10', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'employee', 1),
 ('53', 'customer53', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('54', 'customer54nek', 'c8f3c7fc80cf9be66ea3bdf64ba1c82d', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
-('55', 'customer55', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0),
-('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1),
-('nv002', 'nv0002', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 0);
+('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1);
 
 -- --------------------------------------------------------
 
@@ -674,7 +648,7 @@ INSERT INTO `nha_cung_cap` (`id_nhacungcap`, `ten_nhacungcap`, `diachi_nhacungca
 --
 
 CREATE TABLE `nhom_san_pham` (
-  `id_nhomsanpham` int(10) NOT NULL,
+  `id_nhomsanpham` varchar(10) NOT NULL,
   `ten_nhomsanpham` varchar(100) NOT NULL,
   `gioi_tinh` varchar(10) NOT NULL,
   `mieuta` longtext NOT NULL,
@@ -689,15 +663,16 @@ CREATE TABLE `nhom_san_pham` (
 --
 
 INSERT INTO `nhom_san_pham` (`id_nhomsanpham`, `ten_nhomsanpham`, `gioi_tinh`, `mieuta`, `sosao_danhgia`, `soluot_danhgia`, `id_dongsanpham`, `mau_sanpham`) VALUES
-(1, 'Bitis Hunter Running Blue', 'Nam', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 5, 20, 'BHR', 'Đen'),
-(2, 'Bitis Hunter Running Orange', 'Nữ', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 4, 30, 'BHR', 'Cam'),
-(3, 'Converse Taylor Science Canvas Trainers', 'Nam Nữ', 'Mẫu giày Converse Kid Science Canvas Trainers mô phỏng thế giới động vật với đa dạng lớp động vật, tạo nên một thế giới sinh học vô cùng phong phú. Mẫu giày thiết kế đơn giản và được trẻ em ưa chuộng nhiều, phù hợp với trẻ em từ 3 đến 10 tuổi.', 5, 10, 'CVK', 'Trắng'),
-(4, 'Converse Chuck Taylor All Star Gamer Low-Top', 'Nam', 'Mẫu giày Converse Kid Gamer Low Top sử dụng họa tiết đa màu sắc vui nhộn, được lấy cảm hứng từ những trò chơi điện tử ăn khách từ thập kỷ trước, được trẻ em trên khắp thế giới yêu thích. Thiết kế mang phong cách đơn giản nhưng cũng vô cùng thu hút, sẽ là một món quà đặc biệt để làm các bạn nhỏ bất ngờ.', 5, 2, 'CVK', 'Trắng'),
-(5, 'Converse Chuck Taylor Classic Black-White Low Top', 'Nữ', 'Giày Converse classic thấp cổ mang lại cảm giác năng động, trẻ trung. Che khuyết điểm chân to ngang, với các bạn chân có thể chọn cao cổ sẽ không lo nhấc gót nữa. Giày phù hợp với những bạn nữ.', 5, 12, 'CVC', 'Đen Trắng'),
-(6, 'Converse Chuck 70 Archive Paint Splatter High Top Black', 'Nam Nữ', 'Chào hè bằng những thiết kế Converse Archive Paint Splatter, thương hiệu bóng rổ đình đám đã có dịp chinh phục các bạn trẻ đang hướng đến sự mới lạ và phong cách cá tính. Ứng dụng xu hướng Paint Splatter với hình ảnh những tia sơn màu được phun một cách không cần trật tự lên bản in cho thiết kế mới, Converse mang đến item đầy sắc màu để bạn “hết mình” với style trẻ trung, năng động nhất.', 5, 12, 'CV70s', 'Đen '),
-(7, 'Converse Chuck 70 Archive Paint Splatter High Top White', 'Nam Nữ', 'Chào hè bằng những thiết kế Converse Archive Paint Splatter, thương hiệu bóng rổ đình đám đã có dịp chinh phục các bạn trẻ đang hướng đến sự mới lạ và phong cách cá tính. Ứng dụng xu hướng Paint Splatter với hình ảnh những tia sơn màu được phun một cách không cần trật tự lên bản in cho thiết kế mới, Converse mang đến item đầy sắc màu để bạn “hết mình” với style trẻ trung, năng động nhất.', 5, 3, 'CV70s', 'Trắng'),
-(8, 'Adidas Slip-on SuperStar', 'Nam Nữ', 'PHIÊN BẢN KHÔNG DÂY VÀ SIÊU NHẸ CỦA ĐÔI GIÀY ADIDAS SUPERSTAR ĐẦY TÍNH BIỂU TƯỢNG.\r\nXO, mũi vỏ sò. Quai đan chéo cho bạn thêm một cách mới để mang đôi giày classic rất được yêu thích này. Hơn 50 năm trước, dòng giày adidas Superstar đã gây tiếng vang trên sân bóng rổ là mẫu giày cổ thấp bằng da đầu tiên. Các fan yêu thích giày trainer đã nhanh chóng xiêu lòng trước thiết kế mũi vỏ sò bằng cao su có vân nổi và từ đó đã mang đôi giày này tới biết bao nơi kỳ thú. Và không ai có thể quên được thập niên 80, thời mà hip hop vẫn còn là một hình thức nghệ thuật mới nổi và một nhóm bộ ba đến từ Hollis, Queens đã giơ cao đôi giày này khi biểu diễn trên sân khấu. Phiên bản slip-on này cho các fan một cách thức mới mẻ để di chuyển theo phong cách mũi vỏ sò đích thực.', 5, 11, 'ADS', 'Trắng'),
-(9, 'Nike Air Max 97 Essential', 'Nữ', 'Với tính năng đồng nhất thiết kế tạo gợn sóng của đôi giày OG được lấy cảm hứng từ những con tàu siêu tốc của Nhật Bản. Giày Nike Air Max 97 Essential sẽ để bạn dồn hết tốc độ tối đa của bản thân về phía trước. Việc đưa vào dự án thiết kế đế giày đủ dài giúp cải thiện khi đang chạy và thêm một chút màu sáng và độ chi tiết sắc nét, nó đưa  bạn cảm giác đi trong thoải mái nhất ', 5, 3, 'NAX', 'Bạc');
+('1', 'Bitis Hunter Running Blue', 'Male', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 5, 20, 'BHR', 'Đen'),
+('10', 'Bitis Hunter Running Cyan', 'Male', 'No thing here', 0, 0, 'BHR', 'Cyan'),
+('2', 'Bitis Hunter Running Orange', 'Female', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 4, 30, 'BHR', 'Cam'),
+('3', 'Converse Taylor Science Canvas Trainers', 'Male', 'Mẫu giày Converse Kid Science Canvas Trainers mô phỏng thế giới động vật với đa dạng lớp động vật, tạo nên một thế giới sinh học vô cùng phong phú. Mẫu giày thiết kế đơn giản và được trẻ em ưa chuộng nhiều, phù hợp với trẻ em từ 3 đến 10 tuổi.', 5, 10, 'CVK', 'Trắng'),
+('4', 'Converse Chuck Taylor All Star Gamer Low-Top', 'Male', 'Mẫu giày Converse Kid Gamer Low Top sử dụng họa tiết đa màu sắc vui nhộn, được lấy cảm hứng từ những trò chơi điện tử ăn khách từ thập kỷ trước, được trẻ em trên khắp thế giới yêu thích. Thiết kế mang phong cách đơn giản nhưng cũng vô cùng thu hút, sẽ là một món quà đặc biệt để làm các bạn nhỏ bất ngờ.', 5, 2, 'CVK', 'Trắng'),
+('5', 'Converse Chuck Taylor Classic Black-White Low Top', 'Female', 'Giày Converse classic thấp cổ mang lại cảm giác năng động, trẻ trung. Che khuyết điểm chân to ngang, với các bạn chân có thể chọn cao cổ sẽ không lo nhấc gót nữa. Giày phù hợp với những bạn nữ.', 5, 12, 'CVC', 'Đen Trắng'),
+('6', 'Converse Chuck 70 Archive Paint Splatter High Top Black', 'Female', 'Chào hè bằng những thiết kế Converse Archive Paint Splatter, thương hiệu bóng rổ đình đám đã có dịp chinh phục các bạn trẻ đang hướng đến sự mới lạ và phong cách cá tính. Ứng dụng xu hướng Paint Splatter với hình ảnh những tia sơn màu được phun một cách không cần trật tự lên bản in cho thiết kế mới, Converse mang đến item đầy sắc màu để bạn “hết mình” với style trẻ trung, năng động nhất.', 5, 12, 'CV70s', 'Đen '),
+('7', 'Converse Chuck 70 Archive Paint Splatter High Top White', 'Female', 'Chào hè bằng những thiết kế Converse Archive Paint Splatter, thương hiệu bóng rổ đình đám đã có dịp chinh phục các bạn trẻ đang hướng đến sự mới lạ và phong cách cá tính. Ứng dụng xu hướng Paint Splatter với hình ảnh những tia sơn màu được phun một cách không cần trật tự lên bản in cho thiết kế mới, Converse mang đến item đầy sắc màu để bạn “hết mình” với style trẻ trung, năng động nhất.', 5, 3, 'CV70s', 'Trắng'),
+('8', 'Adidas Slip-on SuperStar', 'Male', 'PHIÊN BẢN KHÔNG DÂY VÀ SIÊU NHẸ CỦA ĐÔI GIÀY ADIDAS SUPERSTAR ĐẦY TÍNH BIỂU TƯỢNG.\r\nXO, mũi vỏ sò. Quai đan chéo cho bạn thêm một cách mới để mang đôi giày classic rất được yêu thích này. Hơn 50 năm trước, dòng giày adidas Superstar đã gây tiếng vang trên sân bóng rổ là mẫu giày cổ thấp bằng da đầu tiên. Các fan yêu thích giày trainer đã nhanh chóng xiêu lòng trước thiết kế mũi vỏ sò bằng cao su có vân nổi và từ đó đã mang đôi giày này tới biết bao nơi kỳ thú. Và không ai có thể quên được thập niên 80, thời mà hip hop vẫn còn là một hình thức nghệ thuật mới nổi và một nhóm bộ ba đến từ Hollis, Queens đã giơ cao đôi giày này khi biểu diễn trên sân khấu. Phiên bản slip-on này cho các fan một cách thức mới mẻ để di chuyển theo phong cách mũi vỏ sò đích thực.', 5, 11, 'ADS', 'Trắng'),
+('9', 'Nike Air Max 97 Essential', 'Female', 'Với tính năng đồng nhất thiết kế tạo gợn sóng của đôi giày OG được lấy cảm hứng từ những con tàu siêu tốc của Nhật Bản. Giày Nike Air Max 97 Essential sẽ để bạn dồn hết tốc độ tối đa của bản thân về phía trước. Việc đưa vào dự án thiết kế đế giày đủ dài giúp cải thiện khi đang chạy và thêm một chút màu sáng và độ chi tiết sắc nét, nó đưa  bạn cảm giác đi trong thoải mái nhất ', 5, 3, 'NAX', 'Bạc');
 
 -- --------------------------------------------------------
 
@@ -718,18 +693,8 @@ CREATE TABLE `phieu_nhap` (
 --
 
 INSERT INTO `phieu_nhap` (`id_phieunhap`, `id_nhanviennhap`, `id_nhacungcap`, `ngay_nhap`, `tong_gia_nhap`) VALUES
-('PN-608adf831d1a69.00308392', 'admin', '1', '2021-04-29', 406000000),
-('PN-608ae01d488729.61747488', 'admin', '1', '2021-04-29', 75000000),
-('PN-608ae043ac4643.44705225', 'admin', '1', '2021-04-29', 151033318),
-('PN-608af3f1e08026.87042665', 'admin', '1', '2021-04-30', 1157600),
-('PN-608af411577b20.38880033', 'admin', '1', '2021-04-30', 3603200),
-('PN-608b7885aed043.36778805', 'admin', '1', '2021-04-30', 12000000),
-('PN-608b7897a2ae20.98024703', 'admin', '1', '2021-04-30', 1800000),
-('PN-608b7a42be7e48.18949338', 'admin', '1', '2021-04-30', 1000000),
-('PN-608b7ae53d8be0.55186967', 'admin', '1', '2021-04-30', 4000000),
-('PN-608b7c3333eb42.40498033', 'admin', '1', '2021-04-30', 100000000),
-('PN-608b7db385c171.04005761', 'admin', '1', '2021-04-30', 7600000),
-('test', 'admin', '1', '2021-05-30', 0);
+('PN-609b75613c30d8.21739231', 'admin', '1', '2021-05-12', 10000000),
+('PN-609bf5a8a85c33.15643328', 'manager', '2', '2021-05-12', 4000000);
 
 -- --------------------------------------------------------
 
@@ -770,9 +735,9 @@ CREATE TABLE `quyen` (
 
 INSERT INTO `quyen` (`id_quyen`, `ten_quyen`, `mieuta`, `so_luong`) VALUES
 ('admin', 'Quyền quản trị', 'Quyền dành cho quản trị viên', 1),
-('customer', 'Permission', 'For customers', 52),
-('manager', 'Quyền quản lý', 'Quyền dành cho quản lý', 0),
-('employee', 'Quyền nhân viên', 'Quyền dành cho nhân viên', 0),
+('customer', 'Permission', 'For customers', 54),
+('manager', 'Quyền quản lý', 'Quyền dành cho quản lý', 1),
+('employee', 'Quyền nhân viên', 'Quyền dành cho nhân viên', 1),
 ('test1', 'test1', '', 0),
 ('test6', 'test6', '', 0),
 ('test7', 'test7', '', 0),
@@ -804,7 +769,9 @@ CREATE TABLE `sale` (
 --
 
 INSERT INTO `sale` (`id_sale`, `ten_sale`, `ngay_bat_dau`, `ngay_ket_thuc`, `giam_theo_percent`, `giam_theo_vnd`, `muc_gia_sale`) VALUES
-(12, 'Sale for Tet', '2021-02-14', '2021-05-30', '30', '500000', ''),
+(1, 'Sale for Summer', '2021-05-12', '2021-12-13', '25', '500000', ''),
+(2, 'Sale for Autumn', '2021-05-12', '2021-08-13', '70', '2000000', ''),
+(12, 'Sale for Tet', '2021-05-01', '2021-05-30', '30', '300000', ''),
 (13, 'Sale for Noel', '2021-02-14', '2021-12-30', '30', '500000', ''),
 (14, 'Sale for Anniversity 3th', '2021-08-20', '2021-12-30', '30', '500000', ''),
 (15, 'Sale for Anniversity 2nd', '2020-08-20', '2020-12-30', '30', '500000', '');
@@ -828,10 +795,10 @@ CREATE TABLE `san_pham` (
 --
 
 INSERT INTO `san_pham` (`id_sanpham`, `id_nhomsanpham`, `size`, `gia_sanpham`, `so_luong`) VALUES
-('1S31', '1', '31', 1000000, 5),
-('1S33', '1', '33', 1550000, 0),
-('2S31', '2', '31', 1500000, 0),
-('9S33', '9', '33', 2000000, 0);
+('1S31', '1', '31', 1000000, 4),
+('1S33', '1', '33', 1550000, 10),
+('2S31', '2', '31', 1500000, 35),
+('9S33', '9', '33', 2000000, 25);
 
 --
 -- Indexes for dumped tables
@@ -876,12 +843,6 @@ ALTER TABLE `chuc_nang`
 --
 ALTER TABLE `khach_hang`
   MODIFY `id_nguoidung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
-
---
--- AUTO_INCREMENT for table `nhom_san_pham`
---
-ALTER TABLE `nhom_san_pham`
-  MODIFY `id_nhomsanpham` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `sale`

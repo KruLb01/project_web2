@@ -58,6 +58,16 @@
                                     where ten_dongsanpham = $id");
         }
 
+        if ($page == 'sales') {
+            $res = $conn->selectData("select * from sale 
+                                    where id_sale = $id");
+        }
+
+        if ($page == 'sales1') {
+            $res = $conn->selectData("select * from sale 
+                                    where ten_sale = $id");
+        }
+
         if (mysqli_num_rows($res)!=0) {
             echo 'Error';
         } else echo 'Continue';

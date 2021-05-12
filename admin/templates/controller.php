@@ -38,6 +38,8 @@
             include('mail.php');
         } else if ($action == 'help') {
             include('help.php');
+        } else if ($action == 'track-sales') {
+            include('manage-sales.php');
         }
     } else include('default-content.php');
     echo $flag;

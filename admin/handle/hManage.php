@@ -227,6 +227,9 @@
 
                 if ($val[0]== 'text') {
                     $resUpdate = $conn->executeQuery("update nhom_san_pham set ten_nhomsanpham = '".$val[2]."', mau_sanpham = '".$val[3]."', mieuta = '".$val[4]."' where id_nhomsanpham = '".$val[1]."'");
+                    // add sale
+                    $resUpdate = $conn->executeQuery("delete from chitiet_sale where id_nhomsanpham = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("insert into chitiet_sale(id_sale, id_nhomsanpham) values('".$val[7]."', '".$val[1]."')");
                     echo $resUpdate;
                     return;
                 }
@@ -256,7 +259,7 @@
                     $sql .= "ten_nhomsanpham $sort ";
                 } else if ($title=="Gender") {
                     $sql .= "gioi_tinh $sort ";
-                } else if ($title=="Star Rated") {
+                } else if ($title=="Stars Rated") {
                     $sql .= "sosao_danhgia $sort ";
                 } else if ($title=="Buyed") {
                     $sql .= "id_nhomsanpham $sort ";
@@ -302,6 +305,17 @@
                                 <span>Name Product : <input type='text' class='dm-can-del' placeholder='".$line['ten_nhomsanpham']."'></span>
                                 <span>Color Product : <input type='text' class='dm-can-del' placeholder='".$line['mau_sanpham']."'></span>
                                 <span>Description : <input type='text' class='dm-can-del' placeholder='".$line['mieuta']."'></span>
+                                <span>
+                                    Sale :
+                                    <select>
+                                        ";
+                        $res1 = $conn->selectData("select * from sale order by ten_sale");
+                        while ($row = mysqli_fetch_array($res1)) {
+                            $show .= "<option value='".$row['id_sale']."'>".$row['ten_sale']."</option>";
+                        }
+                        $show .= "
+                                    </select>
+                                </span>
                                 <div class='dm-pop-up-btn disable-copy'>
                                     <span class='dm-pop-up-save-btn'>Save</span>
                                     <span class='dm-pop-up-reset-btn'>Reset</span>
@@ -1565,6 +1579,171 @@
                     <td>".$line['ten_dongsanpham']."</td>
                     <td>".$line['thuonghieu_sanpham']."</td>
                     <td>".$qtt."</td>
+                    <td>
+                        <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
+                            <ul class='dashboard-manage-table-action-items'>
+                                <li>Details</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                ";
+                $countPos++;
+            }
+        }
+
+        if ($page == "Track Sales") {
+            if (isset($_GET['numPag'])) {
+                $numPag = $_GET['numPag'];
+                if (isset($_GET['textShow'])) {
+                    $sum = mysqli_fetch_array($conn->selectData('select count(*) as count from sale'))['count'];
+                    echo "( ".($pag+1)." - ".($numShow+$pag)." of $sum results )";
+                    return;
+                }
+                echo $count = ceil(mysqli_fetch_array($conn->selectData('select count(*) as count from sale'))['count']/$numShow);
+                return;
+            }
+
+            if (isset($_GET['popUp']) && isset($_GET['clickPos'])) {
+                $click = $_GET['clickPos'];
+                $idInput = explode("&",$click)[0];
+                $nameInput = explode("&",$click)[1];
+                $show = '';
+                $res = $conn->selectData("select * from sale 
+                                where id_sale = '$idInput'");
+
+                $show = "
+                    <span id='dm-popup-title'>View details of $nameInput</span>
+                    <i class='fas fa-times dm-pop-up-close-btn'></i>
+                    <div class='dm-details-content'>
+                    <table class='dm-details-content-items'>
+                    <tr>
+                        <th>Id Sale</th>
+                        <th>Time start</th>
+                        <th>Time end</th>
+                        <th>Decrease %</th>
+                        <th>Decrease VNĐ</th>
+                        <th>Save</th>
+                    </tr>
+                ";
+                while ($line = mysqli_fetch_array($res)) {
+                    $show .= "
+                    <tr>
+                        <td>$idInput</td>
+                        <td><input type='text' name='timestart' value='".$line['ngay_bat_dau']."'></td>
+                        <td><input type='text' name='timeend' value='".$line['ngay_ket_thuc']."'></td>
+                        <td><input type='text' name='giampercent' value='".$line['giam_theo_percent']."'></td>
+                        <td><input type='text' name='giamcurrent' value='".$line['giam_theo_vnd']."'></td>
+                        <td><button class=save-btn>Save</button></td>
+                    </tr>
+                    ";
+                }
+                $show .= "
+                    </table>
+                    </div>
+                ";
+                echo $show;
+                return;
+            }
+            if (isset($_GET['popUp'])) return;
+
+            if (isset($_GET['add'])) {
+                if (isset($_GET['valText'])) {
+                    $valText = explode("~",$_GET['valText']);
+                }
+                $resAdd = $conn->executeQuery("insert into sale(id_sale, ten_sale, ngay_bat_dau, ngay_ket_thuc, giam_theo_percent, giam_theo_vnd) 
+                                        values('".$valText[0]."', N'".$valText[1]."', '".$valText[2]."', '".$valText[3]."', '".$valText[4]."', '".$valText[5]."')");
+                echo $resAdd;
+                return;
+            }
+
+            if (isset($_GET['update'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("~",$_GET['val']);
+                }
+
+                if ($val[0]== 'text') {
+                    $resUpdate = $conn->executeQuery("update sale set ngay_bat_dau = '".$val[2]."', ngay_ket_thuc = '".$val[3]."', giam_theo_percent = '".$val[4]."', giam_theo_vnd = '".$val[5]."' where id_sale = '".$val[1]."'");
+                    echo $resUpdate;
+                    return;
+                }
+                if ($val[0]=='delete') {
+                    $resUpdate = $conn->executeQuery("delete from sale where id_sale = '".$val[1]."'");
+                    echo $resUpdate;
+                    return;
+                }
+            }
+
+            $sql="select * 
+            from sale 
+            ORDER by ";
+            if (isset($_GET['title'])&&isset($_GET['sort'])&&$_GET['title']!="") {
+                $title = $_GET['title'];
+                $sort = $_GET['sort'];
+                if ($title=="Id Sales") {
+                    $sql .= "id_sale $sort ";
+                } else if ($title=="Name Sales") {
+                    $sql .= "ten_sale $sort ";
+                } else if ($title=="Start") {
+                    $sql .= "ngay_bat_dau $sort ";
+                } else if ($title=="End") {
+                    $sql .= "ngay_ket_thuc $sort ";
+                } else if ($title=="Decrease as %") {
+                    $sql .= "giam_theo_percent $sort ";
+                } else if ($title=="Decrease as VNĐ") {
+                    $sql .= "giam_theo_vnd $sort ";
+                }
+            } else $sql .= "id_sale asc ";
+            $sql .= " LIMIT $pag,$numShow";
+
+            if (isset($_GET['search'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("-",$_GET['val']);
+                }
+                if ($val[0] != 'none') {
+                    $sql = "select * from sale where ".$val[0]." like '%".$val[1]."%' order by id_sale limit $pag, $numShow";
+                }
+            }
+
+            $res = $conn->selectData($sql);
+            $show = "
+            <tr>
+                <th>Id Sales</th>
+                <th>Name Sales</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Decrease as %</th>
+                <th>Decrease as VNĐ</th>
+                <th>Effect on</th>
+                <th>Action</th>
+            </tr>
+            ";
+
+            // Format ngay
+            function convertTime($time) {   
+                if ($time == "0000-00-00") return "";
+                $date = explode('-',$time);
+                $timeConvert = mktime(0,0,0,(int)$date[1],(int)$date[2],(int)$date[0]);
+                $time = date("M d, Y", $timeConvert);
+                return $time;
+            }
+
+            $countPos = 0;
+            while($line=mysqli_fetch_array($res)) {
+                $query = $conn->selectData("select count(*) as count 
+                                                        from chitiet_sale 
+                                                        where id_sale = '".$line['id_sale']."'");
+                $qtt = mysqli_num_rows($query) == 0 ? 0 : mysqli_fetch_array($query)['count'];
+                $show .= "
+                <tr>
+                    <td>".$line['id_sale']."</td>
+                    <td>".$line['ten_sale']."</td>
+                    <td>".convertTime($line['ngay_bat_dau'])."</td>
+                    <td>".convertTime($line['ngay_ket_thuc'])."</td>
+                    <td>".$line['giam_theo_percent']."%</td>
+                    <td>".number_format($line['giam_theo_vnd']). " VNĐ</td>
+                    <td>".$qtt." products</td>
                     <td>
                         <div class='dashboard-manage-table-action disable-copy' id='action-$countPos'>
                             <ul class='dashboard-manage-table-action-items'>
