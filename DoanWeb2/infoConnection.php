@@ -2,4 +2,4 @@
     $this->host = "localhost";
     $this->username = "root";
     $this->password = "";
-    $this->database_name = "do_an_web2";
+    $this->database_name = "do_an_web21";

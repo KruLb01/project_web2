@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2021 at 06:07 PM
+-- Generation Time: May 12, 2021 at 03:06 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_nguoidung`, `ho_ten`, `thong_tin_khac`) VALUES
-('admin', 'Leo Heros', 'I am alive ! <3'),
+('admin', 'Leos Heros', 'I am alive ! <3'),
 ('manager', 'Kao Heros', 'F*ck this project :<'),
 ('admin1', 'Lê Thanh Hòa', ''),
 ('admin2', 'Heros', ''),
@@ -75,11 +75,21 @@ CREATE TABLE `chitiet_danhgia` (
 --
 
 CREATE TABLE `chitiet_giaohang` (
-  `id_hoadon` varchar(10) NOT NULL,
-  `phuongthuc_giaohang` varchar(10) NOT NULL,
+  `id_hoadon` varchar(50) NOT NULL,
+  `phuongthuc_giaohang` varchar(50) NOT NULL,
   `ngay_giao` date NOT NULL,
-  `tinhtrang_giaohang` varchar(10) NOT NULL
+  `tinhtrang_giaohang` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chitiet_giaohang`
+--
+
+INSERT INTO `chitiet_giaohang` (`id_hoadon`, `phuongthuc_giaohang`, `ngay_giao`, `tinhtrang_giaohang`) VALUES
+('2', 'GH-2', '2021-05-11', 1),
+('11', 'GH-1', '2021-05-11', 1),
+('9', 'GH-1', '0000-00-00', 0),
+('4', 'GH-1', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -208,7 +218,8 @@ INSERT INTO `chitiet_quyen_chucnang` (`id_quyen`, `id_chucnang`) VALUES
 ('admin', '8'),
 ('admin', '20'),
 ('admin', '21'),
-('admin', '22');
+('admin', '22'),
+('admin', '23');
 
 -- --------------------------------------------------------
 
@@ -260,8 +271,9 @@ INSERT INTO `chuc_nang` (`id_chucnang`, `ten_chucnang`, `mieuta`, `vi_tri`, `ico
 (18, 'Help', '', '7000', '<i class=\"fas fa-question\"  style=\"padding-right: 14px;\"></i>'),
 (19, 'Log out', '', '8000', '<i class=\"fas fa-sign-out-alt\"  style=\"padding-right: 10px;\"></i>'),
 (20, 'Manage Import', '', '2030', ''),
-(21, 'Manage Provider', '', '2040', ''),
-(22, 'Manage cProducts', '', '2011', '');
+(21, 'Manage Providers', '', '2040', ''),
+(22, 'Manage cProducts', '', '2011', ''),
+(23, 'Manage gProducts', '', '2005', '');
 
 -- --------------------------------------------------------
 
@@ -297,7 +309,9 @@ CREATE TABLE `dong_san_pham` (
 INSERT INTO `dong_san_pham` (`id_dongsanpham`, `ten_dongsanpham`, `thuonghieu_sanpham`, `mota`) VALUES
 ('BH', 'Bitis Hunter', 'Bitis', ''),
 ('NA', 'Nike Air', 'Nike', ''),
-('NJ', 'Nike Air Jodan', 'Nike', '');
+('NJ', 'Nike Air Jodan', 'Nike', ''),
+('MWC', 'MWC Sport Shoes', 'MWC', ''),
+('PU', 'Puma RS', 'Puma', '');
 
 -- --------------------------------------------------------
 
@@ -369,9 +383,14 @@ CREATE TABLE `hoa_don` (
 --
 
 INSERT INTO `hoa_don` (`id_hoadon`, `id_nguoidung`, `id_nhanvienban`, `ngay_mua`, `tong_gia`, `id_sale`) VALUES
-('1', '1', 'admin', '2021-05-01', 300000, ''),
 ('2', '2', 'admin', '2021-05-01', 400000, ''),
-('3', '5', 'manager', '2021-03-01', 1300000, '');
+('3', '5', 'manager', '2021-03-01', 1300000, ''),
+('4', '1', 'admin', '2021-05-11', 0, ''),
+('6', '1', '', '2021-05-11', 0, ''),
+('7', '1', '', '2021-05-11', 0, ''),
+('8', '1', '', '2021-05-11', 0, ''),
+('9', '1', 'admin', '2021-05-11', 0, ''),
+('11', '1', 'admin', '2021-05-11', 0, '');
 
 -- --------------------------------------------------------
 
@@ -467,7 +486,7 @@ CREATE TABLE `nguoi_dung` (
 --
 
 INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_dien_thoai`, `quyen`, `tinh_trang_taikhoan`) VALUES
-('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'admin@gmail.com', '0706316621', 'admin', 1),
+('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 0),
 ('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0),
 ('2', 'customer2', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('3', 'customer3', '1', 'customer@gmail.com', '1234324', 'customer', 1),
@@ -523,18 +542,18 @@ INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_
 ('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 0),
 ('admin1', 'admin1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 1),
 ('admin2', 'admin2', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
-('admin3', 'admin3', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
+('admin3', 'admin3', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
 ('admin4', 'admin4', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin5', 'admin5', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin7', 'admin7', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 0),
 ('admin8', 'admin8', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
 ('admin9', 'admin9', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
-('admin10', 'admin10', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'admin', 1),
+('admin10', 'admin10', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', '0123', 'employee', 1),
 ('53', 'customer53', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('54', 'customer54nek', 'c8f3c7fc80cf9be66ea3bdf64ba1c82d', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('55', 'customer55', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 0),
 ('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1),
-('nv002', 'nv0002', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1);
+('nv002', 'nv0002', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 0);
 
 -- --------------------------------------------------------
 
@@ -553,9 +572,10 @@ CREATE TABLE `nha_cung_cap` (
 --
 
 INSERT INTO `nha_cung_cap` (`id_nhacungcap`, `ten_nhacungcap`, `diachi_nhacungcap`) VALUES
-('1', 'Sun House ', 'On the Ear'),
-('2', 'Moon House Corp', 'On the Earth'),
-('3', 'March House Corp', 'On the Earth');
+('1', 'Sun House', 'On the Earth'),
+('2', 'Moon House Corp', 'On the Moon'),
+('3', 'March House Corp', 'On the March'),
+('4', 'Intracom Group', 'In VietNam');
 
 -- --------------------------------------------------------
 
@@ -632,10 +652,18 @@ INSERT INTO `phieu_nhap` (`id_phieunhap`, `id_nhanviennhap`, `id_nhacungcap`, `n
 --
 
 CREATE TABLE `phuongthuc_giaohang` (
-  `id_phuongthuc` varchar(10) NOT NULL,
-  `ten_phuongthuc` varchar(10) NOT NULL,
-  `mota` varchar(10) NOT NULL
+  `id_phuongthuc` varchar(50) NOT NULL,
+  `ten_phuongthuc` varchar(50) NOT NULL,
+  `mota` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `phuongthuc_giaohang`
+--
+
+INSERT INTO `phuongthuc_giaohang` (`id_phuongthuc`, `ten_phuongthuc`, `mota`) VALUES
+('GH-1', 'Giao hàng bình thường', 'Giao hàng bình thường'),
+('GH-2', 'Giao hàng nhanh', 'Giao hàng nhanh');
 
 -- --------------------------------------------------------
 
@@ -759,7 +787,7 @@ ALTER TABLE `sale`
 -- AUTO_INCREMENT for table `chuc_nang`
 --
 ALTER TABLE `chuc_nang`
-  MODIFY `id_chucnang` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_chucnang` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `khach_hang`

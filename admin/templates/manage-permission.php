@@ -132,5 +132,3 @@
         })
     })
 </script>
-
-Fix menu chuyen + change menu dashboard + fix quyen customer
