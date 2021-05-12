@@ -1,100 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-</head>
-<body>
-    <div class="cart-container">
-        <div class="cart">
-            <div class="cart-title">
-                <span>Cart</span>
+<?php
+session_start();
+include 'ConnectionDB.php';
+$con = new ConnectionDB('');
+
+?>
+<html>
+    <head>
+        <title>HKP Store | Giỏ hàng </title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../static/js/jquery-3.6.0.min.js"></script>
+        <script src="../static/js/post_method.js"></script>
+        <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/all.css">
+        <link rel="stylesheet" type="text/css" href="../plugin/bootstrap-4.5.3-dist/css/bootstrap.css">
+        <script src="../plugin/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <script>
+        if(<?php if(isset($_SESSION['id_nguoidung'])){echo 1;}else{echo 0;}?>){
+            //do nothing
+        }
+        else post_to_url("Login.php",{next:window.location.href});
+        </script>
+        <div class="wrap">
+            <div class="header">
+                <?php include './header1.php' ?>
             </div>
-            <div class="cart-content">
-                <table>
-                    <tr>
-                        <th>Order</th>
-                        <th>Img Product</th>
-                        <th>Name Product</th>
-                        <th>Size</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                    <?php 
-                    include('connectData.php');
-                    $conn = new connectData();
-
-                    $sql = "SELECT ten_nhomsanpham, size, gio_hang.so_luong as sl, gia_sanpham,nhom_san_pham.id_nhomsanpham as id, san_pham.id_sanpham as id_sp
-                    FROM gio_hang, san_pham, nhom_san_pham
-                    WHERE gio_hang.id_sanpham = san_pham.id_sanpham
-                    AND san_pham.id_nhomsanpham = nhom_san_pham.id_nhomsanpham";
-
-                    $ketqua = $conn->selectData($sql);
-                    $i = 1;
-                    $sum = 0;
-                    // dùng mảng để lưu thanh toán
-                    $arr = array();
-
-
-
-                    while($row = mysqli_fetch_array($ketqua)){
-                        array_push($arr, array($row['id_sp'], $row['sl'], $row['gia_sanpham']));
-
-                        $sum += (int)$row['gia_sanpham'] * (int) $row['sl'];
-                        $kq2 = mysqli_fetch_array($conn->selectData("SELECT link_hinhanh FROM hinh_nhomsanpham,hinh_anh
-                        WHERE hinh_nhomsanpham.id_hinh = hinh_anh.id_hinhanh AND id_nhomsanpham = '".$row['id']."' limit 0,1"))['link_hinhanh'];
-                        echo "<tr>
-                            <td>".$i++."</td>
-                            <td><img src='../$kq2' style='width:50px;height:50px'></td>
-                            <td>".$row['ten_nhomsanpham']."</td>
-                            <td>".$row['size']."</td>
-                            <td>".$row['sl']."</td>
-                            <td>".$row['gia_sanpham']."</td>
-                        </tr>";
-                    }            
-                   ?>
-                </table>
+            <div class="mid">
+                <div class="cart-container">
+                    <div class="cart">
+                        <div class="cart-title bg-dark">
+                            <span>Giỏ hàng</span>
+                        </div>
+                        <div class="cart-content">
+                            <div class="shopping-table">
+                                <table>
+                                    <tr class="tbl-header">
+                                        <th>Tên sản phẩm</th>
+                                        <th>Hình sản phẩm</th>
+                                        <th>Kích cỡ</th>
+                                        <th>Giá sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                    <?php
+                                        $sum=0;
+                                        $id_nguoidung = $_SESSION['id_nguoidung'];
+                                        $sql = "SELECT san_pham.id_sanpham,nhom_san_pham.ten_nhomsanpham,hinh_nhomsanpham.hinh,san_pham.size, san_pham.gia_sanpham,gio_hang.so_luong,gio_hang.so_luong*san_pham.gia_sanpham"
+                                             . " FROM `gio_hang`,`nhom_san_pham`,`san_pham`,`hinh_nhomsanpham` where gio_hang.id_sanpham=san_pham.id_sanpham and nhom_san_pham.id_nhomsanpham=san_pham.id_nhomsanpham"
+                                             . " and nhom_san_pham.id_nhomsanpham=hinh_nhomsanpham.id_nhomhinh"
+                                             . " and gio_hang.id_nguoidung=$id_nguoidung"
+                                             . " group by san_pham.id_sanpham";
+                                        $result=$con->preparedSelect($sql);
+                                        if($result!==null)
+                                        {
+                                            while($row = mysqli_fetch_array($result))
+                                            {
+                                                $sum+=$row[6];
+                                                $subtotal=number_format($row[6],0,",",".")."<sup>đ</sup>";
+                                                $prod_price=number_format($row[4],0,",",".")."<sup>đ</sup>";
+                                                $encodeImage = base64_encode($row[2]);
+                                                echo "<tr class='product-item'>"
+                                                        ."<td class='product_name' id='$row[0]'>$row[1]</td>"
+                                                        ."<td class='product_image'><img src='data:image/png;base64,$encodeImage'/></td>"
+                                                        ."<td class='product_size' title='Kích cỡ'>$row[3]</td>"
+                                                        ."<td class='product_price' title='Giá sản phẩm'>$prod_price</td>"
+                                                        ."<td class='product_quantity' title='Số lượng'><button class='plus' onclick='countUp(this)' class='my-button'>+</button><input class='amount' value='$row[5]'/><button class='abstract' onclick='countDown(this)' class='my-button'>-</button></td>"
+                                                        ."<td class='product_subtotal' title='Thành tiền'>$subtotal</td>"
+                                                        ."<td><button onclick='remove(this)' class='btn btn-danger'>Xoá</button</td>"
+                                                    ."</tr>";
+                                            }
+                                        }
+                                    ?>
+                                    </table>
+                                </div>
+                                <div class="cart-total">
+                                    <span><?php echo number_format($sum,0,",",".")."<sup>đ</sup>" ?></span></span>
+                                </div>
+                                <div class="cart-purchase">
+                                    <button id="purchase-btn" onclick='goPurchase()'>Thanh toán</button>
+                                </div>
+                            <script type='text/javascript' src='data/js/cart.js'></script>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="cart-total">
-                <span>Total: <?php echo $sum ?></span>
-            </div>
-            <div class="cart-purchase">
-                <button id="purchase-btn" onclick="Purchase()">Purchase</button>
+            <div class="footer">
+                <?php include './footer1.php' ?>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
-
-<script>
-    function Purchase(){
-        location.href = '?action=purchase'; 
-        // key là action 
-        // value purchase
-
-    }
-</script>
-
-<?php 
-if(isset($_GET['action'])){
-    $action=$_GET['action'];
-    if($action == 'purchase' ){
-        // print_r($arr);
-        $id_invoice = uniqid("hd-",true);
-        $id_user = ''; // $_SESSION['id'] 
-        // index ; login ; xu ly dang nhap ;; connect db
-        $date = date('Y-m-d');
-        // tong gia = $sum
-
-        $res = $conn->executeQuery("insert into hoa_don(id_hoadon, id_nguoidung, ngay_mua, tong_gia, id_sale)
-                        values ('$id_invoice','$id_user','$date', $sum, '')");
-
-        if ($res) {
-            echo('Thanh toan thanh cong');
-        }
-    }
-}
-?>

@@ -216,7 +216,7 @@
                             <small>hoặc</small>
                     </div>
                     <div style="text-align:center;font-size:13px;margin-top:10px">
-                        <p>Muốn mua sản phẩm nhưng không có tài khoản? Đăng ký tại <a href="dangky.php">đây</a></p>
+                        <p>Muốn mua sản phẩm nhưng không có tài khoản? Đăng ký tại <a href="#">đây</a></p>
                     </div>
                 </form>
                 <script>
@@ -242,12 +242,13 @@
                                             data:$("form").serialize(),
                                             success:function(rep)
                                             {
-                                                if (rep.trim()=='success') {
-                                                    alert('Login successfully !');
-                                                    location.href = '../index.php';
-                                                } else {
-                                                    alert('Username or password is incorrect !');
+                                                var jsonData = JSON.parse(rep);
+                                                if(jsonData.passedLogin===1)
+                                                {
+                                                    var a = <?php if(isset($_POST['next']) && $_POST['next']){echo '"'.$_POST['next'].'"';}else{echo "'../index.php'";}?>;
+                                                    location.href = a;
                                                 }
+                                                else alert("Đăng nhập thất bại");                        
                                             }
                                         });
                                 }

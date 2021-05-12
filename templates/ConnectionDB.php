@@ -1,19 +1,28 @@
 <?php
     class ConnectionDB{
         private $host;
-        private $database_name;
+        private $database;
         private $username;
         private $password;
         private $connection;
+
         public function __construct($filepath)
         {
             if(is_file($filepath))
             {
                include $filepath;
+               $this->host = $host;
+               $this->username = $username;
+               $this->password = $password;
+               $this->database = $database;
                $this->setupTheConnection();
             }
             else if($filepath===''){
-               include 'infoConnection.php';
+               include '../data.properties.php';
+               $this->host = $host;
+               $this->username = $username;
+               $this->password = $password;
+               $this->database = $database;
                $this->setupTheConnection();
             }
             else{
@@ -22,14 +31,18 @@
         }
         private function setupTheConnection()
         {
-            $this->connection = mysqli_connect($this->host,$this->username,$this->password,$this->database_name);
+            $this->connection = mysqli_connect($this->host,$this->username,$this->password,$this->database);
+            if(!$this->connection)
+            {
+                echo 'Không thể kết nối đến database'.$this->host."312";
+            }
         }
         public function preparedSelect($sql)
         {
             if($this->connection)
             {
                 $result = mysqli_query($this->connection,$sql);
-                if(mysqli_num_rows($result)>0)
+                if($result)
                 {
                     return $result;
                 }
@@ -38,20 +51,25 @@
                 }
             }
         }
-
-        public function executesql($sql)
+        public function preparedExecuteDatabase($sql)
         {
             if($this->connection)
             {
                 $result = mysqli_query($this->connection,$sql);
-                if(!$result){
-                    return false;
-                }else{
+                if($result)
+                {
                     return true;
                 }
+                else{
+                    return false;
+                }
             }
+            return false;
         }
-
+        public function getConnection()
+        {
+            return $this->connection;
+        }
         public function closeConnection()
         {
             mysqli_close($this->connection);

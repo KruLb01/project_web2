@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 03:06 AM
+-- Generation Time: May 12, 2021 at 05:55 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -109,15 +109,15 @@ CREATE TABLE `chitiet_hoadon` (
 --
 
 INSERT INTO `chitiet_hoadon` (`id_hoadon`, `id_sanpham`, `so_luong`, `gia`) VALUES
-('1', '1a', 2, 150000),
-('2', '1a', 1, 150000),
-('2', '1b', 1, 150000),
-('2', '1d', 1, 100000),
-('3', '1a', 3, 100000),
-('3', '1b', 2, 50000),
-('3', '1c', 2, 150000),
-('3', '1d', 6, 50000),
-('3', '2a', 2, 150000);
+('23', '1S33', 10, 15500000),
+('24', '1S31', 1, 1000000),
+('25', '1S31', 1, 1000000),
+('26', '9S33', 10, 20000000),
+('27', '2S31', 2, 3000000),
+('28', '2S31', 1, 1500000),
+('29', '2S31', 1, 1500000),
+('30', '2S31', 1, 1500000),
+('31', '2S31', 5, 7500000);
 
 -- --------------------------------------------------------
 
@@ -296,10 +296,10 @@ CREATE TABLE `danh_gia` (
 --
 
 CREATE TABLE `dong_san_pham` (
-  `id_dongsanpham` varchar(20) NOT NULL,
-  `ten_dongsanpham` varchar(100) NOT NULL,
-  `thuonghieu_sanpham` varchar(100) NOT NULL,
-  `mota` varchar(100) NOT NULL
+  `id_dongsanpham` varchar(10) NOT NULL,
+  `ten_dongsanpham` varchar(50) NOT NULL,
+  `thuonghieu_sanpham` varchar(20) NOT NULL,
+  `mota` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -307,11 +307,12 @@ CREATE TABLE `dong_san_pham` (
 --
 
 INSERT INTO `dong_san_pham` (`id_dongsanpham`, `ten_dongsanpham`, `thuonghieu_sanpham`, `mota`) VALUES
-('BH', 'Bitis Hunter', 'Bitis', ''),
-('NA', 'Nike Air', 'Nike', ''),
-('NJ', 'Nike Air Jodan', 'Nike', ''),
-('MWC', 'MWC Sport Shoes', 'MWC', ''),
-('PU', 'Puma RS', 'Puma', '');
+('ADS', 'Adidas Super Star', 'Adidas', 'Đây được xem là một trong những dòng sản phẩm khá lâu đời của thương hiệu Adidas mà hầu hết tất cả khách hàng ai cũng đều biết. Tuy có tuổi đời như thế nhưng độ chất của sản phẩm không hề thua kém so với những đàn em của mình. Dòng sản phẩm này hiện vẫn đang được rất nhiều khách hàng lựa chọn và luôn khẳng định vị thế của mình trên thị trường. Có thể nói rằng, cho dù thế giới giày thể thao thương hiệu xoay vần như thế nào đi chăng nữa thì Adidas nữ super star vẫn bất biến.\r\n\r\nLý giải cho điều này, nhiều khách hàng cho hay rằng sở dĩ họ vẫn trung thành với super star là bởi giày có thể ăn rơ với mọi loại trang phục thời trang bất kỳ. Điều khiến những đôi giày adidas superstar đặc biệt chính là phần mũi vỏ sò (shelltoe), kết hợp với nét đặc trưng của phần thân giày được thiết kế có ba sọc cổ điển của adidas. Đặc biệt, nét đặc trưng của dòng giày này là luôn được làm bằng chất liệu da ở phần 3 sọc cổ điển đó. Và mỗi năm Adidas luôn cho ra mắt một phiên bản mới để thỏa lòng yêu thích sưu tập của các khách hàng thân thiết'),
+('BHR', 'Bitis Hunter Running', 'Bitis', 'Hunter Running thế hệ giày chạy bộ chuyên biệt đầu tiên được phát triển bởi Biti’s ra đời tiếp nối sự thành công của Biti’s Hunter trên thị trường hiện nay'),
+('CV70s', 'Converse 1970s', 'Converse', 'converse 1970S replica là một thành viên trong đại gia đình converse, được nhiều bạn trẻ yêu quý. Item này luôn thuộc top bán chạy trong danh sách những đôi giày sneaker đình đám. Đặc điểm nổi bật chính là phong cách cổ điển, độ bền gần như là vô đối so với các loại giày cùng phân khúc.'),
+('CVC', 'Converse Classic', 'Converse', 'Giày Converse classic là dòng giày truyền thống của Converse được thiết kế với nguyên bản mẫu thiết kế ban đầu, giữ được những nét nổi bật đặc trưng của thương hiệu giày nổi tiếng converse'),
+('CVK', 'Converse Kids', 'Converse', 'Thương hiệu Converse với mẫu giày được thiết kế dành riêng cho trẻ em'),
+('NAX', 'Nike Air Max', 'Nike', 'Giày Nike Air Max được đặt tên theo công nghệ mà nó sở hữu – công nghệ Air Max sử dụng phần lớn (max) đệm khí air cho phần đế giữa. Đôi giày này không chỉ sở hữu công nghệ đệm tuyệt vời mà còn chiếm lĩnh một vẻ ngoài sang trọng và đẳng cấp đến bất ngờ. Hiện nay, giày Nike Air Max được mệnh danh là dòng giày tiên phong mũi nhọn của hãng Nike và nhận được lượt tìm kiếm nhiều nhất trên các trang mạng');
 
 -- --------------------------------------------------------
 
@@ -324,6 +325,13 @@ CREATE TABLE `gio_hang` (
   `id_sanpham` varchar(10) NOT NULL,
   `so_luong` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `gio_hang`
+--
+
+INSERT INTO `gio_hang` (`id_nguoidung`, `id_sanpham`, `so_luong`) VALUES
+('1', '1S31', 2);
 
 -- --------------------------------------------------------
 
@@ -342,7 +350,49 @@ CREATE TABLE `hinh_anh` (
 
 INSERT INTO `hinh_anh` (`id_hinhanh`, `link_hinhanh`) VALUES
 ('Bitis Hunter Orange-608acb158de408.09638614.png', 'images/Bitis Hunter Orange-608acb158de408.09638614.png'),
-('Bitis Hunter Orange-608acb234d9756.07461710.png', 'images/Bitis Hunter Orange-608acb234d9756.07461710.png');
+('Bitis Hunter Orange-608acb234d9756.07461710.png', 'images/Bitis Hunter Orange-608acb234d9756.07461710.png'),
+('Bitis Hunter Running Blue-609b33aed8f1b6.07242303.jpg', 'images/Bitis Hunter Running Blue-609b33aed8f1b6.07242303.jpg'),
+('Bitis Hunter Running Blue-609b33b12f2213.45928297.jpg', 'images/Bitis Hunter Running Blue-609b33b12f2213.45928297.jpg'),
+('Bitis Hunter Running Blue-609b33b3707f62.93239615.jpg', 'images/Bitis Hunter Running Blue-609b33b3707f62.93239615.jpg'),
+('Bitis Hunter Running Blue-609b33b5f1d9c7.32037219.jpg', 'images/Bitis Hunter Running Blue-609b33b5f1d9c7.32037219.jpg'),
+('Bitis Hunter Running Blue-609b33b8706391.03613072.jpg', 'images/Bitis Hunter Running Blue-609b33b8706391.03613072.jpg'),
+('Bitis Hunter Running Orange-609b33cba0fc84.63658370.jpg', 'images/Bitis Hunter Running Orange-609b33cba0fc84.63658370.jpg'),
+('Bitis Hunter Running Orange-609b33cdc81d41.77383850.jpg', 'images/Bitis Hunter Running Orange-609b33cdc81d41.77383850.jpg'),
+('Bitis Hunter Running Orange-609b33d0241cd7.38434452.jpg', 'images/Bitis Hunter Running Orange-609b33d0241cd7.38434452.jpg'),
+('Bitis Hunter Running Orange-609b33d27796f2.87103467.jpg', 'images/Bitis Hunter Running Orange-609b33d27796f2.87103467.jpg'),
+('Bitis Hunter Running Orange-609b33d4a85a40.67001558.jpg', 'images/Bitis Hunter Running Orange-609b33d4a85a40.67001558.jpg'),
+('Converse Taylor Science Canvas Trainers-609b3420c0b213.48504869.jpg', 'images/Converse Taylor Science Canvas Trainers-609b3420c0b213.48504869.jpg'),
+('Converse Taylor Science Canvas Trainers-609b3422ef9f81.20540290.jpg', 'images/Converse Taylor Science Canvas Trainers-609b3422ef9f81.20540290.jpg'),
+('Converse Taylor Science Canvas Trainers-609b342542c0f2.33335262.jpg', 'images/Converse Taylor Science Canvas Trainers-609b342542c0f2.33335262.jpg'),
+('Converse Taylor Science Canvas Trainers-609b34277fc853.59882335.jpg', 'images/Converse Taylor Science Canvas Trainers-609b34277fc853.59882335.jpg'),
+('Converse Chuck Taylor All Star Gamer Low-Top-609b3475716868.94117718.jpg', 'images/Converse Chuck Taylor All Star Gamer Low-Top-609b3475716868.94117718.jpg'),
+('Converse Chuck Taylor All Star Gamer Low-Top-609b3477b20aa2.66359901.jpg', 'images/Converse Chuck Taylor All Star Gamer Low-Top-609b3477b20aa2.66359901.jpg'),
+('Converse Chuck Taylor All Star Gamer Low-Top-609b3479949534.92579539.jpg', 'images/Converse Chuck Taylor All Star Gamer Low-Top-609b3479949534.92579539.jpg'),
+('Converse Chuck Taylor All Star Gamer Low-Top-609b347c840983.88223319.jpg', 'images/Converse Chuck Taylor All Star Gamer Low-Top-609b347c840983.88223319.jpg'),
+('Converse Chuck Taylor Classic Black-White Low Top-609b34b5577469.01026026.jpg', 'images/Converse Chuck Taylor Classic Black-White Low Top-609b34b5577469.01026026.jpg'),
+('Converse Chuck Taylor Classic Black-White Low Top-609b34bd50f540.30142022.jpg', 'images/Converse Chuck Taylor Classic Black-White Low Top-609b34bd50f540.30142022.jpg'),
+('Converse Chuck Taylor Classic Black-White Low Top-609b34c2cd2588.50102978.jpg', 'images/Converse Chuck Taylor Classic Black-White Low Top-609b34c2cd2588.50102978.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top Black-609b3513af9398.94380953.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top Black-609b3513af9398.94380953.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top Black-609b35163e1928.34468863.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top Black-609b35163e1928.34468863.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top Black-609b35187d3814.48482885.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top Black-609b35187d3814.48482885.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top Black-609b351ad23e43.09365208.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top Black-609b351ad23e43.09365208.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top Black-609b351d9d30f7.94371820.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top Black-609b351d9d30f7.94371820.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top White-609b353008d351.88572018.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top White-609b353008d351.88572018.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top White-609b3532011914.99988326.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top White-609b3532011914.99988326.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top White-609b3533f1ad33.11670814.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top White-609b3533f1ad33.11670814.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top White-609b353a6285e0.78918601.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top White-609b353a6285e0.78918601.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top White-609b353e4d7976.86496106.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top White-609b353e4d7976.86496106.jpg'),
+('Converse Chuck 70 Archive Paint Splatter High Top White-609b3540a254a0.34805723.jpg', 'images/Converse Chuck 70 Archive Paint Splatter High Top White-609b3540a254a0.34805723.jpg'),
+('Adidas Slip-on SuperStar-609b36682fede7.10313462.png', 'images/Adidas Slip-on SuperStar-609b36682fede7.10313462.png'),
+('Adidas Slip-on SuperStar-609b366a7e85a1.85471212.png', 'images/Adidas Slip-on SuperStar-609b366a7e85a1.85471212.png'),
+('Adidas Slip-on SuperStar-609b366c5dfdd4.82710359.png', 'images/Adidas Slip-on SuperStar-609b366c5dfdd4.82710359.png'),
+('Adidas Slip-on SuperStar-609b366e889259.52517273.png', 'images/Adidas Slip-on SuperStar-609b366e889259.52517273.png'),
+('Adidas Slip-on SuperStar-609b36726c3062.15971620.png', 'images/Adidas Slip-on SuperStar-609b36726c3062.15971620.png'),
+('Nike Air Max 97 Essential-609b367b2a22d9.29917339.png', 'images/Nike Air Max 97 Essential-609b367b2a22d9.29917339.png'),
+('Nike Air Max 97 Essential-609b367d55c514.67014990.png', 'images/Nike Air Max 97 Essential-609b367d55c514.67014990.png'),
+('Nike Air Max 97 Essential-609b367f9a0922.27891191.png', 'images/Nike Air Max 97 Essential-609b367f9a0922.27891191.png'),
+('Nike Air Max 97 Essential-609b3682045663.20998192.png', 'images/Nike Air Max 97 Essential-609b3682045663.20998192.png'),
+('Nike Air Max 97 Essential-609b36840b9ef7.25248825.png', 'images/Nike Air Max 97 Essential-609b36840b9ef7.25248825.png');
 
 -- --------------------------------------------------------
 
@@ -360,8 +410,47 @@ CREATE TABLE `hinh_nhomsanpham` (
 --
 
 INSERT INTO `hinh_nhomsanpham` (`id_nhomsanpham`, `id_hinh`) VALUES
-('2', 'Bitis Hunter Orange-608acb158de408.09638614.png'),
-('2', 'Bitis Hunter Orange-608acb234d9756.07461710.png');
+('1', 'Bitis Hunter Running Blue-609b33aed8f1b6.07242303.jpg'),
+('1', 'Bitis Hunter Running Blue-609b33b12f2213.45928297.jpg'),
+('1', 'Bitis Hunter Running Blue-609b33b3707f62.93239615.jpg'),
+('1', 'Bitis Hunter Running Blue-609b33b5f1d9c7.32037219.jpg'),
+('1', 'Bitis Hunter Running Blue-609b33b8706391.03613072.jpg'),
+('2', 'Bitis Hunter Running Orange-609b33cba0fc84.63658370.jpg'),
+('2', 'Bitis Hunter Running Orange-609b33cdc81d41.77383850.jpg'),
+('2', 'Bitis Hunter Running Orange-609b33d0241cd7.38434452.jpg'),
+('2', 'Bitis Hunter Running Orange-609b33d27796f2.87103467.jpg'),
+('2', 'Bitis Hunter Running Orange-609b33d4a85a40.67001558.jpg'),
+('3', 'Converse Taylor Science Canvas Trainers-609b3420c0b213.48504869.jpg'),
+('3', 'Converse Taylor Science Canvas Trainers-609b3422ef9f81.20540290.jpg'),
+('3', 'Converse Taylor Science Canvas Trainers-609b342542c0f2.33335262.jpg'),
+('3', 'Converse Taylor Science Canvas Trainers-609b34277fc853.59882335.jpg'),
+('4', 'Converse Chuck Taylor All Star Gamer Low-Top-609b3475716868.94117718.jpg'),
+('4', 'Converse Chuck Taylor All Star Gamer Low-Top-609b3477b20aa2.66359901.jpg'),
+('4', 'Converse Chuck Taylor All Star Gamer Low-Top-609b3479949534.92579539.jpg'),
+('4', 'Converse Chuck Taylor All Star Gamer Low-Top-609b347c840983.88223319.jpg'),
+('5', 'Converse Chuck Taylor Classic Black-White Low Top-609b34b5577469.01026026.jpg'),
+('5', 'Converse Chuck Taylor Classic Black-White Low Top-609b34bd50f540.30142022.jpg'),
+('5', 'Converse Chuck Taylor Classic Black-White Low Top-609b34c2cd2588.50102978.jpg'),
+('6', 'Converse Chuck 70 Archive Paint Splatter High Top Black-609b3513af9398.94380953.jpg'),
+('6', 'Converse Chuck 70 Archive Paint Splatter High Top Black-609b35163e1928.34468863.jpg'),
+('6', 'Converse Chuck 70 Archive Paint Splatter High Top Black-609b35187d3814.48482885.jpg'),
+('6', 'Converse Chuck 70 Archive Paint Splatter High Top Black-609b351ad23e43.09365208.jpg'),
+('6', 'Converse Chuck 70 Archive Paint Splatter High Top Black-609b351d9d30f7.94371820.jpg'),
+('7', 'Converse Chuck 70 Archive Paint Splatter High Top White-609b353008d351.88572018.jpg'),
+('7', 'Converse Chuck 70 Archive Paint Splatter High Top White-609b3532011914.99988326.jpg'),
+('7', 'Converse Chuck 70 Archive Paint Splatter High Top White-609b353a6285e0.78918601.jpg'),
+('7', 'Converse Chuck 70 Archive Paint Splatter High Top White-609b353e4d7976.86496106.jpg'),
+('7', 'Converse Chuck 70 Archive Paint Splatter High Top White-609b3540a254a0.34805723.jpg'),
+('8', 'Adidas Slip-on SuperStar-609b36682fede7.10313462.png'),
+('8', 'Adidas Slip-on SuperStar-609b366a7e85a1.85471212.png'),
+('8', 'Adidas Slip-on SuperStar-609b366c5dfdd4.82710359.png'),
+('8', 'Adidas Slip-on SuperStar-609b366e889259.52517273.png'),
+('8', 'Adidas Slip-on SuperStar-609b36726c3062.15971620.png'),
+('9', 'Nike Air Max 97 Essential-609b367b2a22d9.29917339.png'),
+('9', 'Nike Air Max 97 Essential-609b367d55c514.67014990.png'),
+('9', 'Nike Air Max 97 Essential-609b367f9a0922.27891191.png'),
+('9', 'Nike Air Max 97 Essential-609b3682045663.20998192.png'),
+('9', 'Nike Air Max 97 Essential-609b36840b9ef7.25248825.png');
 
 -- --------------------------------------------------------
 
@@ -370,7 +459,7 @@ INSERT INTO `hinh_nhomsanpham` (`id_nhomsanpham`, `id_hinh`) VALUES
 --
 
 CREATE TABLE `hoa_don` (
-  `id_hoadon` varchar(50) NOT NULL,
+  `id_hoadon` int(255) NOT NULL,
   `id_nguoidung` varchar(50) NOT NULL,
   `id_nhanvienban` varchar(50) NOT NULL,
   `ngay_mua` date NOT NULL,
@@ -383,14 +472,15 @@ CREATE TABLE `hoa_don` (
 --
 
 INSERT INTO `hoa_don` (`id_hoadon`, `id_nguoidung`, `id_nhanvienban`, `ngay_mua`, `tong_gia`, `id_sale`) VALUES
-('2', '2', 'admin', '2021-05-01', 400000, ''),
-('3', '5', 'manager', '2021-03-01', 1300000, ''),
-('4', '1', 'admin', '2021-05-11', 0, ''),
-('6', '1', '', '2021-05-11', 0, ''),
-('7', '1', '', '2021-05-11', 0, ''),
-('8', '1', '', '2021-05-11', 0, ''),
-('9', '1', 'admin', '2021-05-11', 0, ''),
-('11', '1', 'admin', '2021-05-11', 0, '');
+(23, '1', '', '2021-05-11', 15500000, '15'),
+(24, '1', '', '2021-05-11', 1000000, '14'),
+(25, '1', '', '2021-05-11', 1000000, '15'),
+(26, '1', '', '2021-05-11', 20000000, '13'),
+(27, '2', '', '2021-05-11', 3000000, '12'),
+(28, '2', '', '2021-05-11', 1500000, '11'),
+(29, '2', '', '2021-05-11', 1500000, '11'),
+(30, '2', '', '2021-05-11', 1500000, '12'),
+(31, '2', '', '2021-05-11', 7500000, '12');
 
 -- --------------------------------------------------------
 
@@ -410,7 +500,7 @@ CREATE TABLE `khach_hang` (
 --
 
 INSERT INTO `khach_hang` (`id_nguoidung`, `ho_ten`, `dia_chi`, `thong_tin_khac`) VALUES
-(1, 'Lê Thanh Hòa', 'On the Sunn', ''),
+(1, 'Lê Thanh Hòa', 'On the Sunns', ''),
 (2, 'David Heros', 'On the Earth', ''),
 (3, 'David Heros', 'On the Earth', ''),
 (4, 'David Heros', 'On the Earth', ''),
@@ -587,9 +677,9 @@ CREATE TABLE `nhom_san_pham` (
   `id_nhomsanpham` int(10) NOT NULL,
   `ten_nhomsanpham` varchar(100) NOT NULL,
   `gioi_tinh` varchar(10) NOT NULL,
-  `mieuta` varchar(100) NOT NULL,
-  `sosao_danhgia` varchar(10) NOT NULL,
-  `soluot_danhgia` varchar(10) NOT NULL,
+  `mieuta` longtext NOT NULL,
+  `sosao_danhgia` int(5) NOT NULL,
+  `soluot_danhgia` int(11) NOT NULL,
   `id_dongsanpham` varchar(10) NOT NULL,
   `mau_sanpham` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -599,19 +689,15 @@ CREATE TABLE `nhom_san_pham` (
 --
 
 INSERT INTO `nhom_san_pham` (`id_nhomsanpham`, `ten_nhomsanpham`, `gioi_tinh`, `mieuta`, `sosao_danhgia`, `soluot_danhgia`, `id_dongsanpham`, `mau_sanpham`) VALUES
-(1, 'Bitis Hunter Blue', 'Male', 'In stock', '5', '20', 'BH', 'Blue'),
-(2, 'Bitis Hunter Orange', 'Female', '', '4', '30', 'BH', 'Orange'),
-(3, 'Bitis Hunter Neon', 'Male', 'In stock', '5', '50', 'BH', 'Neon'),
-(4, 'Bitis Hunter No.4', 'Male', '123', '5', '50', 'BH', 'Red'),
-(5, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
-(6, 'Bitis Hunter No.6', 'Male', 'Sold Out', '5', '50', 'BH', 'Green'),
-(7, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
-(8, 'Bitis Hunter No.8', 'Male', 'Sold out', '5', '50', 'BH', 'HoloGram'),
-(9, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
-(10, 'Bitis Hunter No.test', 'Female', '', '5', '50', 'BH', 'Gray'),
-(11, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
-(12, 'Bitis Hunter No.test', 'Male', '', '5', '50', 'BH', 'Gray'),
-(13, 'Bitis Hunter no.13', 'Male', 'Product 13th', '', '', 'BH', 'Brown');
+(1, 'Bitis Hunter Running Blue', 'Nam', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 5, 20, 'BHR', 'Đen'),
+(2, 'Bitis Hunter Running Orange', 'Nữ', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 4, 30, 'BHR', 'Cam'),
+(3, 'Converse Taylor Science Canvas Trainers', 'Nam Nữ', 'Mẫu giày Converse Kid Science Canvas Trainers mô phỏng thế giới động vật với đa dạng lớp động vật, tạo nên một thế giới sinh học vô cùng phong phú. Mẫu giày thiết kế đơn giản và được trẻ em ưa chuộng nhiều, phù hợp với trẻ em từ 3 đến 10 tuổi.', 5, 10, 'CVK', 'Trắng'),
+(4, 'Converse Chuck Taylor All Star Gamer Low-Top', 'Nam', 'Mẫu giày Converse Kid Gamer Low Top sử dụng họa tiết đa màu sắc vui nhộn, được lấy cảm hứng từ những trò chơi điện tử ăn khách từ thập kỷ trước, được trẻ em trên khắp thế giới yêu thích. Thiết kế mang phong cách đơn giản nhưng cũng vô cùng thu hút, sẽ là một món quà đặc biệt để làm các bạn nhỏ bất ngờ.', 5, 2, 'CVK', 'Trắng'),
+(5, 'Converse Chuck Taylor Classic Black-White Low Top', 'Nữ', 'Giày Converse classic thấp cổ mang lại cảm giác năng động, trẻ trung. Che khuyết điểm chân to ngang, với các bạn chân có thể chọn cao cổ sẽ không lo nhấc gót nữa. Giày phù hợp với những bạn nữ.', 5, 12, 'CVC', 'Đen Trắng'),
+(6, 'Converse Chuck 70 Archive Paint Splatter High Top Black', 'Nam Nữ', 'Chào hè bằng những thiết kế Converse Archive Paint Splatter, thương hiệu bóng rổ đình đám đã có dịp chinh phục các bạn trẻ đang hướng đến sự mới lạ và phong cách cá tính. Ứng dụng xu hướng Paint Splatter với hình ảnh những tia sơn màu được phun một cách không cần trật tự lên bản in cho thiết kế mới, Converse mang đến item đầy sắc màu để bạn “hết mình” với style trẻ trung, năng động nhất.', 5, 12, 'CV70s', 'Đen '),
+(7, 'Converse Chuck 70 Archive Paint Splatter High Top White', 'Nam Nữ', 'Chào hè bằng những thiết kế Converse Archive Paint Splatter, thương hiệu bóng rổ đình đám đã có dịp chinh phục các bạn trẻ đang hướng đến sự mới lạ và phong cách cá tính. Ứng dụng xu hướng Paint Splatter với hình ảnh những tia sơn màu được phun một cách không cần trật tự lên bản in cho thiết kế mới, Converse mang đến item đầy sắc màu để bạn “hết mình” với style trẻ trung, năng động nhất.', 5, 3, 'CV70s', 'Trắng'),
+(8, 'Adidas Slip-on SuperStar', 'Nam Nữ', 'PHIÊN BẢN KHÔNG DÂY VÀ SIÊU NHẸ CỦA ĐÔI GIÀY ADIDAS SUPERSTAR ĐẦY TÍNH BIỂU TƯỢNG.\r\nXO, mũi vỏ sò. Quai đan chéo cho bạn thêm một cách mới để mang đôi giày classic rất được yêu thích này. Hơn 50 năm trước, dòng giày adidas Superstar đã gây tiếng vang trên sân bóng rổ là mẫu giày cổ thấp bằng da đầu tiên. Các fan yêu thích giày trainer đã nhanh chóng xiêu lòng trước thiết kế mũi vỏ sò bằng cao su có vân nổi và từ đó đã mang đôi giày này tới biết bao nơi kỳ thú. Và không ai có thể quên được thập niên 80, thời mà hip hop vẫn còn là một hình thức nghệ thuật mới nổi và một nhóm bộ ba đến từ Hollis, Queens đã giơ cao đôi giày này khi biểu diễn trên sân khấu. Phiên bản slip-on này cho các fan một cách thức mới mẻ để di chuyển theo phong cách mũi vỏ sò đích thực.', 5, 11, 'ADS', 'Trắng'),
+(9, 'Nike Air Max 97 Essential', 'Nữ', 'Với tính năng đồng nhất thiết kế tạo gợn sóng của đôi giày OG được lấy cảm hứng từ những con tàu siêu tốc của Nhật Bản. Giày Nike Air Max 97 Essential sẽ để bạn dồn hết tốc độ tối đa của bản thân về phía trước. Việc đưa vào dự án thiết kế đế giày đủ dài giúp cải thiện khi đang chạy và thêm một chút màu sáng và độ chi tiết sắc nét, nó đưa  bạn cảm giác đi trong thoải mái nhất ', 5, 3, 'NAX', 'Bạc');
 
 -- --------------------------------------------------------
 
@@ -733,8 +819,8 @@ CREATE TABLE `san_pham` (
   `id_sanpham` varchar(10) NOT NULL,
   `id_nhomsanpham` varchar(10) NOT NULL,
   `size` varchar(10) NOT NULL,
-  `gia_sanpham` varchar(100) NOT NULL,
-  `so_luong` int(10) NOT NULL
+  `gia_sanpham` int(32) NOT NULL,
+  `so_luong` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -742,14 +828,10 @@ CREATE TABLE `san_pham` (
 --
 
 INSERT INTO `san_pham` (`id_sanpham`, `id_nhomsanpham`, `size`, `gia_sanpham`, `so_luong`) VALUES
-('1b', '1', '38', '550000', 82),
-('1c', '1', '39', '600000', 83),
-('1d', '1', '40', '650000', 84),
-('1e', '1', '41', '650000', 52),
-('1a', '1', '37', '500000', 37),
-('1f', '1', '42', '600000', 30),
-('1g', '1', '43', '500000', 233),
-('2a', '2', '37', '500000', 20);
+('1S31', '1', '31', 1000000, 5),
+('1S33', '1', '33', 1550000, 0),
+('2S31', '2', '31', 1500000, 0),
+('9S33', '9', '33', 2000000, 0);
 
 --
 -- Indexes for dumped tables
