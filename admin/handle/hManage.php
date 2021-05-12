@@ -1022,13 +1022,15 @@
                         $sql .= " where tong_gia $filter_value ";
                     }
                 } else if ($condition == "Status") {
-                    if ($filter_value=="waiting") {
-                        $sql .= " where id_hoadon not in (select id_hoadon from chitiet_giaohang)";
-                    } else if ($filter_value != "-") {
-                        $sql .= ", chitiet_giaohang where hoa_don.id_hoadon = chitiet_giaohang.id_hoadon
-                                and chitiet_giaohang.tinhtrang_giaohang = ";
-                        if ($filter_value=="delivering") $sql .= "false";
-                        if ($filter_value=="delivered") $sql .= "true";
+                    if ($filter_value != "-") {
+                        $sql .= ", chitiet_giaohang where hoa_don.id_hoadon = chitiet_giaohang.id_hoadon and chitiet_giaohang.tinhtrang_giaohang = '";
+                        if ($filter_value=="waiting") {
+                            $sql .= "1'";
+                        } else if ($filter_value == "delivering") {
+                            $sql .= "2' ";
+                        } else if ($filter_value == "delivered") {
+                            $sql .= "3' ";
+                        }
                     }
                 } else if ($condition == "ngay_mua") {
                     $temp = explode("~", $filter_value);

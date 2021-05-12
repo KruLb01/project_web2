@@ -75,6 +75,14 @@ $('.dashboard-menu-items li').click(function(){
     if (action == 'Manage gProducts') {
         location.href = '?action=manage-gproduct';
     }
+
+    if (action == 'Mail') {
+        location.href = '?action=mail';
+    }
+
+    if (action == 'Help') {
+        location.href = '?action=help';
+    }
 })
 
 
