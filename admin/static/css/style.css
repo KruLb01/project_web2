@@ -2094,3 +2094,11 @@ span.del-img {
     border-radius: 5px;
     margin: 0 8px;
 }
+
+#span-total-chart { 
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: coral;
+}

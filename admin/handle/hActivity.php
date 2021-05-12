@@ -13,6 +13,7 @@
         ";
 
         if ($input != "all") {
+            if ($input == "") return;
             $data = explode("~", $input);
 
             if (count($data)>1) {

@@ -23,7 +23,9 @@
         $qtt_imp = (int)mysqli_fetch_array($res)['tong_nhap'];
 
         // Get tong ban'
-        $sql = "select sum(so_luong) as tong_mua from chitiet_hoadon, hoa_don where chitiet_hoadon.id_hoadon = hoa_don.id_hoadon
+        $sql = "select sum(so_luong) as tong_mua 
+        from chitiet_hoadon, hoa_don, chitiet_giaohang  
+        where chitiet_hoadon.id_hoadon = hoa_don.id_hoadon and chitiet_giaohang.id_hoadon = hoa_don.id_hoadon and chitiet_giaohang.tinhtrang_giaohang = 3 
                 and hoa_don.ngay_mua >= '$ds' and hoa_don.ngay_mua <= '$de'";
 
         $res = $conn->selectData($sql);
@@ -64,8 +66,10 @@
 
         // Chart 2 : Analyze total size was bought
         $sql = "SELECT size, SUM(chitiet_hoadon.so_luong) as sl
-        FROM san_pham, chitiet_hoadon, hoa_don 
+        FROM san_pham, chitiet_hoadon, hoa_don, chitiet_giaohang  
         WHERE san_pham.id_sanpham = chitiet_hoadon.id_sanpham 
+        and chitiet_giaohang.id_hoadon = hoa_don.id_hoadon 
+        and chitiet_giaohang.tinhtrang_giaohang = 3 
         and chitiet_hoadon.id_hoadon = hoa_don.id_hoadon 
         and hoa_don.ngay_mua >= '$ds' 
         and hoa_don.ngay_mua <= '$de' 
@@ -121,10 +125,69 @@
         </script>
         ";
 
-        // Chart 3 : Bar chart Top 10 products most seller
+        // Chart 3 : Total import and sold as current
+        // Get tong nhap
+        $sql = "select sum(tong_gia_nhap) as tong_nhap from phieu_nhap where phieu_nhap.ngay_nhap >= '$ds' and phieu_nhap.ngay_nhap <= '$de'";
+
+        $res = $conn->selectData($sql);
+        $qtt_imp = (int)mysqli_fetch_array($res)['tong_nhap'];
+
+        // Get tong ban 
+        $sql = "select sum(tong_gia) as tong_mua from chitiet_hoadon, hoa_don, chitiet_giaohang  
+                where chitiet_hoadon.id_hoadon = hoa_don.id_hoadon 
+                and chitiet_giaohang.id_hoadon = hoa_don.id_hoadon 
+                and chitiet_giaohang.tinhtrang_giaohang = 3 
+                and hoa_don.ngay_mua >= '$ds' and hoa_don.ngay_mua <= '$de'";
+
+        $res = $conn->selectData($sql);
+        $qtt_sold = (int)mysqli_fetch_array($res)['tong_mua'];
+        $show .= '
+            <div class="line-chart">
+                <canvas id="chart_imp_sold_current"></canvas>
+                <span id="span-total-chart">Tổng doanh thu = '.number_format($qtt_sold).' VNĐ - '.number_format($qtt_imp).' VNĐ = '.number_format($qtt_sold-$qtt_imp).' VNĐ</span>
+            </div>';
+        $show .= "
+        <script>
+        var chart_imp_sold_current = {
+          labels: ['Tổng giá nhập', 'Tổng giá bán'],
+          datasets: [{
+            label: 'Tổng chi phí, doanh thu (đơn vị: VNĐ)',
+            data: [$qtt_imp, $qtt_sold],
+            backgroundColor: [
+                'rgb(".rand(0,255).", ".rand(0,255).", ".rand(0,255).", 0.4)',
+                'rgb(".rand(0,255).", ".rand(0,255).", ".rand(0,255).", 0.4)'
+            ],
+            borderColor: [
+                'rgb(".rand(0,255).", ".rand(0,255).", ".rand(0,255).")',
+                'rgb(".rand(0,255).", ".rand(0,255).", ".rand(0,255).")'
+            ],
+            borderWidth: 1
+          }]
+        };
+        var config_chart_imp_sold_current = {
+          type: 'bar',
+          data: chart_imp_sold_current,
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          },
+        };
+        var myChart = new Chart(
+                        document.getElementById('chart_imp_sold_current'),
+                        config_chart_imp_sold_current
+                    );
+        </script>
+        ";
+
+        // Chart 4 : Bar chart Top 10 products most seller
         $sql = "SELECT ten_nhomsanpham, SUM(chitiet_hoadon.so_luong) as sl 
-            FROM chitiet_hoadon, san_pham, nhom_san_pham, hoa_don  
+            FROM chitiet_hoadon, san_pham, nhom_san_pham, hoa_don, chitiet_giaohang   
             WHERE chitiet_hoadon.id_sanpham = san_pham.id_sanpham 
+            and chitiet_giaohang.id_hoadon = hoa_don.id_hoadon 
+            and chitiet_giaohang.tinhtrang_giaohang = 3 
             and chitiet_hoadon.id_hoadon = hoa_don.id_hoadon 
             and hoa_don.ngay_mua >= '$ds' and hoa_don.ngay_mua <= '$de' 
             AND san_pham.id_nhomsanpham = nhom_san_pham.id_nhomsanpham 
