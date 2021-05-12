@@ -125,8 +125,14 @@
     }
     })
     $(document).on("click", ".dashboard-manage-pop-up #handle-btn", function(){
+        var current_status = $(this).text().trim();
         $.get("handle/hManage.php", {page:"Track Invoice",update:'true',val:'text-'+$(this).text().trim()+`-${just_click}`}, function(res) {
             if (res.trim()==true) {
+                if (current_status == "Delivery") {
+                    $(".dashboard-manage-pop-up #handle-btn").text("Delivered");
+                }
+                if (current_status == "Delivered") $(".dm-d-right").find("#handle-btn").remove();
+
                 alert("Updated status !");
 
                 var num = $('#dm-select-show').val();

@@ -903,9 +903,13 @@
                 $res = $conn->selectData("select * from chitiet_hoadon where id_hoadon ='".$click."'");
 
                 $sum = 0;
+                $delivery_method = mysqli_fetch_array($conn->selectData("select ten_phuongthuc from phuongthuc_giaohang 
+                                                                    where id_phuongthuc = (select phuongthuc_giaohang 
+                                                                                            from chitiet_giaohang 
+                                                                                            where id_hoadon = '$click')"))['ten_phuongthuc'];
 
                 $show = "
-                    <span id='dm-popup-title'>View details of $click</span>
+                    <span id='dm-popup-title'>View details of $click ($delivery_method)</span>
                     <i class='fas fa-times dm-pop-up-close-btn'></i>
                     <div class='dm-details-content'>
                     <table class='dm-details-content-items'>
@@ -969,7 +973,7 @@
                 if ($val[0]== 'text') {
                     if ($val[1]=="Delivery") {
                         $resUpdate = $conn->executeQuery("update hoa_don set id_nhanvienban = '".$_SESSION['user']['id']."' where id_hoadon = '".$val[2]."'");
-                        $resUpdate = $conn->executeQuery("insert into chitiet_giaohang(id_hoadon, phuongthuc_giaohang, ngay_giao, tinhtrang_giaohang) values('".$val[2]."', 'GH-1', '', false)");
+                        $resUpdate = $conn->executeQuery("update chitiet_giaohang set tinhtrang_giaohang = 2 where id_hoadon = '".$val[2]."'");
 
                         $sqlHandle = "SELECT * FROM san_pham, 
                                                 (SELECT id_sanpham, so_luong 
@@ -982,7 +986,7 @@
                             $conn->executeQuery("update san_pham set san_pham.so_luong = san_pham.so_luong - ".$row['so_luong']." where id_sanpham = '".$row['id_sanpham']."'");
                         }
                     } else if ($val[1]=="Delivered") {
-                        $resUpdate = $conn->executeQuery("update chitiet_giaohang set tinhtrang_giaohang = true, ngay_giao = '".date("Y-m-d")."' where id_hoadon = '".$val[2]."'");
+                        $resUpdate = $conn->executeQuery("update chitiet_giaohang set tinhtrang_giaohang = 3, ngay_giao = '".date("Y-m-d")."' where id_hoadon = '".$val[2]."'");
                     }
                     echo $resUpdate;
                     return;
@@ -1104,7 +1108,9 @@
                     $status = "Waiting";
                 } else {
                     $row = mysqli_fetch_array($query);
-                    $status = $row['tinhtrang_giaohang'] == true ? "Delivered" : "Delivering"; 
+                    $status = "Waiting";
+                    if ($row['tinhtrang_giaohang']==2) $status = "Delivering";
+                    else if ($row['tinhtrang_giaohang']==3) $status = "Delivered";
                     $ngay_giao = convertTime($row['ngay_giao']);
                 }
 
