@@ -1,4 +1,7 @@
-# Đồ án web 2
+# Đồ án web 2 
+> Main Language : PHP
+
+![alt text](/static/images/logos/logo-ngang-trans.png "HKP Store")
 
 ```diff
 - Tên đề tài : 
