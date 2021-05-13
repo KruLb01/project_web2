@@ -16,11 +16,7 @@
             while($row = mysqli_fetch_array($result)){
                 $gender = $row['gioi_tinh'] == "Male" ? "Nam" : "Nữ";
                 $result1 = $con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'");
-<<<<<<< HEAD
-                $url = "";
-=======
                 $url = "./static/images/logos/logo-doc.png";
->>>>>>> 4fea77c5719bac437afbf8fedef40346c96b76b6
                 if(mysqli_num_rows($result1)>0)
                 {
                     $row1 = mysqli_fetch_array($result1);
@@ -45,7 +41,7 @@
                         </div>
                     </div>
                     <div class="prod-detailbtn">
-                        <button onclick="location.href='.("'chitietsanpham.php?id_nhomsp=".$row['id_nhomsanpham']."'").'" class="btn btn-dark">Xem chi tiết</button>
+                        <button onclick="location.href='.("'./templates/chitietsanpham.php?id_nhomsp=".$row['id_nhomsanpham']."'").'" class="btn btn-dark">Xem chi tiết</button>
                     </div>
                 </li>';
             }

@@ -9,6 +9,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <LINK REL="SHORTCUT ICON" HREF="../static/images/favicon.ico">
         <script src="../static/js/jquery-3.6.0.min.js"></script>
         <script src="../static/js/post_method.js"></script>
         <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
