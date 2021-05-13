@@ -144,7 +144,7 @@
 
             if (confirm("Really update this gproduct ?!")==false) return;
             
-            $.get("handle/hManage.php", {page:"Manage gProducts",update:'true',val:'text-'+val1+'-'+val2+'-'+val3}, function(res) {
+            $.get("handle/hManage.php", {page:"Manage gProducts",update:'true',val:'text~'+val1+'~'+val2+'~'+val3}, function(res) {
                 if (res.trim()==true) {
                     alert("Updated successfully !");
 

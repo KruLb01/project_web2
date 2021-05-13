@@ -53,7 +53,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
@@ -222,7 +222,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
@@ -420,7 +420,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
@@ -619,7 +619,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
@@ -832,6 +832,28 @@
             }
             if (isset($_GET['popUp'])) return;
 
+            if (isset($_GET['update'])) {
+                if (isset($_GET['val'])) {
+                    $val = explode("~",$_GET['val']);
+                }
+
+                if ($val[0]=='delete') {
+                    $sqlHandle = "SELECT * FROM san_pham, 
+                                        (SELECT id_sanpham, so_luong 
+                                        FROM phieu_nhap, chitiet_phieunhap 
+                                        WHERE phieu_nhap.id_phieunhap = chitiet_phieunhap.id_phieunhap 
+                                        AND phieu_nhap.id_phieunhap = '".$val[1]."') as b 
+                            WHERE san_pham.id_sanpham = b.id_sanpham";
+                    $resHandle = $conn->selectData($sqlHandle);
+                    while ($row = mysqli_fetch_array($resHandle)) {
+                        $conn->executeQuery("update san_pham set san_pham.so_luong = san_pham.so_luong - ".$row['so_luong']." where id_sanpham = '".$row['id_sanpham']."'");
+                    }
+                    $resUpdate = $conn->executeQuery("delete from phieu_nhap where id_phieunhap = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("delete from chitiet_phieunhap where id_phieunhap = '".$val[1]."'");
+                    echo $resUpdate;
+                    return;
+                }
+            }
 
             $sql="select *
             from phieu_nhap
@@ -947,8 +969,8 @@
                 ";
                 while ($line = mysqli_fetch_array($res)) {
                     $so_luong = (int) $line['so_luong'];
-                    $gia_nhap = (int) $line['gia'];
-                    $total = $so_luong * $gia_nhap;
+                    $total = (int) $line['gia'];
+                    $gia_nhap = $total / $so_luong;
                     $sum += $total;
 
                     $name = mysqli_fetch_array($conn->selectData("select ten_nhomsanpham from nhom_san_pham where id_nhomsanpham = ( SELECT id_nhomsanpham FROM san_pham WHERE id_sanpham = '".$line['id_sanpham']."' )"))['ten_nhomsanpham'];
@@ -991,24 +1013,13 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
                     if ($val[1]=="Delivery") {
                         $resUpdate = $conn->executeQuery("update hoa_don set id_nhanvienban = '".$_SESSION['user']['id']."' where id_hoadon = '".$val[2]."'");
                         $resUpdate = $conn->executeQuery("update chitiet_giaohang set tinhtrang_giaohang = 2 where id_hoadon = '".$val[2]."'");
-
-                        $sqlHandle = "SELECT * FROM san_pham, 
-                                                (SELECT id_sanpham, so_luong 
-                                                FROM hoa_don, chitiet_hoadon 
-                                                WHERE hoa_don.id_hoadon = chitiet_hoadon.id_hoadon 
-                                                AND hoa_don.id_hoadon = '".$val[2]."') as b 
-                                    WHERE san_pham.id_sanpham = b.id_sanpham";
-                        $resHandle = $conn->selectData($sqlHandle);
-                        while ($row = mysqli_fetch_array($resHandle)) {
-                            $conn->executeQuery("update san_pham set san_pham.so_luong = san_pham.so_luong - ".$row['so_luong']." where id_sanpham = '".$row['id_sanpham']."'");
-                        }
                     } else if ($val[1]=="Delivered") {
                         $resUpdate = $conn->executeQuery("update chitiet_giaohang set tinhtrang_giaohang = 3, ngay_giao = '".date("Y-m-d")."' where id_hoadon = '".$val[2]."'");
                     }
@@ -1027,6 +1038,7 @@
                         $conn->executeQuery("update san_pham set san_pham.so_luong = san_pham.so_luong + ".$row['so_luong']." where id_sanpham = '".$row['id_sanpham']."'");
                     }
                     $resUpdate = $conn->executeQuery("delete from hoa_don where hoa_don.id_hoadon = '".$val[1]."'");
+                    $resUpdate = $conn->executeQuery("delete from chitiet_hoadon where chitiet_hoadon.id_hoadon = '".$val[1]."'");
                     $resUpdate = $conn->executeQuery("delete from chitiet_giaohang where chitiet_giaohang.id_hoadon = '".$val[1]."'");
 
                     echo $resUpdate;
@@ -1234,7 +1246,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
@@ -1389,7 +1401,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {
@@ -1523,7 +1535,7 @@
 
             if (isset($_GET['update'])) {
                 if (isset($_GET['val'])) {
-                    $val = explode("-",$_GET['val']);
+                    $val = explode("~",$_GET['val']);
                 }
 
                 if ($val[0]== 'text') {

@@ -718,9 +718,16 @@ $(document).on("click" , ".dashboard-manage-table-action-items li" , function() 
             });
         })
     } else if ($(this).text()=='Delete') {
-        var size = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(1).text();        
+        var size = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(1).text();     
+        if (currentPage == "Track Invoice") {
+            var status_delivery = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(5).text();     
+            if (status_delivery=="Delivering" || status_delivery=="Delivered") {
+                alert("Không thể xóa hóa đơn đang giao hoặc đã giao !");
+                return;
+            }
+        }
         if (confirm('Do you really want to delete '+id_view + ' ?')) {
-            $.get('handle/hManage.php',{page:currentPage,update:'true',val:'delete-'+id_view+'-'+size},function(res) {
+            $.get('handle/hManage.php',{page:currentPage,update:'true',val:'delete~'+id_view+'~'+size},function(res) {
                 if (res.trim()==true) {
                     alert('Deleted successfully !');
                     $.get('handle/hManage.php',{page:currentPage,num:num,pag:'1',title:title,sort:sort},function(res) {
@@ -760,7 +767,7 @@ $(document).on("click",".dm-pop-up-save-btn",function() {
     }
 
     id_view = $('.dashboard-manage-table-items tr').eq(posAction+1).find('td').eq(0).text();
-    $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text-'+id_view+'-'+valInput1+'-'+valInput2+'-'+valInput3+'-'+valInput4+'-'+valInput5+'-'+valInput6},function(res) {
+    $.get('handle/hManage.php',{page:currentPage,update:'true',val:'text~'+id_view+'~'+valInput1+'~'+valInput2+'~'+valInput3+'~'+valInput4+'~'+valInput5+'~'+valInput6},function(res) {
         if (res.trim()==true) {
             alert('Update successfully !');
             var num = $('#dm-select-show').val();
@@ -787,7 +794,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
     if (currentPage.trim() == 'Manage Permission') {
         posUpdate = $(this).text().trim();
         actionUpdate = $(this).find('input[type=checkbox]').prop('checked') == true ? 'insert' : 'delete';
-        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+posUpdate+'-'+actionUpdate+'-'+id_view},function(res) {
+        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox~'+posUpdate+'~'+actionUpdate+'~'+id_view},function(res) {
             if (res.trim()==false) {
                 alert('Failed !'); 
             }
@@ -799,7 +806,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
         if ($(this).find('input').prop('type')=='radio') {
             if (!confirm('Change permission login of account '+id_view)) return;
         }
-        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+cbox_pos+'-'+id_view},function(res) {
+        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox~'+cbox_pos+'~'+id_view},function(res) {
             if (res.trim()==false) {
                 alert('Failed !'); 
             } else {
@@ -818,7 +825,7 @@ $(document).on("click",".dashboard-manage-pop-up-items span", function() {
             if (!confirm('Change gender of product '+id_view)) return;
         }
 
-        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox-'+cbox_pos+'-'+id_view},function(res) {
+        $.get('handle/hManage.php',{page:currentPage,update:'true',val:'checkbox~'+cbox_pos+'~'+id_view},function(res) {
             if (res.trim()==false) {
                 alert('Failed !'); 
             } else {

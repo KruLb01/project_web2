@@ -25,15 +25,15 @@
                     <div class="dashboard-manage-pop-up-add-info" style="border:none;width:100%">
                         <span>
                             Id Provider :
-                            <input type="text" placeholder='Id Product'>
+                            <input type="text" placeholder='Id Provider'>
                         </span>
                         <span>
                             Name Provider :
-                            <input type="text" placeholder='Name Product'>
+                            <input type="text" placeholder='Name Provider'>
                         </span>
                         <span>
                             Address Provider :
-                            <input type="text" placeholder='Size Product'>
+                            <input type="text" placeholder='Address Provider'>
                         </span>
                         <div class="dm-pop-up-add-btn disable-copy">
                             <span class="dm-pop-up-add-save-btn">Add new provider</span>
@@ -144,7 +144,7 @@
 
             if (confirm("Really update this provider ?!")==false) return;
             
-            $.get("handle/hManage.php", {page:"Manage Providers",update:'true',val:'text-'+val1+'-'+val2+'-'+val3}, function(res) {
+            $.get("handle/hManage.php", {page:"Manage Providers",update:'true',val:'text~'+val1+'~'+val2+'~'+val3}, function(res) {
                 if (res.trim()==true) {
                     alert("Updated successfully !");
 

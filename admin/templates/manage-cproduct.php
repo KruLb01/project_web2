@@ -155,7 +155,7 @@
             // Convert 
             val4 = val4.replace(/[VNĐ]|,/g,'').trim();
 
-            $.get("handle/hManage.php", {page:"Manage cProducts",update:'true',val:'text-'+val1+'-'+val2+'-'+val3+'-'+val4}, function(res) {
+            $.get("handle/hManage.php", {page:"Manage cProducts",update:'true',val:'text~'+val1+'~'+val2+'~'+val3+'~'+val4}, function(res) {
                 if (res.trim()==true) {
                     alert("Updated successfully !");
 

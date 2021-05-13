@@ -24,27 +24,27 @@
                     <div class="dashboard-manage-pop-up-add-info">
                         <span>
                             Id Employee :
-                            <input type="text" placeholder='Id Customer'>
+                            <input type="text" placeholder='Id Employee'>
                         </span>
                         <span>
                             Name Employee :
-                            <input type="text" placeholder='Name Customer'>
+                            <input type="text" placeholder='Name Employee'>
                         </span>
                         <span>
                             Email Employee :
-                            <input type="text" placeholder='Email Customer'>
+                            <input type="text" placeholder='Email Employee'>
                         </span>
                         <span>
                             Username Employee :
-                            <input type="text" placeholder='Username Customer'>
+                            <input type="text" placeholder='Username Employee'>
                         </span>
                         <span>
                             Password Employee :
-                            <input type="password" placeholder='Password Customer'>
+                            <input type="password" placeholder='Password Employee'>
                         </span>
                         <span>
                             Phone number Employee :
-                            <input type="text" placeholder='Phone number Customer'>
+                            <input type="text" placeholder='Phone number Employee'>
                         </span>
                         <span>
                             Permission Employee :
