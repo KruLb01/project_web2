@@ -16,7 +16,7 @@
 ```
 
 ## Database
-![model](./DB_Diagram.png)
+![model](./DB_Diagram.png "Database Diagram")
 
 ## Ngôn ngữ, công cụ hỗ trợ
 
