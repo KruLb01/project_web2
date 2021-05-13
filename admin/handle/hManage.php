@@ -254,7 +254,7 @@
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Id Products") {
-                    $sql .= "id_nhomsanpham $sort ";
+                    $sql .= "cast(id_nhomsanpham as unsigned) $sort ";
                 } else if ($title=="Name Products") {
                     $sql .= "ten_nhomsanpham $sort ";
                 } else if ($title=="Gender") {
@@ -264,7 +264,7 @@
                 } else if ($title=="Buyed") {
                     $sql .= "id_nhomsanpham $sort ";
                 }
-            } else $sql .= "id_nhomsanpham ";
+            } else $sql .= "cast(id_nhomsanpham as unsigned) ";
             $sql .= " limit $pag, $numShow";
             
             if (isset($_GET['search'])) {
@@ -1225,7 +1225,7 @@
                 //     $valCB = explode("-",$_GET['valCB']);
                 // }
                 if (isset($_GET['valText'])) {
-                    $valText = explode("-",$_GET['valText']);
+                    $valText = explode("~",$_GET['valText']);
                 }
                 $resAdd = $conn->executeQuery("insert into san_pham(id_sanpham, id_nhomsanpham, size, gia_sanpham, so_luong) values('".$valText[0]."', (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'".$valText[1]."'), '".$valText[2]."', '".$valText[4]."', '".$valText[3]."')");
                 echo $resAdd;
