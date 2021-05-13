@@ -15,7 +15,7 @@
         $res = $conn->selectData($sql);
 
         while ($row = mysqli_fetch_array($res)) {
-            if ($row['tai_khoan'] == $user && $row['mat_khau'] == $pass) {
+            if ($row['tai_khoan'] == $user && $row['mat_khau'] == $pass && $row['tinh_trang_taikhoan'] == true) {
                 $_SESSION['user']['id'] = $row['id_nguoidung'];
                 $_SESSION['user']['username'] = $row['tai_khoan'];
                 $_SESSION['user']['pass'] = $row['mat_khau'];
