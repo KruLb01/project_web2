@@ -2,7 +2,19 @@
     <head>
         <meta charset="utf-8">
         <title>Đăng nhập</title>
+<<<<<<< HEAD
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+=======
+        <link type="text/css" href="../DoanWeb2/bootstrap-4.5.3-dist/css/bootstrap.css">
+        <link type="text/css" href="../DoanWeb2/bootstrap-4.5.3-dist/css/bootstrap-grid.css">
+        <link type="text/css" href="../DoanWeb2/glyphicon.css">
+        <LINK REL="SHORTCUT ICON" HREF="../static/images/favicon.ico">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+>>>>>>> 4fea77c5719bac437afbf8fedef40346c96b76b6
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="../static/js/jquery-3.6.0.min.js"></script>
         <script src="../static/js/post_method.js"></script>

@@ -36,6 +36,7 @@
             <div class="list-container">
                 <ul class="list-prods">';
         while($row = mysqli_fetch_array($result1)){
+            if ($row[2]=="") $row[2] = "./static/images/logos/logo-doc.png";
             echo '<li class="prod-item">
                 <div class="prod-image">
                     <a href="chitietsanpham.php?id_nhomsp='.$row[0].'"><img src="../'.$row[2].'" /></a>

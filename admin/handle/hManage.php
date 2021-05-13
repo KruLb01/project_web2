@@ -254,7 +254,7 @@
                 $title = $_GET['title'];
                 $sort = $_GET['sort'];
                 if ($title=="Id Products") {
-                    $sql .= "id_nhomsanpham $sort ";
+                    $sql .= "cast(id_nhomsanpham as unsigned) $sort ";
                 } else if ($title=="Name Products") {
                     $sql .= "ten_nhomsanpham $sort ";
                 } else if ($title=="Gender") {
@@ -264,7 +264,7 @@
                 } else if ($title=="Buyed") {
                     $sql .= "id_nhomsanpham $sort ";
                 }
-            } else $sql .= "id_nhomsanpham ";
+            } else $sql .= "cast(id_nhomsanpham as unsigned) ";
             $sql .= " limit $pag, $numShow";
             
             if (isset($_GET['search'])) {
@@ -310,7 +310,17 @@
                                     <select>
                                         ";
                         $res1 = $conn->selectData("select * from sale order by ten_sale");
+                        $res2 = $conn->selectData("select sale.id_sale, ten_sale from chitiet_sale, sale where chitiet_sale.id_sale = sale.id_sale and id_nhomsanpham = '".$line['id_nhomsanpham']."'");
+                        $id_current = "";
+                        if (mysqli_num_rows($res2)==0) {
+                            $show .="<option value=''>-</option>";
+                        } else {
+                            $fetch = mysqli_fetch_array($res2);
+                            $id_current = $fetch['id_sale'];
+                            $show .= "<option value='".$id_current."'>".$fetch['ten_sale']."</option>";
+                        }
                         while ($row = mysqli_fetch_array($res1)) {
+                            if ($row['id_sale']==$id_current) continue;
                             $show .= "<option value='".$row['id_sale']."'>".$row['ten_sale']."</option>";
                         }
                         $show .= "
@@ -1215,7 +1225,7 @@
                 //     $valCB = explode("-",$_GET['valCB']);
                 // }
                 if (isset($_GET['valText'])) {
-                    $valText = explode("-",$_GET['valText']);
+                    $valText = explode("~",$_GET['valText']);
                 }
                 $resAdd = $conn->executeQuery("insert into san_pham(id_sanpham, id_nhomsanpham, size, gia_sanpham, so_luong) values('".$valText[0]."', (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'".$valText[1]."'), '".$valText[2]."', '".$valText[4]."', '".$valText[3]."')");
                 echo $resAdd;
