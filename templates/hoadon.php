@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="../static/js/jquery-3.6.0.min.js"></script>
         <script src="../static/js/post_method.js"></script>
+        <LINK REL="SHORTCUT ICON" HREF="../static/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="../static/css/hoadon.css">
         <link rel="stylesheet" type="text/css" href="../static/css/index.css">
         <link rel="stylesheet" type="text/css" href="../static/css/all.css">

@@ -2,6 +2,6 @@
     $host = 'localhost';
     $username = 'root';
     $password = '';
-    $database = 'do_an_web2_1';
+    $database = 'do_an_web2';
 ?>
 
