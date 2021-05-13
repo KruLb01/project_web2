@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 08:53 PM
+-- Generation Time: May 13, 2021 at 10:00 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -84,7 +84,8 @@ INSERT INTO `chitiet_giaohang` (`id_hoadon`, `phuongthuc_giaohang`, `ngay_giao`,
 ('28', 'GH-1', '0000-00-00', 2),
 ('29', 'GH-1', '2021-05-12', 3),
 ('30', 'GH-1', '2021-05-12', 3),
-('31', 'GH-1', '0000-00-00', 1);
+('31', 'GH-1', '0000-00-00', 1),
+('0', 'GH-1', '2021-05-13', 3);
 
 -- --------------------------------------------------------
 
@@ -112,7 +113,9 @@ INSERT INTO `chitiet_hoadon` (`id_hoadon`, `id_sanpham`, `so_luong`, `gia`) VALU
 ('28', '2S31', 1, 1500000),
 ('29', '2S31', 1, 1500000),
 ('30', '2S31', 1, 1500000),
-('31', '2S31', 5, 2000000);
+('31', '2S31', 5, 2000000),
+('0', '1S31', 2, 2000000),
+('0', '2S31', 5, 7500000);
 
 -- --------------------------------------------------------
 
@@ -312,13 +315,6 @@ CREATE TABLE `gio_hang` (
   `so_luong` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `gio_hang`
---
-
-INSERT INTO `gio_hang` (`id_nguoidung`, `id_sanpham`, `so_luong`) VALUES
-('1', '1S31', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -378,7 +374,8 @@ INSERT INTO `hinh_anh` (`id_hinhanh`, `link_hinhanh`) VALUES
 ('Nike Air Max 97 Essential-609b367d55c514.67014990.png', 'images/Nike Air Max 97 Essential-609b367d55c514.67014990.png'),
 ('Nike Air Max 97 Essential-609b367f9a0922.27891191.png', 'images/Nike Air Max 97 Essential-609b367f9a0922.27891191.png'),
 ('Nike Air Max 97 Essential-609b3682045663.20998192.png', 'images/Nike Air Max 97 Essential-609b3682045663.20998192.png'),
-('Nike Air Max 97 Essential-609b36840b9ef7.25248825.png', 'images/Nike Air Max 97 Essential-609b36840b9ef7.25248825.png');
+('Nike Air Max 97 Essential-609b36840b9ef7.25248825.png', 'images/Nike Air Max 97 Essential-609b36840b9ef7.25248825.png'),
+('Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png', 'images/Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png');
 
 -- --------------------------------------------------------
 
@@ -436,7 +433,8 @@ INSERT INTO `hinh_nhomsanpham` (`id_nhomsanpham`, `id_hinh`) VALUES
 ('9', 'Nike Air Max 97 Essential-609b367d55c514.67014990.png'),
 ('9', 'Nike Air Max 97 Essential-609b367f9a0922.27891191.png'),
 ('9', 'Nike Air Max 97 Essential-609b3682045663.20998192.png'),
-('9', 'Nike Air Max 97 Essential-609b36840b9ef7.25248825.png');
+('9', 'Nike Air Max 97 Essential-609b36840b9ef7.25248825.png'),
+('10', 'Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png');
 
 -- --------------------------------------------------------
 
@@ -466,7 +464,8 @@ INSERT INTO `hoa_don` (`id_hoadon`, `id_nguoidung`, `id_nhanvienban`, `ngay_mua`
 (28, '2', 'manager', '2021-05-11', 1500000, '11'),
 (29, '2', 'manager', '2021-05-11', 1500000, '11'),
 (30, '2', 'manager', '2021-05-11', 1500000, '12'),
-(31, '2', '', '2021-05-11', 10000000, '12');
+(31, '2', '', '2021-05-11', 10000000, '12'),
+(0, '1', 'admin', '2021-05-13', 9500000, '');
 
 -- --------------------------------------------------------
 
@@ -486,7 +485,7 @@ CREATE TABLE `khach_hang` (
 --
 
 INSERT INTO `khach_hang` (`id_nguoidung`, `ho_ten`, `dia_chi`, `thong_tin_khac`) VALUES
-(1, 'Lê Thanh Hòa', 'On the Sunns', ''),
+(1, 'Lê Thanh Hòa', 'On the Sunns', 'I am still alive'),
 (2, 'David Heros', 'On the Earth', ''),
 (3, 'David Heros', 'On the Earth', ''),
 (4, 'David Heros', 'On the Earth', ''),
@@ -561,7 +560,7 @@ CREATE TABLE `nguoi_dung` (
 --
 
 INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_dien_thoai`, `quyen`, `tinh_trang_taikhoan`) VALUES
-('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 0),
+('admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 1),
 ('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('2', 'customer2', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('3', 'customer3', '1', 'customer@gmail.com', '1234324', 'customer', 1),
@@ -614,10 +613,10 @@ INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_
 ('50', 'customer50', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('51', 'customer51', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('52', 'customer52', '1', 'customer@gmail.com', '1234324', 'customer', 1),
-('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 0),
+('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 1),
 ('53', 'customer53', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('54', 'customer54nek', 'c8f3c7fc80cf9be66ea3bdf64ba1c82d', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
-('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 1);
+('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 0);
 
 -- --------------------------------------------------------
 
@@ -795,9 +794,9 @@ CREATE TABLE `san_pham` (
 --
 
 INSERT INTO `san_pham` (`id_sanpham`, `id_nhomsanpham`, `size`, `gia_sanpham`, `so_luong`) VALUES
-('1S31', '1', '31', 1000000, 4),
+('1S31', '1', '31', 1000000, 0),
 ('1S33', '1', '33', 1550000, 10),
-('2S31', '2', '31', 1500000, 35),
+('2S31', '2', '31', 1500000, 25),
 ('9S33', '9', '33', 2000000, 25);
 
 --
