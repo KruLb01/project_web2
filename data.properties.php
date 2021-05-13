@@ -1,7 +1,7 @@
 <?php
     $host = 'localhost';
-    $username = 'thanhhoa';
-    $password = 'thanhhoa';
-    $database = 'do_an_web2';
+    $username = 'root';
+    $password = '';
+    $database = 'do_an_web2_1';
 ?>
 

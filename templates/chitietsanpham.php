@@ -314,7 +314,7 @@
                                             $(".modal-body tr.product-item td.product_price").html(getdata.giasp);
                                             $(".modal-body tr.product-item td.product_subtotal").html(getdata.thanhtien);
                                             $(".modal-body tr.product-item td.product_quantity input").attr("value",getdata.soluong);
-                                            $(".modal-body tr.product-item td.product_image img").attr("src",getdata.hinh);
+                                            $(".modal-body tr.product-item td.product_image img").attr("src","../"+getdata.hinh);
                                             setTimeout(function(){$(".modal").modal('hide');}, 10000);
                                         }
                                     }

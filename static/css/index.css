@@ -350,6 +350,9 @@
                     transform:translateX(100%);
                     transition: transform 0.5s ease-in;
                 }
+                .others li:hover > .sub-menu{
+                    top:400px;
+                }
                 .menu{
                     width: 100%;
                     height: auto;

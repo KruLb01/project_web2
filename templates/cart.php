@@ -49,11 +49,7 @@ $con = new ConnectionDB('');
                                     <?php
                                         $sum=0;
                                         $id_nguoidung = $_SESSION['id_nguoidung'];
-                                        $sql = "SELECT san_pham.id_sanpham,nhom_san_pham.ten_nhomsanpham,hinh_nhomsanpham.hinh,san_pham.size, san_pham.gia_sanpham,gio_hang.so_luong,gio_hang.so_luong*san_pham.gia_sanpham"
-                                             . " FROM `gio_hang`,`nhom_san_pham`,`san_pham`,`hinh_nhomsanpham` where gio_hang.id_sanpham=san_pham.id_sanpham and nhom_san_pham.id_nhomsanpham=san_pham.id_nhomsanpham"
-                                             . " and nhom_san_pham.id_nhomsanpham=hinh_nhomsanpham.id_nhomhinh"
-                                             . " and gio_hang.id_nguoidung=$id_nguoidung"
-                                             . " group by san_pham.id_sanpham";
+                                        $sql = "SELECT san_pham.id_sanpham,nhom_san_pham.ten_nhomsanpham,c.url,san_pham.size,san_pham.gia_sanpham,gio_hang.so_luong,gio_hang.so_luong*san_pham.gia_sanpham FROM gio_hang,nhom_san_pham,san_pham,hinh_nhomsanpham,(select IFNULL(hinh_anh.link_hinhanh,'') as url,b.id_nhomsanpham from (select nhom_san_pham.id_nhomsanpham,hinh_nhomsanpham.id_hinh from nhom_san_pham left join hinh_nhomsanpham on nhom_san_pham.id_nhomsanpham = hinh_nhomsanpham.id_nhomsanpham) as b LEFT JOIN hinh_anh on b.id_hinh = hinh_anh.id_hinhanh) as c where gio_hang.id_sanpham=san_pham.id_sanpham and nhom_san_pham.id_nhomsanpham = c.id_nhomsanpham and nhom_san_pham.id_nhomsanpham=san_pham.id_nhomsanpham and gio_hang.id_nguoidung='$id_nguoidung' group by san_pham.id_sanpham";
                                         $result=$con->preparedSelect($sql);
                                         if($result!==null)
                                         {
@@ -62,10 +58,9 @@ $con = new ConnectionDB('');
                                                 $sum+=$row[6];
                                                 $subtotal=number_format($row[6],0,",",".")."<sup>đ</sup>";
                                                 $prod_price=number_format($row[4],0,",",".")."<sup>đ</sup>";
-                                                $encodeImage = base64_encode($row[2]);
                                                 echo "<tr class='product-item'>"
                                                         ."<td class='product_name' id='$row[0]'>$row[1]</td>"
-                                                        ."<td class='product_image'><img src='data:image/png;base64,$encodeImage'/></td>"
+                                                        ."<td class='product_image'><img src='../$row[2]'/></td>"
                                                         ."<td class='product_size' title='Kích cỡ'>$row[3]</td>"
                                                         ."<td class='product_price' title='Giá sản phẩm'>$prod_price</td>"
                                                         ."<td class='product_quantity' title='Số lượng'><button class='plus' onclick='countUp(this)' class='my-button'>+</button><input class='amount' value='$row[5]'/><button class='abstract' onclick='countDown(this)' class='my-button'>-</button></td>"
@@ -83,7 +78,7 @@ $con = new ConnectionDB('');
                                 <div class="cart-purchase">
                                     <button id="purchase-btn" onclick='goPurchase()'>Thanh toán</button>
                                 </div>
-                            <script type='text/javascript' src='data/js/cart.js'></script>
+                            <script type='text/javascript' src='../admin/static/js/cart.js'></script>
                         </div>
                     </div>
                 </div>

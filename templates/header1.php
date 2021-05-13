@@ -3,8 +3,7 @@
         </div>
         <div class="links">
             <ul class="menu">
-                <li class="menu-item"><a href="../index.php">Home</a></li>
-                <li class="menu-item"><a href="danhmucsanpham.php">Danh mục sản phẩm</a>
+                <li class="menu-item"><a href="../templates/danhmucsanpham.php">Danh mục sản phẩm</a>
                     <?php
                             $sql1 = "select thuonghieu_sanpham from dong_san_pham group by thuonghieu_sanpham";
                             $result = $con->preparedSelect($sql1);
@@ -12,12 +11,13 @@
                             {
                                 echo '<ul class="sub-menu">';
                                 while ($row = mysqli_fetch_array($result)) {
-                                    echo '<li><a href="danhmucsanpham.php?thuonghieu='.$row[0].'">'.$row[0].'</a></li>';
+                                    echo '<li><a href="../templates/danhmucsanpham.php?thuonghieu='.$row[0].'">'.$row[0].'</a></li>';
                                 }
                                 echo '</ul>';
                             }
                     ?>
                 </li>
+                <li class="menu-item"><a href="../index.php">Home</a></li>
                 <li class="menu-item"><a href="">Tin tức</a></li>
                 <li class="menu-item"><a href="">Giới thiệu</a></li>
             </ul>

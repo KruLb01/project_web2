@@ -15,7 +15,13 @@
         {
             while($row = mysqli_fetch_array($result)){
                 $gender = $row['gioi_tinh'] == "Male" ? "Nam" : "Nữ";
-                $url = mysqli_fetch_array($con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'"))['link_hinhanh'];
+                $result1 = $con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'");
+                $url = "";
+                if(mysqli_num_rows($result1)>0)
+                {
+                    $row1 = mysqli_fetch_array($result1);
+                    $url = $row1[0];
+                }
                 echo '<li class="prod-item">
                     <div class="prod-image">
                         <a href="./templates/chitietsanpham.php?id_nhomsp='.$row['id_nhomsanpham'].'"><img src="./'.$url.'"/></a>
