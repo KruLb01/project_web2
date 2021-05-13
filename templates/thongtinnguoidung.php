@@ -81,7 +81,7 @@ $con = new ConnectionDB('');
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-4 title">Mật khẩu</div>
                                     <div class="col-xl-6 col-lg-6">
-                                        <input id="password" type="password" name="password" value="<?php echo $row[4]?>" disabled="disabled"/>  
+                                        <input id="password" type="password" name="password" value="<?php echo md5($row[4],false)?>" disabled="disabled"/>  
                                     </div>
                                     <div class="col-xl-2 col-lg-2">
                                         <button class="btn btn-warning">Chỉnh sửa</button>

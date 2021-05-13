@@ -2,6 +2,9 @@
     <head>
         <meta charset="utf-8">
         <title>Đăng nhập</title>
+<<<<<<< HEAD
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+=======
         <link type="text/css" href="../DoanWeb2/bootstrap-4.5.3-dist/css/bootstrap.css">
         <link type="text/css" href="../DoanWeb2/bootstrap-4.5.3-dist/css/bootstrap-grid.css">
         <link type="text/css" href="../DoanWeb2/glyphicon.css">
@@ -11,7 +14,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+>>>>>>> 4fea77c5719bac437afbf8fedef40346c96b76b6
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../static/js/jquery-3.6.0.min.js"></script>
+        <script src="../static/js/post_method.js"></script>
+        <link rel="stylesheet" type="text/css" href="../static/css/all.css">
+        <link rel="stylesheet" type="text/css" href="../plugin/bootstrap-4.5.3-dist/css/bootstrap.css">
+        <script src="../plugin/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
         <style>
             .navbar-nav > .nav-item > .nav-link{
                color:white; 
@@ -151,8 +160,8 @@
         <div class="header">
             <nav class="navbar navbar-expand-md bg-info navbar-light">    
                 <div class="logo-brand">
-                    <a class="navbar-brand" href="index.php">
-                    <img src="../DoanWeb2/images/logos/logo-ngang-trans.png" alt="Logo" width="110px">
+                    <a class="navbar-brand" href="../index.php">
+                    <img src="../static/images/logos/logo-ngang-trans.png" alt="Logo" width="110px">
                     </a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -161,7 +170,7 @@
               <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="index.php">Trang chủ</a>
+                    <a class="nav-link" href="../index.php">Trang chủ</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Liên hệ</a>
@@ -169,7 +178,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                    <a class="nav-link" href="index.php"><i class="far fa-question-circle"></i> Trợ giúp</a>
+                    <a class="nav-link" href="../index.php"><i class="far fa-question-circle"></i> Trợ giúp</a>
                   </li>
                 </ul>
               </div>
@@ -185,10 +194,10 @@
                         </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block" src="../DoanWeb2/images/others/image1.jpg" alt="" style="height:300px;width:100%">
+                            <img class="d-block" src="../static/images/others/image1.jpg" alt="" style="height:300px;width:100%">
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block" src="../DoanWeb2/images/others/image2.jpg" alt="" style="height:300px;width:100%">
+                            <img class="d-block" src="../static/images/others/image2.jpg" alt="" style="height:300px;width:100%">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -290,10 +299,10 @@
             <div>
                 <h3>CONNECT WITH US</h3>
                 <ul>
-                    <li><a href="https://facebook.com" target="_blank"><img src="../DoanWeb2/images/icons/icons8_facebook_48px_1.png" width="30px" height="30px"/></a></li>
-                    <li><a href="https://www.facebook.com/messages/t/100005959088602" target="_blank"><img src="../DoanWeb2/images/icons/icons8_facebook_messenger_48px.png" width="30px" height="30px"/></a></li>
-                    <li><a href="https://instagram.com" target="_blank"><img src="../DoanWeb2/images/icons/icons8_instagram_48px.png" width="30px" height="30px"/></a></li>
-                    <li><a href="https://shopee.vn" target="_blank"><img src="../DoanWeb2/images/icons/icons8-shopee-48.png" width="30px" height="30px"/></a></li>
+                    <li><a href="https://facebook.com" target="_blank"><img src="../static/images/icons/icons8_facebook_48px_1.png" width="30px" height="30px"/></a></li>
+                    <li><a href="https://www.facebook.com/messages/t/100005959088602" target="_blank"><img src="../static/images/icons/icons8_facebook_messenger_48px.png" width="30px" height="30px"/></a></li>
+                    <li><a href="https://instagram.com" target="_blank"><img src="../static/images/icons/icons8_instagram_48px.png" width="30px" height="30px"/></a></li>
+                    <li><a href="https://shopee.vn" target="_blank"><img src="../static/images/icons/icons8-shopee-48.png" width="30px" height="30px"/></a></li>
                 </ul>
             </div>
         </div>

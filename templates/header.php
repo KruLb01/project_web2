@@ -33,7 +33,7 @@
                 <li><a href="./templates/cart.php"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a></li>';
                 }else{
                     echo '<li><a href="./templates/Login.php"><i class="fas fa-user"></i> Đăng nhập</a></li>
-                    <li><a href="signup.php"><i class="fas fa-user"></i> Đăng ký</a></li>';
+                    <li><a href="../project_web2/templates/dangky.php"><i class="fas fa-user"></i> Đăng ký</a></li>';
                 }
                 ?>
             </ul>
