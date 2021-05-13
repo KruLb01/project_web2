@@ -7,12 +7,7 @@
     $tensp = $_GET['ten_sp'];
     $thuonghieu = $_GET['thuonghieu'];
     $from = ($page-1)*$items_per_page;
-    $sql = "SELECT nhom_san_pham.id_nhomsanpham from nhom_san_pham,
-            (select id_nhomhinh,hinh from hinh_nhomsanpham) AS b,(select id_dongsanpham from dong_san_pham where id_dongsanpham LIKE '%$ma_dongsp%' and thuonghieu_sanpham LIKE '%$thuonghieu%') as c,
-            dong_san_pham where nhom_san_pham.id_nhomsanpham = b.id_nhomhinh and 
-            nhom_san_pham.id_dongsanpham = dong_san_pham.id_dongsanpham and dong_san_pham.id_dongsanpham = c.id_dongsanpham
-            and nhom_san_pham.ten_nhomsanpham LIKE '%$tensp%'
-            group by nhom_san_pham.id_nhomsanpham";
+    $sql = "select nhom_san_pham.id_nhomsanpham from nhom_san_pham,(select id_dongsanpham from dong_san_pham where id_dongsanpham LIKE '%$ma_dongsp%' and thuonghieu_sanpham LIKE '%$thuonghieu%') as b where nhom_san_pham.id_dongsanpham = b.id_dongsanpham and nhom_san_pham.ten_nhomsanpham LIKE '%$tensp%'";
     $result = $con->preparedSelect($sql);
     if($items_per_page>0)
     {
@@ -26,11 +21,11 @@
             $totalpage=$totalsp/$items_per_page;
         }
     }
-    $sql1 = "SELECT nhom_san_pham.id_nhomsanpham,nhom_san_pham.ten_nhomsanpham,b.hinh,gioi_tinh,
+    $sql1 = "SELECT nhom_san_pham.id_nhomsanpham,nhom_san_pham.ten_nhomsanpham,c.url,gioi_tinh,
             dong_san_pham.ten_dongsanpham, mau_sanpham from nhom_san_pham,
-            (select id_nhomhinh,hinh from hinh_nhomsanpham) AS b,(select id_dongsanpham from dong_san_pham where id_dongsanpham LIKE '%$ma_dongsp%' and thuonghieu_sanpham LIKE '%$thuonghieu%') as c,
-            dong_san_pham where nhom_san_pham.id_nhomsanpham = b.id_nhomhinh and 
-            nhom_san_pham.id_dongsanpham = dong_san_pham.id_dongsanpham and dong_san_pham.id_dongsanpham = c.id_dongsanpham
+            (select IFNULL(hinh_anh.link_hinhanh,'') as url,b.id_nhomsanpham from (select nhom_san_pham.id_nhomsanpham,hinh_nhomsanpham.id_hinh from nhom_san_pham left join hinh_nhomsanpham on nhom_san_pham.id_nhomsanpham = hinh_nhomsanpham.id_nhomsanpham) as b LEFT JOIN hinh_anh on b.id_hinh = hinh_anh.id_hinhanh) as c,(select id_dongsanpham from dong_san_pham where id_dongsanpham LIKE '%$ma_dongsp%' and thuonghieu_sanpham LIKE '%$thuonghieu%') as d,
+            dong_san_pham where nhom_san_pham.id_nhomsanpham = c.id_nhomsanpham and 
+            nhom_san_pham.id_dongsanpham = dong_san_pham.id_dongsanpham and dong_san_pham.id_dongsanpham = d.id_dongsanpham
             and nhom_san_pham.ten_nhomsanpham LIKE '%$tensp%'
             group by nhom_san_pham.id_nhomsanpham"
           . " limit $items_per_page offset $from"; 
@@ -43,9 +38,9 @@
         while($row = mysqli_fetch_array($result1)){
             echo '<li class="prod-item">
                 <div class="prod-image">
-                    <a href="chitietsanpham.php?id_nhomsp='.$row[0].'"><img src="data:image/png;base64,'.base64_encode($row[2]).'"/></a>
+                    <a href="chitietsanpham.php?id_nhomsp='.$row[0].'"><img src="../'.$row[2].'" /></a>
                     <div class="prod-image-logo">
-                                <img src="images/logos/logo-ngang-trans.png"/>
+                                <img src="../static/images/logos/logo-ngang-trans.png"/>
                             </div> 
                     </div>
                     <div class="prod-name">

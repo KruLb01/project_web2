@@ -14,7 +14,7 @@ if(isset($_POST['act']))
                 $con = new ConnectionDB('');
                 $sql_append = "select * from gio_hang where id_nguoidung='$id_nguoidung' and id_sanpham='$idsp'";
                 $result = $con->preparedSelect($sql_append);
-                if(!isAppropriateQuantity($idsp, $qty))
+                if(!isNotAppropriateQuantity($idsp, $qty))
                 {
                     if(mysqli_num_rows($result)===0){
                         $sql = "insert into gio_hang values('$id_nguoidung','$idsp','$qty')";
@@ -29,14 +29,21 @@ if(isset($_POST['act']))
                     }
                     else{
                         $row = mysqli_fetch_array($result);
-                        $new_qty = $row[0]+$qty;
-                        $sql = "update gio_hang set so_luong=$new_qty where id_nguoidung='$id_nguoidung' and id_sanpham='$idsp'";
-                        if($con->preparedExecuteDatabase($sql))
+                        $new_qty = $row[2]+$qty;
+                        if(!isNotAppropriateQuantity($idsp,$new_qty))
                         {
-                            DisplayProductAdded($id_nguoidung, $idsp);
+                            $sql = "update gio_hang set so_luong=$new_qty where id_nguoidung='$id_nguoidung' and id_sanpham='$idsp'";
+                            if($con->preparedExecuteDatabase($sql))
+                            {
+                                DisplayProductAdded($id_nguoidung, $idsp);
+                            }
+                            else{ 
+                                $data = array("msg" => "Lỗi khi thực hiện cập nhật sản phẩm");
+                                echo json_encode($data);
+                            }
                         }
-                        else{ 
-                            $data = array("msg" => "Lỗi khi thực hiện cập nhật sản phẩm");
+                        else{
+                            $data = array("msg" => "Số lượng đã vượt quá số lượng hiện có");
                             echo json_encode($data);
                         }
                     }
@@ -55,7 +62,7 @@ if(isset($_POST['act']))
                     ." set so_luong='$qty'"
                     ." where gio_hang.id_nguoidung='$id_nguoidung'"
                     ." and gio_hang.id_sanpham='$idsp'";
-                if(!isAppropriateQuantity($idsp, $qty))
+                if(!isNotAppropriateQuantity($idsp, $qty))
                 {
                     if($con->preparedExecuteDatabase($sql)){
                         $data = array("qty" => $qty,"subtotal" => getSubtotal($id_nguoidung, $idsp),"total" => getTotal($id_nguoidung),"msg"=>"");
@@ -93,7 +100,7 @@ if(isset($_POST['act']))
             break;
         }
     }
-    function isAppropriateQuantity($idsp,$qty) //function check if the quantity of a product's over amounts of this product having [Hàm kiểm tra xem số lượng thêm vào có vượt quá số lượng đang có hay không]
+    function isNotAppropriateQuantity($idsp,$qty) //function check if the quantity of a product's over amounts of this product having [Hàm kiểm tra xem số lượng thêm vào có vượt quá số lượng đang có hay không]
     {
         $con = new ConnectionDB('');
         $sql = "Select so_luong from san_pham where san_pham.id_sanpham='$idsp'";
@@ -143,22 +150,16 @@ if(isset($_POST['act']))
     }
     function DisplayProductAdded($id_nguoidung,$idsp){
         $con = new ConnectionDB('');
-        $sql = "SELECT san_pham.id_sanpham,nhom_san_pham.ten_nhomsanpham,hinh_nhomsanpham.hinh,san_pham.size, san_pham.gia_sanpham,gio_hang.so_luong,gio_hang.so_luong*san_pham.gia_sanpham"
-                        . " FROM `gio_hang`,`nhom_san_pham`,`san_pham`,`hinh_nhomsanpham` where gio_hang.id_sanpham=san_pham.id_sanpham and nhom_san_pham.id_nhomsanpham=san_pham.id_nhomsanpham"
-                        . " and nhom_san_pham.id_nhomsanpham=hinh_nhomsanpham.id_nhomhinh"
-                        . " and gio_hang.id_nguoidung=$id_nguoidung"
-                        . " and gio_hang.id_sanpham='$idsp'"
-                        . " group by san_pham.id_sanpham";
+        $sql = "SELECT san_pham.id_sanpham,nhom_san_pham.ten_nhomsanpham,c.url,san_pham.size,san_pham.gia_sanpham,gio_hang.so_luong,gio_hang.so_luong*san_pham.gia_sanpham FROM gio_hang,nhom_san_pham,san_pham,hinh_nhomsanpham,(select IFNULL(hinh_anh.link_hinhanh,'') as url,b.id_nhomsanpham from (select nhom_san_pham.id_nhomsanpham,hinh_nhomsanpham.id_hinh from nhom_san_pham left join hinh_nhomsanpham on nhom_san_pham.id_nhomsanpham = hinh_nhomsanpham.id_nhomsanpham) as b LEFT JOIN hinh_anh on b.id_hinh = hinh_anh.id_hinhanh) as c where gio_hang.id_sanpham=san_pham.id_sanpham and nhom_san_pham.id_nhomsanpham = c.id_nhomsanpham and nhom_san_pham.id_nhomsanpham=san_pham.id_nhomsanpham and gio_hang.id_nguoidung='$id_nguoidung' and gio_hang.id_sanpham='$idsp' group by san_pham.id_sanpham";
                 $result1 = $con->preparedSelect($sql);
                 $row = mysqli_fetch_array($result1);
                 $idsp1 = $row[0];
                 $tennhomsp = $row[1];
-                $encodeImage = base64_encode($row[2]);
-                $hinh = "data:image/png;base64,$encodeImage";
+                $hinh = $row[2];
                 $size = $row[3];
-                $prod_price=number_format($row[4],0,",",".")."<sup>đ</sup>";
+                $prod_price=number_format($row[4],0,",",".");
                 $soluong = $row[5];
-                $subtotal=number_format($row[6],0,",",".")."<sup>đ</sup>";
+                $subtotal=number_format($row[6],0,",",".");
                 $data = array("idsp" => $idsp1 ,"tennhom" => $tennhomsp,"hinh" => $hinh,"size" => $size,"giasp" => $prod_price,"soluong" => $soluong,"thanhtien" => $subtotal,"msg" => "");
                 echo json_encode($data);
     }
