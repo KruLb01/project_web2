@@ -145,7 +145,7 @@
     $('.import-product-content').click(function(e) {
         if (e.target.className.split(' ')[1]=='fa-folder-open') {
             $('.ip-pop-up-container').css('display','block');
-            $('#search').html('<option value="id_nhomsanpham">as Id Group Product</option><option value="id_sanpham">as Id Product</option><option value="ten_nhomsanpham">as Name Group Product</option>');
+            $('#search').html('<option value="san_pham.id_nhomsanpham">as Id Group Product</option><option value="san_pham.id_sanpham">as Id Product</option><option value="nhom_san_pham.ten_nhomsanpham">as Name Group Product</option>');
             $('#ip-result').html('<tr><th>Id Group Product</th><th>Id Product</th><th>Name Group Product</th><th>Size Product</th></tr>')
         }
     })
@@ -173,7 +173,7 @@
         } else {
             $.get('handle/hImport-product.php', {search:search_val,type:search_type}, function(res) {
                 if (res.trim()=='error') {
-                    $('#ip-result').html('<div class="error" style="display:block;font-size:20px">Unvalid provider !</div>');
+                    $('#ip-result').html('<div class="error" style="display:block;font-size:20px">Unvalid input !</div>');
                 } else {
                     $('#ip-result').html(res);
                 }

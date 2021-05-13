@@ -15,6 +15,7 @@
         {
             while($row = mysqli_fetch_array($result)){
                 $gender = $row['gioi_tinh'] == "Male" ? "Nam" : "Nữ";
+<<<<<<< HEAD
                 $result1 = $con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'");
                 $url = "";
                 if(mysqli_num_rows($result1)>0)
@@ -22,6 +23,13 @@
                     $row1 = mysqli_fetch_array($result1);
                     $url = $row1[0];
                 }
+=======
+                // $url = mysqli_fetch_array($con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'"))['link_hinhanh'];
+                $temp = $con->preparedSelect("select link_hinhanh from hinh_anh, hinh_nhomsanpham where hinh_anh.id_hinhanh = hinh_nhomsanpham.id_hinh and hinh_nhomsanpham.id_nhomsanpham = '".$row['id_nhomsanpham']."'");
+                if (mysqli_num_rows($temp)!=0) {
+                    $url = mysqli_fetch_array($temp)['link_hinhanh'];
+                } else $url = "";
+>>>>>>> cc8538503bd3fa3f4326779fd8c1af27b746f415
                 echo '<li class="prod-item">
                     <div class="prod-image">
                         <a href="./templates/chitietsanpham.php?id_nhomsp='.$row['id_nhomsanpham'].'"><img src="./'.$url.'"/></a>

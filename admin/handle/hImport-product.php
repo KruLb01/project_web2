@@ -26,8 +26,9 @@
             }
             echo $show;
         } else {
-            $res = $conn->selectData("select * from san_pham, nhom_san_pham where san_pham.id_nhomsanpham = nhom_san_pham.id_nhomsanpham and san_pham.$type = '$search'");
+            $res = $conn->selectData("select * from san_pham, nhom_san_pham where san_pham.id_nhomsanpham = nhom_san_pham.id_nhomsanpham and $type = '$search'");
             $show = '<tr><th>Id Product</th><th>Id Group Product</th><th>Name Group Product</th><th>Size Product</th></tr>';
+
             if (mysqli_num_rows($res)==0) {
                 echo 'error';
                 return;

@@ -293,7 +293,7 @@
             }
         } else return;
 
-        $.get('handle/hManage.php', {page:'Manage cProducts',add:'true',valText:id+'-'+name+'-'+size+'-'+quantity+'-'+price}, function(res) {
+        $.get('handle/hManage.php', {page:'Manage cProducts',add:'true',valText:id+'~'+name+'~'+size+'~'+quantity+'~'+price}, function(res) {
             if (res.trim() == true) {
                 alert('Add new cproducts successfully !');
                 var num = $('#dm-select-show').val();

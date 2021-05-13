@@ -34,38 +34,38 @@
         }
 
         if ($page == 'cproducts1') {
-            $res = $conn->selectData("select * from san_pham 
-                                    where id_nhomsanpham = (select id_nhomsanpham from nhom_san_pham where ten_nhomsanpham = N'$id')");
+            $res = $conn->selectData("select id_nhomsanpham from nhom_san_pham 
+                                    where ten_nhomsanpham = N'$id'");
         }
 
         if ($page == 'providers') {
             $res = $conn->selectData("select * from nha_cung_cap 
-                                    where id_nhacungcap = $id");
+                                    where id_nhacungcap = '$id'");
         }
 
         if ($page == 'providers1') {
             $res = $conn->selectData("select * from nha_cung_cap 
-                                    where ten_nhacungcap =  $id");
+                                    where ten_nhacungcap = '$id'");
         }
 
         if ($page == 'gproducts') {
             $res = $conn->selectData("select * from dong_san_pham 
-                                    where id_dongsanpham = $id");
+                                    where id_dongsanpham = '$id'");
         }
 
         if ($page == 'gproducts1') {
             $res = $conn->selectData("select * from dong_san_pham 
-                                    where ten_dongsanpham = $id");
+                                    where ten_dongsanpham = '$id'");
         }
 
         if ($page == 'sales') {
             $res = $conn->selectData("select * from sale 
-                                    where id_sale = $id");
+                                    where id_sale = '$id'");
         }
 
         if ($page == 'sales1') {
             $res = $conn->selectData("select * from sale 
-                                    where ten_sale = $id");
+                                    where ten_sale = '$id'");
         }
 
         if (mysqli_num_rows($res)!=0) {
