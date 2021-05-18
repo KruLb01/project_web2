@@ -28,6 +28,11 @@
                                     where id_nhomsanpham = '$id'");
         }
 
+        if ($page == 'product1') {
+            $res = $conn->selectData("select * from nhom_san_pham
+                                    where ten_nhomsanpham = '$id'");
+        }
+
         if ($page == 'cproducts') {
             $res = $conn->selectData("select * from san_pham 
                                     where id_sanpham = '$id'");

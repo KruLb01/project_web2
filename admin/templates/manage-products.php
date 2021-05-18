@@ -165,6 +165,18 @@
             }
         })
     })
+    $('.dashboard-manage-pop-up-add-info input').eq(1).keyup(function() {
+        var value_id = $(this).val().trim();
+        $.get('handle/validateAdd.php', {page:'product1',id:value_id}, function(res) {
+            if (res.trim()=='Error') {
+                $('.dm-pop-up-add-save-btn').eq(0).addClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(1).css('border','1px solid red');
+            } else {
+                $('.dm-pop-up-add-save-btn').eq(0).removeClass('dm-disable');
+                $('.dashboard-manage-pop-up-add-info input').eq(1).css('border','1px solid #6485da');
+            }
+        })
+    })
 </script>
 
 <script>

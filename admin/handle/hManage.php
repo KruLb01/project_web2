@@ -133,8 +133,8 @@
                             <i class='fas fa-times dm-pop-up-close-btn'></i>
                             <div class='dashboard-manage-pop-up-info'>
                                 <span>Id Permission : <input type='text' class='disable' value='".$line['id_quyen']."'></span>
-                                <span>Name Permission : <input type='text' class='dm-can-del' placeholder='".$line['ten_quyen']."'></span>
-                                <span>Note Permission : <input type='text' class='dm-can-del' placeholder='".$line['mieuta']."'></span>
+                                <span>Name Permission : <input type='text' class='dm-can-del' value='".$line['ten_quyen']."'></span>
+                                <span>Note Permission : <input type='text' class='dm-can-del' value='".$line['mieuta']."'></span>
                                 <div class='dm-pop-up-btn disable-copy'>
                                     <span class='dm-pop-up-save-btn'>Save</span>
                                     <span class='dm-pop-up-reset-btn'>Reset</span>
@@ -302,9 +302,9 @@
                             <i class='fas fa-times dm-pop-up-close-btn'></i>
                             <div class='dashboard-manage-pop-up-info'>
                                 <span>Id Product : <input type='text' class='disable' value='".$line['id_nhomsanpham']."'></span>
-                                <span>Name Product : <input type='text' class='dm-can-del' placeholder='".$line['ten_nhomsanpham']."'></span>
-                                <span>Color Product : <input type='text' class='dm-can-del' placeholder='".$line['mau_sanpham']."'></span>
-                                <span>Description : <input type='text' class='dm-can-del' placeholder='".$line['mieuta']."'></span>
+                                <span>Name Product : <input type='text' class='dm-can-del' value='".$line['ten_nhomsanpham']."'></span>
+                                <span>Color Product : <input type='text' class='dm-can-del' value='".$line['mau_sanpham']."'></span>
+                                <span>Description : <input type='text' class='dm-can-del' value='".$line['mieuta']."'></span>
                                 <span>
                                     Sale :
                                     <select>
@@ -513,10 +513,10 @@
                             <i class='fas fa-times dm-pop-up-close-btn'></i>
                             <div class='dashboard-manage-pop-up-info'>
                                 <span>Id Employee : <input type='text' class='disable' value='".$line['id_nguoidung']."'></span>
-                                <span>Name Employee : <input type='text' class='dm-can-del' placeholder='".$line['ho_ten']."'></span>
-                                <span>Phone Employee : <input type='text' class='dm-can-del' placeholder='".$line['so_dien_thoai']."'></span>
-                                <span>Email Employee : <input type='text' class='dm-can-del' placeholder='".$line['email']."'></span>
-                                <span>Password Employee : <input type='text' class='dm-can-del' placeholder='*****'></span>
+                                <span>Name Employee : <input type='text' class='dm-can-del' value='".$line['ho_ten']."'></span>
+                                <span>Phone Employee : <input type='text' class='dm-can-del' value='".$line['so_dien_thoai']."'></span>
+                                <span>Email Employee : <input type='text' class='dm-can-del' value='".$line['email']."'></span>
+                                <span>Password Employee : <input type='text' class='dm-can-del' value='*****'></span>
                                 <span>
                                     Permission Employee :
                                     <select>
@@ -708,11 +708,11 @@
                             <i class='fas fa-times dm-pop-up-close-btn'></i>
                             <div class='dashboard-manage-pop-up-info'>
                                 <span>Id Customer : <input type='text' class='disable' value='".$line['id_nguoidung']."'></span>
-                                <span>Name Customer : <input type='text' class='dm-can-del' placeholder='".$line['ho_ten']."'></span>
-                                <span>Email Customer : <input type='text' class='dm-can-del' placeholder='".$line['email']."'></span>
-                                <span>Password Customer : <input type='text' class='dm-can-del' placeholder='*****'></span>
-                                <span>Address Customer : <input type='text' class='dm-can-del' placeholder='".$line['dia_chi']."'></span>
-                                <span>Phone number Customer : <input type='text' class='dm-can-del' placeholder='".$line['so_dien_thoai']."'></span>
+                                <span>Name Customer : <input type='text' class='dm-can-del' value='".$line['ho_ten']."'></span>
+                                <span>Email Customer : <input type='text' class='dm-can-del' value='".$line['email']."'></span>
+                                <span>Password Customer : <input type='text' class='dm-can-del' value='*****'></span>
+                                <span>Address Customer : <input type='text' class='dm-can-del' value='".$line['dia_chi']."'></span>
+                                <span>Phone number Customer : <input type='text' class='dm-can-del' value='".$line['so_dien_thoai']."'></span>
                                 <div class='dm-pop-up-btn disable-copy'>
                                     <span class='dm-pop-up-save-btn'>Save</span>
                                     <span class='dm-pop-up-reset-btn'>Reset</span>
