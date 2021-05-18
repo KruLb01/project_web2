@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2021 at 10:00 AM
+-- Generation Time: May 18, 2021 at 07:26 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -76,16 +76,18 @@ CREATE TABLE `chitiet_giaohang` (
 --
 
 INSERT INTO `chitiet_giaohang` (`id_hoadon`, `phuongthuc_giaohang`, `ngay_giao`, `tinhtrang_giaohang`) VALUES
-('23', 'GH-1', '0000-00-00', 2),
 ('24', 'GH-1', '2021-05-12', 3),
-('25', 'GH-1', '0000-00-00', 2),
+('25', 'GH-1', '2021-05-16', 3),
 ('26', 'GH-1', '2021-05-12', 3),
 ('27', 'GH-1', '0000-00-00', 1),
 ('28', 'GH-1', '0000-00-00', 2),
 ('29', 'GH-1', '2021-05-12', 3),
 ('30', 'GH-1', '2021-05-12', 3),
 ('31', 'GH-1', '0000-00-00', 1),
-('0', 'GH-1', '2021-05-13', 3);
+('0', 'GH-1', '2021-05-13', 3),
+('HD-609d28e3889342.24888393', 'GH-1', '2021-05-13', 3),
+('HD-609ddc1f8273b4.31942635', 'GH-1', '0000-00-00', 1),
+('HD-609ddcd3dc7c28.71186866', 'GH-2', '2021-05-14', 3);
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,6 @@ CREATE TABLE `chitiet_hoadon` (
 --
 
 INSERT INTO `chitiet_hoadon` (`id_hoadon`, `id_sanpham`, `so_luong`, `gia`) VALUES
-('23', '1S33', 10, 1550000),
 ('24', '1S31', 1, 1000000),
 ('25', '1S31', 1, 1000000),
 ('26', '9S33', 10, 2000000),
@@ -114,8 +115,10 @@ INSERT INTO `chitiet_hoadon` (`id_hoadon`, `id_sanpham`, `so_luong`, `gia`) VALU
 ('29', '2S31', 1, 1500000),
 ('30', '2S31', 1, 1500000),
 ('31', '2S31', 5, 2000000),
-('0', '1S31', 2, 2000000),
-('0', '2S31', 5, 7500000);
+('0', '10S34', 3, 1500000),
+('HD-609d28e3889342.24888393', '1S33', 1, 1550000),
+('HD-609ddc1f8273b4.31942635', '10S34', 2, 1000000),
+('HD-609ddcd3dc7c28.71186866', '8S35', 3, 1350000);
 
 -- --------------------------------------------------------
 
@@ -137,7 +140,9 @@ CREATE TABLE `chitiet_phieunhap` (
 INSERT INTO `chitiet_phieunhap` (`id_phieunhap`, `id_sanpham`, `so_luong`, `gia_nhap`) VALUES
 ('PN-609b75613c30d8.21739231', '2S31', 20, 200000),
 ('PN-609b75613c30d8.21739231', '1S33', 20, 300000),
-('PN-609bf5a8a85c33.15643328', '2S31', 20, 200000);
+('PN-609bf5a8a85c33.15643328', '2S31', 20, 200000),
+('PN-609d12e02e0632.64044301', '8S35', 13, 400000),
+('PN-609d12e02e0632.64044301', '10S34', 6, 450000);
 
 -- --------------------------------------------------------
 
@@ -167,7 +172,6 @@ INSERT INTO `chitiet_quyen_chucnang` (`id_quyen`, `id_chucnang`) VALUES
 ('manager', '1'),
 ('manager', '2'),
 ('manager', '3'),
-('manager', '4'),
 ('manager', '6'),
 ('manager', '9'),
 ('manager', '10'),
@@ -375,7 +379,8 @@ INSERT INTO `hinh_anh` (`id_hinhanh`, `link_hinhanh`) VALUES
 ('Nike Air Max 97 Essential-609b367f9a0922.27891191.png', 'images/Nike Air Max 97 Essential-609b367f9a0922.27891191.png'),
 ('Nike Air Max 97 Essential-609b3682045663.20998192.png', 'images/Nike Air Max 97 Essential-609b3682045663.20998192.png'),
 ('Nike Air Max 97 Essential-609b36840b9ef7.25248825.png', 'images/Nike Air Max 97 Essential-609b36840b9ef7.25248825.png'),
-('Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png', 'images/Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png');
+('Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png', 'images/Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png'),
+('Bitis Hunter Running Yellow-60a3f711862215.71019247.png', 'images/Bitis Hunter Running Yellow-60a3f711862215.71019247.png');
 
 -- --------------------------------------------------------
 
@@ -434,7 +439,8 @@ INSERT INTO `hinh_nhomsanpham` (`id_nhomsanpham`, `id_hinh`) VALUES
 ('9', 'Nike Air Max 97 Essential-609b367f9a0922.27891191.png'),
 ('9', 'Nike Air Max 97 Essential-609b3682045663.20998192.png'),
 ('9', 'Nike Air Max 97 Essential-609b36840b9ef7.25248825.png'),
-('10', 'Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png');
+('10', 'Bitis Hunter Running Cyan-609cda9559c9b9.43401745.png'),
+('11', 'Bitis Hunter Running Yellow-60a3f711862215.71019247.png');
 
 -- --------------------------------------------------------
 
@@ -443,7 +449,7 @@ INSERT INTO `hinh_nhomsanpham` (`id_nhomsanpham`, `id_hinh`) VALUES
 --
 
 CREATE TABLE `hoa_don` (
-  `id_hoadon` int(255) NOT NULL,
+  `id_hoadon` varchar(50) NOT NULL,
   `id_nguoidung` varchar(50) NOT NULL,
   `id_nhanvienban` varchar(50) NOT NULL,
   `ngay_mua` date NOT NULL,
@@ -456,16 +462,18 @@ CREATE TABLE `hoa_don` (
 --
 
 INSERT INTO `hoa_don` (`id_hoadon`, `id_nguoidung`, `id_nhanvienban`, `ngay_mua`, `tong_gia`, `id_sale`) VALUES
-(23, '1', 'manager', '2021-05-11', 15500000, '15'),
-(24, '1', 'manager', '2021-05-11', 1000000, '14'),
-(25, '1', '', '2021-05-11', 1000000, '15'),
-(26, '1', 'manager', '2021-05-11', 20000000, '13'),
-(27, '2', '', '2021-05-11', 3000000, '12'),
-(28, '2', 'manager', '2021-05-11', 1500000, '11'),
-(29, '2', 'manager', '2021-05-11', 1500000, '11'),
-(30, '2', 'manager', '2021-05-11', 1500000, '12'),
-(31, '2', '', '2021-05-11', 10000000, '12'),
-(0, '1', 'admin', '2021-05-13', 9500000, '');
+('0', '1', 'admin', '2021-05-13', 1500000, ''),
+('24', '1', 'manager', '2021-05-11', 1000000, '14'),
+('25', '1', '', '2021-05-11', 1000000, '15'),
+('26', '1', 'manager', '2021-05-11', 2000000, '13'),
+('27', '2', '', '2021-05-11', 1500000, '12'),
+('28', '2', 'manager', '2021-05-11', 1500000, '11'),
+('29', '2', 'manager', '2021-05-11', 1500000, '11'),
+('30', '2', 'manager', '2021-05-11', 1500000, '12'),
+('31', '2', '', '2021-05-11', 2000000, '12'),
+('HD-609d28e3889342.24888393', '1', 'admin', '2021-05-13', 1550000, ''),
+('HD-609ddc1f8273b4.31942635', '1', '', '2021-05-14', 1000000, ''),
+('HD-609ddcd3dc7c28.71186866', '1', 'admin', '2021-05-14', 1350000, '');
 
 -- --------------------------------------------------------
 
@@ -485,7 +493,7 @@ CREATE TABLE `khach_hang` (
 --
 
 INSERT INTO `khach_hang` (`id_nguoidung`, `ho_ten`, `dia_chi`, `thong_tin_khac`) VALUES
-(1, 'Lê Thanh Hòa', 'On the Sunns', 'I am still alive'),
+(1, 'Lê Thanh Hòa', 'On the Sunn', 'I am still alive'),
 (2, 'David Heros', 'On the Earth', ''),
 (3, 'David Heros', 'On the Earth', ''),
 (4, 'David Heros', 'On the Earth', ''),
@@ -536,8 +544,7 @@ INSERT INTO `khach_hang` (`id_nguoidung`, `ho_ten`, `dia_chi`, `thong_tin_khac`)
 (49, 'Kali Heros', 'On the Moon', ''),
 (50, 'Kali Heros', 'On the Moon', ''),
 (51, 'Kali Heros', 'On the Moon', ''),
-(53, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', ''),
-(54, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', '');
+(53, 'Lê Thanh Hòa', '226/10 Nguyễn Biểu P2 Q5', '');
 
 -- --------------------------------------------------------
 
@@ -560,8 +567,8 @@ CREATE TABLE `nguoi_dung` (
 --
 
 INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_dien_thoai`, `quyen`, `tinh_trang_taikhoan`) VALUES
-('admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 1),
-('1', 'customer1', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
+('admin', 'admin', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'admin', 0),
+('1', 'customer1', 'fddd21b9d7ce17da93c30fa5a653a1df', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
 ('2', 'customer2', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('3', 'customer3', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('4', 'customer4', '1', 'customer@gmail.com', '1234324', 'customer', 0),
@@ -614,8 +621,7 @@ INSERT INTO `nguoi_dung` (`id_nguoidung`, `tai_khoan`, `mat_khau`, `email`, `so_
 ('51', 'customer51', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('52', 'customer52', '1', 'customer@gmail.com', '1234324', 'customer', 1),
 ('manager', 'manager', '202cb962ac59075b964b07152d234b70', 'manager@gmail.com', '0706316621', 'manager', 1),
-('53', 'customer53', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
-('54', 'customer54nek', 'c8f3c7fc80cf9be66ea3bdf64ba1c82d', 'thanhhoa6621@gmail.com', '0706316621', 'customer', 1),
+('53', 'customer53', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316622', 'customer', 1),
 ('nv001', 'nv0001', '202cb962ac59075b964b07152d234b70', 'thanhhoa6621@gmail.com', '0706316621', 'employee', 0);
 
 -- --------------------------------------------------------
@@ -662,8 +668,9 @@ CREATE TABLE `nhom_san_pham` (
 --
 
 INSERT INTO `nhom_san_pham` (`id_nhomsanpham`, `ten_nhomsanpham`, `gioi_tinh`, `mieuta`, `sosao_danhgia`, `soluot_danhgia`, `id_dongsanpham`, `mau_sanpham`) VALUES
-('1', 'Bitis Hunter Running Blue', 'Male', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 5, 20, 'BHR', 'Đen'),
-('10', 'Bitis Hunter Running Cyan', 'Male', 'No thing here', 0, 0, 'BHR', 'Cyan'),
+('1', 'Bitis Hunter Running Blue', 'Female', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 5, 20, 'BHR', 'Đen'),
+('10', 'Bitis Hunter Running Cyan', 'Female', 'No thing there', 0, 0, 'BHR', 'Cyan'),
+('11', 'Bitis Hunter Running Yellow', 'Male', 'New!', 0, 0, 'BHR', 'Yellow'),
 ('2', 'Bitis Hunter Running Orange', 'Female', 'Từ cảm hứng bất tận của những chuyến đi tuổi trẻ, từ khát khao in dấu chân trên mọi nẻo đường, từ niềm tin của những chuyến đi giúp định nghĩa bản thân của những gã trai mơ, tạo nên phiên bản hợp tác đặc biệt Biti\'s Hunter x X-Men Go  ĐẾ LITEBOUNCE ĐỘC QUYỀN VỚI THIẾT KẾ DÀNH RIÊNG CHO BÀN CHÂN NGƯỜI VIỆT MANG ĐẾN TRẢI NGHIỆM CHẠY THOẢI MÁI NHẤT  LITEBOUNCE CUSHION Công nghệ đế 2 lớp độc quyền dành riêng cho giày chạy, là sự kết hợp tuyệt vời giữa độ êm và lực đẩy mạnh mẽ, như 1 ”lò xo” hấp thụ và phản hồi lực nhịp nhàng, giúp cho người chạy luôn sung sức.   TRUEFIT LITEKNIT UPPER Cấu trúc sợi dệt đan mềm mại, ôm trọn theo sự chuyển động của bàn chân. Thiết kế lỗ thoáng khí tối đa.   TRUEFIT INSOLE Đế lót 2 lớp kết hợp Ortholte và Eva, rất vừa vặn với cấu trúc phù hợp cho nhiều lòng bàn chân đặc trưng của người Việt, cùng độ êm được tính toán kĩ lưỡng nhất.', 4, 30, 'BHR', 'Cam'),
 ('3', 'Converse Taylor Science Canvas Trainers', 'Male', 'Mẫu giày Converse Kid Science Canvas Trainers mô phỏng thế giới động vật với đa dạng lớp động vật, tạo nên một thế giới sinh học vô cùng phong phú. Mẫu giày thiết kế đơn giản và được trẻ em ưa chuộng nhiều, phù hợp với trẻ em từ 3 đến 10 tuổi.', 5, 10, 'CVK', 'Trắng'),
 ('4', 'Converse Chuck Taylor All Star Gamer Low-Top', 'Male', 'Mẫu giày Converse Kid Gamer Low Top sử dụng họa tiết đa màu sắc vui nhộn, được lấy cảm hứng từ những trò chơi điện tử ăn khách từ thập kỷ trước, được trẻ em trên khắp thế giới yêu thích. Thiết kế mang phong cách đơn giản nhưng cũng vô cùng thu hút, sẽ là một món quà đặc biệt để làm các bạn nhỏ bất ngờ.', 5, 2, 'CVK', 'Trắng'),
@@ -693,7 +700,8 @@ CREATE TABLE `phieu_nhap` (
 
 INSERT INTO `phieu_nhap` (`id_phieunhap`, `id_nhanviennhap`, `id_nhacungcap`, `ngay_nhap`, `tong_gia_nhap`) VALUES
 ('PN-609b75613c30d8.21739231', 'admin', '1', '2021-05-12', 10000000),
-('PN-609bf5a8a85c33.15643328', 'manager', '2', '2021-05-12', 4000000);
+('PN-609bf5a8a85c33.15643328', 'manager', '2', '2021-05-12', 4000000),
+('PN-609d12e02e0632.64044301', 'admin', '4', '2021-05-13', 7900000);
 
 -- --------------------------------------------------------
 
@@ -733,18 +741,14 @@ CREATE TABLE `quyen` (
 --
 
 INSERT INTO `quyen` (`id_quyen`, `ten_quyen`, `mieuta`, `so_luong`) VALUES
-('admin', 'Quyền quản trị', 'Quyền dành cho quản trị viên', 1),
-('customer', 'Permission', 'For customers', 54),
+('admin', 'Quyền quản trị', 'Quyền dành cho quản trị viên', 0),
+('customer', 'Permission', 'For customers', 53),
 ('manager', 'Quyền quản lý', 'Quyền dành cho quản lý', 1),
-('employee', 'Quyền nhân viên', 'Quyền dành cho nhân viên', 1),
+('employee', 'Quyền nhân viên', 'Quyền dành cho nhân viên', 2),
 ('test1', 'test1', '', 0),
 ('test6', 'test6', '', 0),
-('test7', 'test7', '', 0),
 ('test9', 'test9', '', 0),
 ('test10', 'test10', '', 0),
-('test11', 'test11', '', 0),
-('eqwf', 'sd', '123', 0),
-('eqwf', 'sd', '1232', 0),
 ('travellers', 'Permission of travellers', 'Permission for travellers', 0);
 
 -- --------------------------------------------------------
@@ -795,9 +799,11 @@ CREATE TABLE `san_pham` (
 
 INSERT INTO `san_pham` (`id_sanpham`, `id_nhomsanpham`, `size`, `gia_sanpham`, `so_luong`) VALUES
 ('1S31', '1', '31', 1000000, 0),
-('1S33', '1', '33', 1550000, 10),
+('1S33', '1', '33', 1550000, 17),
 ('2S31', '2', '31', 1500000, 25),
-('9S33', '9', '33', 2000000, 25);
+('9S33', '9', '33', 2000000, 25),
+('10S34', '10', '34', 500000, 15),
+('8S35', '8', '35', 450000, 25);
 
 --
 -- Indexes for dumped tables
@@ -808,6 +814,12 @@ INSERT INTO `san_pham` (`id_sanpham`, `id_nhomsanpham`, `size`, `gia_sanpham`, `
 --
 ALTER TABLE `chuc_nang`
   ADD PRIMARY KEY (`id_chucnang`);
+
+--
+-- Indexes for table `hoa_don`
+--
+ALTER TABLE `hoa_don`
+  ADD PRIMARY KEY (`id_hoadon`);
 
 --
 -- Indexes for table `khach_hang`
