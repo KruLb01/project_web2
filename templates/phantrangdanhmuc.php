@@ -49,10 +49,10 @@
                     </div>
                     <div class="prod-info">
                         <div class="prod-gender">
-                            <span>Giới tính: '.$row[3].'</span>
+                            <span><b>Giới tính:</b> '.$row[3].'</span>
                         </div>
                         <div class="prod-color">
-                            <span>Màu: '.$row[4].'</span>
+                            <span><b>Màu:</b> '.$row[4].'</span>
                         </div>
                     </div>
                     <div class="prod-detailbtn">

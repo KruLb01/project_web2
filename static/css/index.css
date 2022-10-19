@@ -147,40 +147,40 @@
                 display: none;
             }
             .others > .sub-menu{
-                display:none;
+                display: none;
             }
             .others li:hover > .sub-menu{
-                display:block;
+                display: block;
                 cursor: pointer;
-                top:60px;
+                top: 60px;
             }
             label{
-                color:white;
+                color: white;
                 cursor: pointer;
                 padding:0px;
                 margin-bottom: 0px !important;
             }
             label:hover{
-                color:orange;
+                color: orange;
             }
             #check-1{
-                display:none;
+                display: none;
             }
             #check-1:checked~.sub-menu-2{
-                display:block;
+                display: block;
             }
             .slide-container{
-                position:relative;
-                width:100%;
-                height:100%;
+                position: relative;
+                width: 100%;
+                height: 100%;
                 overflow: hidden;
-                flex:1 1 0;
+                flex: 1 1 0;
             }
             .slides{
-                display:flex;
-                height:100%;
+                display: flex;
+                height: 100%;
                 transition: 1s all;
-                position:absolute;
+                position: absolute;
                 z-index: -1;
             }
             .slide-container .slide{
@@ -202,19 +202,19 @@
                 flex-direction: column;
             }
             .footer div{
-                padding:10px;
-                padding-top:20px;
+                padding: 10px;
+                padding-top: 20px;
             }
             .footer div ul li{
                 list-style: none;
-                padding:5px;
+                padding: 5px;
             }
             .footer div:last-child ul li{
-                display:inline-block;
-                padding:0px;
+                display: inline-block;
+                padding: 0px;
             }
             .footer h3{
-                font-size:15px;
+                font-size: 15px;
             }
             .footer div ul{
                 padding-left: 0px;
@@ -240,14 +240,14 @@
                 width:0%;
             }
             .list-container{
-                width:100%;
-                height:auto;
+                width: 100%;
+                height: auto;
             }
             .list-prods{
                 height: auto;
-                padding:0px;
-                display:flex;
-                flex-wrap:wrap;
+                padding: 0px;
+                display: flex;
+                flex-wrap: wrap;
                 justify-content: space-around;
             }
             .list-prods-square{
@@ -278,28 +278,28 @@
                 right:6px;
             }
             .my-pagination{
-                height:auto;
-                display:flex;
-                justify-content:center;
+                height: auto;
+                display: flex;
+                justify-content: center;
             }
             .page{
                 width: 40px;
-                height:40px;
-                background:white;
-                color:black;
-                border:1px black solid;
-                margin:0px 10px 0px 10px !important;
+                height: 40px;
+                background: white;
+                color: black;
+                border: 1px black solid;
+                margin: 0px 10px 0px 10px !important;
                 text-align: center;
                 line-height: 40px;
             }
             .my-pagination > .page:hover{
-                color:white;
+                color: white;
                 text-decoration: none;
                 background: black;
             }
             .page.active{
-                background:black;
-                color:white;
+                background: black;
+                color: white;
             }
             @media only screen and (max-width:911px)
             {

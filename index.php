@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include './templates/ConnectionDB.php';
+    include_once './templates/ConnectionDB.php';
     $con = new ConnectionDB('./data.properties.php'); 
 ?>
 
@@ -48,13 +48,12 @@
                         </ul>
                     </div>
                 </div>
-                <a class="my-pagination">
+                <div class="my-pagination">
                     <?php
                         $sql = "select id_nhomsanpham from nhom_san_pham";
-                        $pages = 0;
                         $products = mysqli_num_rows($con->preparedSelect($sql));
                         $pages = round($products / $items_per_page);
-                        for($i = 1;$i <= $pages; $i++)
+                        for($i = 1; $i <= $pages; $i++)
                         {
                             echo "<a class='page' href='javascript:void(0)'>$i</a>";
                         }
@@ -68,29 +67,33 @@
                 {
                     $.get({
                         url:'./templates/phantrangindex.php',
-                        data:{page:page,items_per_page: items_per_page},
+                        data:{
+                            page:page, 
+                            items_per_page: items_per_page
+                        },
                         success:function(data)
                         {
-                            $('.list-prods').html(data);
+                            $(".list-prods").html(data);
                         }
                     });
-                    }
-                    if($('.page').length>0)
-                    {
-                        $(".page").get(0).addClass('active');
-                    }
-                    loadPage(1);
+                }
+                
+                if($('.page').length>0)
+                {
+                    $(".page").eq(0).addClass('active');
+                }
+                loadPage(1);
                     $('.page').on('click', function(event){
-                        event.preventDefault();
-                        $('html, body').animate({scrollTop: $(".list-prods-square").offset().top},500);
-                        if(!$(this).hasClass("active"))
-                        {
-                            $(".page").removeClass("active");
-                            $(this).addClass("active");
-                        }
-                        loadPage($(this).contents().text());
-                    });
+                    event.preventDefault();
+                    $('html, body').animate({scrollTop: $(".list-prods-square").offset().top},500);
+                    if(!$(this).hasClass("active"))
+                    {
+                        $(".page").removeClass("active");
+                        $(this).addClass("active");
+                    }
+                    loadPage($(this).contents().text());
                 });
+            });
             </script>
             <div class="footer">
                  <?php include './templates/footer.php' ?>

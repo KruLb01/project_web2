@@ -31,7 +31,7 @@
                 <input type="text" id="search_name" placeholder="Nhập tên sản phẩm" name="ten_sp" value=""/>
             </div>
             <div>
-                <input type="submit" value="Tìm kiếm &#x1F50E;"/>
+                <input type="submit" value="Tìm kiếm"/>
             </div>
         </div>
         <div class="advanced-search-container">
