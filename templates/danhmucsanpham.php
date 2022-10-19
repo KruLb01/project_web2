@@ -22,7 +22,6 @@
                 flex-direction: row;
                 margin:0;
                 padding:10px;
-                background:linear-gradient(to right,#42275a,#734b6d);
             }
             .prod-image{
                 padding:15px;
@@ -77,10 +76,10 @@
                 <script>
                     function loadPageContent(page){
                         $(document).ready(function(){
-                            var items_per_page = <?php echo $items_per_page;?>;
-                            var thuonghieu = '<?php if(!isset($_GET['thuonghieu'])){echo '';}else{echo $_GET['thuonghieu'];}?>';
-                            var ma_dongsp = '<?php if(!isset($_GET['ma_dongsp'])){echo '';}else{echo $_GET['ma_dongsp'];}?>';
-                            var ten_sp = '<?php if(!isset($_GET['ten_sp'])){echo '';}else{echo $_GET['ten_sp'];}?>';
+                            let items_per_page = <?php echo $items_per_page;?>;
+                            let thuonghieu = '<?php if(!isset($_GET['thuonghieu'])){echo '';}else{echo $_GET['thuonghieu'];}?>';
+                            let ma_dongsp = '<?php if(!isset($_GET['ma_dongsp'])){echo '';}else{echo $_GET['ma_dongsp'];}?>';
+                            let ten_sp = '<?php if(!isset($_GET['ten_sp'])){echo '';}else{echo $_GET['ten_sp'];}?>';
                             if(thuonghieu !== ""){
                                 $("input[id="+thuonghieu+"]").prop("checked",true);
                             }
